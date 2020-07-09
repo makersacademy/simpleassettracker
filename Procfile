@@ -1,1 +1,1 @@
-web: gunicorn AppName.wsgi --log-file -
+web: gunicorn AssetTracker.wsgi --log-file -
