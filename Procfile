@@ -1,0 +1,1 @@
+web: gunicorn AssetTracker.wsgi --log-file -
