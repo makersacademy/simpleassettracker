@@ -1,4 +1,4 @@
-asgiref==3.2.7
+asgiref==3.2.3
 astroid==2.3.3
 dj-database-url==0.5.0
 Django==3.0.6
