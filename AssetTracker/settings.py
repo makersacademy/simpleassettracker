@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'AssetTracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {'default': os.environ.get('DATABASE_URL')}
+DATABASES = {'default': env.db('DATABASE_URL')}
 
 
 # Password validation
@@ -124,3 +124,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
