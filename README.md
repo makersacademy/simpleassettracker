@@ -55,4 +55,4 @@ $ python manage.py test functional_tests
 
 ### Deploying To Heroku
 
-In progress.
+Deployment to Heroku can be fast and simple with the proper set-up.
