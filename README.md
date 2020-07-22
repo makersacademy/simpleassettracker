@@ -41,16 +41,16 @@ Now that you've done that, we'd advise you to set up an environment for this pro
 To run test it is required you have geckodriver installed. 
 Either install it with brew
 ```
-  $ brew install geckodriver
+$ brew install geckodriver
 ```
 Or download latest release from:
 ```
-  https://github.com/mozilla/geckodriver/releases
+https://github.com/mozilla/geckodriver/releases
 ```
 
 To run tests make sure you are in root directory and put the commnad bellow in your terminal:
 ```
-  $ python manage.py test functional_tests
+$ python manage.py test functional_tests
 ```
 
 ### Deploying To Heroku
