@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 
 class AdminTest(LiveServerTestCase):
@@ -22,7 +24,8 @@ class AdminTest(LiveServerTestCase):
     password_field = self.browser.find_element_by_name('password')
     password_field.send_keys('admin')
     password_field.send_keys(Keys.RETURN)
-    # login credentials are correct, and the user is redirected to the main admin page
+    wait = WebDriverWait(self.browser, 5)
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Site administration'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Site administration', body.text)
 
