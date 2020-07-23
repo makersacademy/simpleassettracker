@@ -31,9 +31,17 @@ class AdminTest(LiveServerTestCase):
 
 class SignUpTest(LiveServerTestCase):
 
+  def setUp(self):
+    self.browser = webdriver.Firefox()
+
+  def tearDown(self):
+    self.browser.quit()
+
   def test_form_exists(self):
     self.browser.get('http://localhost:8000/register/')
-    body = self.browser.find_element_by_tag_name('body')
+    body = self.browser.find_element_by_name('username')
+    self.AssertTrue(body.exists)
+
 
 # class IndexTest(LiveServerTestCase):
 #   def test_hello_world(self):
