@@ -29,6 +29,12 @@ class AdminTest(LiveServerTestCase):
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Site administration', body.text)
 
+class SignUpTest(LiveServerTestCase):
+
+  def test_form_exists(self):
+    self.browser.get('http://localhost:8000/register/')
+    body = self.browser.find_element_by_tag_name('body')
+
 # class IndexTest(LiveServerTestCase):
 #   def test_hello_world(self):
 #     browser = webdriver.Firefox()

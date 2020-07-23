@@ -32,6 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
+CRISPY_TEMPLATE_PACK="bootstrap4"
 
 ALLOWED_HOSTS = []
 
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig'
+    'crispy_forms',
+    'dashboard.apps.DashboardConfig',
+    'register.apps.RegisterConfig',
 ]
 
 MIDDLEWARE = [
