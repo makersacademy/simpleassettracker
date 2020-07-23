@@ -39,8 +39,14 @@ class SignUpTest(LiveServerTestCase):
 
   def test_form_exists(self):
     self.browser.get('http://localhost:8000/register/')
-    body = self.browser.find_element_by_name('username')
-    self.AssertTrue(body.exists)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Username', body.text)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Password', body.text)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Email', body.text)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Password confirmation', body.text)
 
 
 # class IndexTest(LiveServerTestCase):

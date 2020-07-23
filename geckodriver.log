@@ -526,3 +526,21 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1595503354998	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/40/3j9x9pws6v7cwtlq8x41g39m0000gn/T/rust_mozprofile815A4Y"
+1595503360231	Marionette	INFO	Listening on port 64523
+1595503360306	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595503362085	Marionette	INFO	Stopped listening on port 64523
+1595503365039	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/40/3j9x9pws6v7cwtlq8x41g39m0000gn/T/rust_mozprofilexzw23Z"
+1595503369026	Marionette	INFO	Listening on port 64619
+1595503369098	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595503369737	Marionette	INFO	Stopped listening on port 64619
+console.error: services.settings: 
+  main/whats-new-panel Signature failed  TypeError: NetworkError when attempting to fetch resource.
+1595503539697	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/40/3j9x9pws6v7cwtlq8x41g39m0000gn/T/rust_mozprofile0lB4w2"
+1595503545517	Marionette	INFO	Listening on port 64721
+1595503545612	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595503547611	Marionette	INFO	Stopped listening on port 64721
+1595503551236	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/40/3j9x9pws6v7cwtlq8x41g39m0000gn/T/rust_mozprofileEWvsO8"
+1595503556584	Marionette	INFO	Listening on port 64822
+1595503556665	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595503557623	Marionette	INFO	Stopped listening on port 64822
