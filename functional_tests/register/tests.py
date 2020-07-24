@@ -108,6 +108,6 @@ class IndexTest(LiveServerTestCase):
     browser.get('http://localhost:8000/')
 
     body = browser.find_element_by_tag_name('body')
-    assert 'Hello World!' in body.text
+    assert 'Hello' in body.text
 
     browser.quit()
