@@ -22,13 +22,13 @@ def clear_data():
     User.objects.all().delete()
     Asset.objects.all().delete()
 
-def create_user():
-    B = User(username="three_admin", password="seed_admin123")
+def create_user(username, password):
+    B = User(username=username, password=password)
     B.save()
     return B
 
-def create_asset(user):
-    A = Asset(AssetTag="ABCDEFG", DeviceType="Laptop", CreatedBy=user)
+def create_asset(AssetTag, DeviceType, user_instance):
+    A = Asset(AssetTag=AssetTag, DeviceType=DeviceType, CreatedBy=user_instance)
     A.save()
 
 def create_objects():
