@@ -19,6 +19,7 @@ class Command(BaseCommand):
         self.stdout.write("Done.")
 
 def clear_data():
+    User.objects.all().delete()
     Asset.objects.all().delete()
 
 def create_user():
@@ -26,14 +27,12 @@ def create_user():
     B.save()
     return B
 
-def create_asset():
-    A = Asset(AssetTag="ABCDEFG", DeviceType="Laptop")
+def create_asset(user):
+    A = Asset(AssetTag="ABCDEFG", DeviceType="Laptop", CreatedBy=user)
     A.save()
 
 def create_objects():
-    user = create_user()
-    asset = create_asset()
-    asset.created_by=user
+    create_asset(create_user())
 
 def run_seed(self, mode):
     clear_data()
