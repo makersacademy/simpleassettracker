@@ -102,21 +102,6 @@ class LoginAndOutTest(LiveServerTestCase):
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('admin', body.text)
 
-class NavBar(LiveServerTestCase):
-
-  def setUp(self):
-    self.browser = webdriver.Firefox()
-
-  def tearDown(self):
-    self.browser.quit()
-
-  def home_button(self):
-    self.browser.get('http://localhost:8000/login')
-    home = self.browser.find_element_by_id('homeButton')
-    home.send_keys(Keys.RETURN)
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Hello world', body.text)
-
 class IndexTest(LiveServerTestCase):
   def test_hello_world(self):
     browser = webdriver.Firefox()
