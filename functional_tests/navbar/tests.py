@@ -17,7 +17,7 @@ class NavBar(LiveServerTestCase):
     self.browser.quit()
 
   def test_home_button(self):
-    self.browser.get('http://127.0.0.1:8000/login')
+    self.browser.get('http://www.facebook.com')
     home = self.browser.find_element_by_id('homeButton')
     home.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
