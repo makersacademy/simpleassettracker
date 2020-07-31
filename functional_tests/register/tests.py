@@ -72,31 +72,31 @@ class AdminTest(LiveServerTestCase):
 #     body = self.browser.find_element_by_tag_name('body')
 #     self.assertIn('Hello', body.text)
 
-# class LoginAndOutTest(LiveServerTestCase):
+class LoginAndOutTest(LiveServerTestCase):
 
-#   def setUp(self):
-#     self.browser = webdriver.Firefox()
+  def setUp(self):
+    self.browser = webdriver.Firefox()
 
-#   def tearDown(self):
-#     self.browser.quit()
+  def tearDown(self):
+    self.browser.quit()
 
-#   def test_user_can_login_and_logout(self):
-#     # loggin in
-#     self.browser.get(self.live_server_url + '/login')
-#     username_field = self.browser.find_element_by_id('id_username')
-#     username_field.send_keys('admin')
-#     password_field = self.browser.find_element_by_id('id_password')
-#     password_field.send_keys('admin')
-#     password_field.send_keys(Keys.RETURN)
-#     time.sleep(1)
-#     body = self.browser.find_element_by_tag_name('body')
+  def test_user_can_login_and_logout(self):
+    # loggin in
+    self.browser.get(self.live_server_url + '/login')
+    username_field = self.browser.find_element_by_id('id_username')
+    username_field.send_keys('admin')
+    password_field = self.browser.find_element_by_id('id_password')
+    password_field.send_keys('admin')
+    password_field.send_keys(Keys.RETURN)
+    time.sleep(1)
+    body = self.browser.find_element_by_tag_name('body')
 
-#     self.assertIn('admin', body.text)
-#     logout = self.browser.find_element_by_id('id_logout')
-#     logout.send_keys(Keys.RETURN)
-#     time.sleep(1)
-#     body = self.browser.find_element_by_tag_name('body')
-#     self.assertNotIn('admin', body.text)
+    self.assertIn('admin', body.text)
+    logout = self.browser.find_element_by_id('id_logout')
+    logout.send_keys(Keys.RETURN)
+    time.sleep(1)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('admin', body.text)
 
 # class IndexTest(LiveServerTestCase):
 #   def test_hello_world(self):
