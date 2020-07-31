@@ -18,7 +18,7 @@ class NavBar(LiveServerTestCase):
     self.browser.quit()
 
   def test_home_button(self):
-    self.browser.get('http://localhost:8000/login')
+    self.browser.get(self.live_server_url + '/login')
     home = self.browser.find_element_by_id('homeButton')
     home.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
@@ -28,7 +28,7 @@ class NavBar(LiveServerTestCase):
 
 
   def test_register_button(self):
-    self.browser.get('http://localhost:8000/login')
+    self.browser.get(self.live_server_url + '/login')
     register = self.browser.find_element_by_id('registerButton')
     register.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
