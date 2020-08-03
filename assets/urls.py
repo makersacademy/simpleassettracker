@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
-    path('assets/', views.assets ),
+    path('api/asset/', views.AssetListCreate.as_view() ),
 ]

@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'reactfrontend',
+    'rest_framework',
+    'assets.apps.AssetsConfig',
     'dashboard.apps.DashboardConfig',
     'register.apps.RegisterConfig',
 ]
