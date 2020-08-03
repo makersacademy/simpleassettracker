@@ -31,3 +31,12 @@ class NavBar(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Register here'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Password confirmation*', body.text)
+
+  def test_login_button(self):
+    self.browser.get(self.live_server_url)
+    register = self.browser.find_element_by_id('id_login')
+    register.send_keys(Keys.RETURN)
+    wait = WebDriverWait(self.browser, 5)
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login Here'))
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn("Don't have an account?", body.text)

@@ -26,7 +26,7 @@
             {% if request.user.is_authenticated %}
                 <a class="nav-link" id="id_logout" href="/logout">Log Out</a>
             {% else %}
-                <a class="nav-link" href="/login">Log In</a>
+                <a class="nav-link" id="id_login" href="/login">Log In</a>
             {% endif %}
         </li>
         </ul>
