@@ -8,11 +8,8 @@ import time
 
 class NavBar(LiveServerTestCase):
 
-  fixtures = ['functional_tests/fixtures/admin.json']
-
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.browser.implicitly_wait(3)
 
   def tearDown(self):
     self.browser.quit()
@@ -25,7 +22,6 @@ class NavBar(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello world'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Hello world', body.text)
-
 
   def test_register_button(self):
     self.browser.get(self.live_server_url + '/login')
