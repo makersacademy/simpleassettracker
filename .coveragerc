@@ -1,0 +1,4 @@
+[run]
+omit =
+  manage.py
+  AssetTracker/settings/*
