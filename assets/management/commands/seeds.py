@@ -52,8 +52,8 @@ def get_random_type():
     assetType = random.choice(assetTypes)
     return assetType
 
+usernames = ["admin", "james", "sarah", "richard", "ethan"]
 def get_username():
-    usernames = ["admin", "james", "sarah", "richard", "ethan"]
     username = random.choice(usernames)
     usernames.remove(username)
     return username

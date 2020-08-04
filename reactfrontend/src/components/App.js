@@ -12,7 +12,7 @@ class App extends Component {
     }
   
     componentDidMount() {
-      fetch("api/lead")
+      fetch("api/asset")
         .then(response => {
           if (response.status > 400) {
             return this.setState(() => {
@@ -40,7 +40,7 @@ class App extends Component {
             {this.state.data.map(asset => {
                 return (
                 <li key={asset.id}>
-                    {asset.AssetTag}
+                    {asset.AssetTag} - {asset.DeviceType} - {asset.CreatedBy}
                 </li>
                 );
             })}
