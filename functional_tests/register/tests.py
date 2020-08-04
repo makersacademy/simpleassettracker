@@ -80,11 +80,13 @@ class LoginAndOutTest(LiveServerTestCase):
     self.assertNotIn('admin1', body.text)
 
 class IndexTest(LiveServerTestCase):
+  def setUp(self):
+    self.browser = webdriver.Firefox()
+
+  def tearDown(self):
+    self.browser.quit()
+
   def test_hello_world(self):
-    browser = webdriver.Firefox()
-    browser.get(self.live_server_url)
-
-    body = browser.find_element_by_tag_name('body')
+    self.browser.get(self.live_server_url)
+    body = self.browser.find_element_by_tag_name('body')
     assert 'Hello' in body.text
-
-#     browser.quit()
