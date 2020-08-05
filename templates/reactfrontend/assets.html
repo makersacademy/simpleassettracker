@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Django REST with React</title>
-</head>
-<body>
+{% extends 'AssetTracker/base.html' %}
+{% block content %}
 <div id="app">
     <!-- React will load here -->
 </div>
-</body>
-    <h1>lol</h1>
+
     {% load static %}
     <script src="{% static "frontend/main.js" %}"></script>
-</html>
+
+{% endblock %}

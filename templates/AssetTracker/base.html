@@ -14,19 +14,21 @@
         <li class="nav-item active">
             <a class="nav-link" id="homeButton" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="registerButton" href="/register">Register</a>
-        </li>
-          {% if request.user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="/assets">Assets</a>
-        </li>
-          {% endif %}
-        <li class="nav-item">
+
             {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" id="id_asset" href="/assets">Assets</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="id_logout" href="/logout">Log Out</a>
+            </li>
             {% else %}
+            <li class="nav-item">
+                <a class="nav-link" id="registerButton" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="id_login" href="/login">Log In</a>
+            </li>
             {% endif %}
         </li>
         </ul>
