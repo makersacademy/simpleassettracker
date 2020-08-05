@@ -42,6 +42,7 @@ class AssetTest(LiveServerTestCase):
     # Asset.send_keys(Keys.RETURN)
     print(4)
     time.sleep(1)
+    print(6)
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('BR20RL', body.text)
 
