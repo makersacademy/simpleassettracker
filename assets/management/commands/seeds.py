@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from asset_display.models import Asset
+from assets.models import Asset
 from django.contrib.auth.models import User
 
 import string, random
@@ -52,8 +52,8 @@ def get_random_type():
     assetType = random.choice(assetTypes)
     return assetType
 
+usernames = ["admin", "james", "sarah", "richard", "ethan"]
 def get_username():
-    usernames = ["admin", "james", "sarah", "richard", "ethan"]
     username = random.choice(usernames)
     usernames.remove(username)
     return username
@@ -67,5 +67,3 @@ def run_seed(self, mode, number_of_users, assets_per_user):
 
 # Asset Types: ["Laptop", "Mobile", "Misc"]
 # Usernames: ["admin", "james", "sarah", "richard", "ethan"]
-#
-

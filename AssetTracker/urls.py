@@ -19,9 +19,9 @@ from register import views as v
 
 urlpatterns = [
     path('', include('dashboard.urls')),
-    path('assets/', include('asset_display.urls')),
+    path('', include('assets.urls')),
     path('admin/', admin.site.urls),
     path("register/", v.register, name="register"),
     path('', include("django.contrib.auth.urls")),
-
+    path('', include('reactfrontend.urls')),
 ]
