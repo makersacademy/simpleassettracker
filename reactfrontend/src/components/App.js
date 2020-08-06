@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -31,7 +32,20 @@ class App extends Component {
           });
         });
     }
-  
+
+      handleDelete(asset_object) {
+      fetch(`http://localhost:8000/assets/api/asset/${asset_object.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        })
+        .then(() => {
+            this.setState({data: this.state.data.filter(asset => asset_object.id !== asset.id)})
+        });
+      };
+
+
     render() {
       return (
           <div>
@@ -40,7 +54,9 @@ class App extends Component {
             {this.state.data.map(asset => {
                 return (
                 <li key={asset.id}>
+                    <button onClick={() => this.handleDelete(asset)}>Delete</button>
                     {asset.AssetTag} - {asset.DeviceType} - {asset.CreatedBy}
+
                 </li>
                 );
             })}
