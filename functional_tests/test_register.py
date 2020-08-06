@@ -73,7 +73,7 @@ class LoginAndOutTest(LiveServerTestCase):
     body = self.browser.find_element_by_tag_name('body')
 
     self.assertIn('admin1', body.text)
-    logout = self.browser.find_element_by_id('id_logout')
+    logout = self.browser.find_element_by_id('id_navbar_logout')
     logout.send_keys(Keys.RETURN)
     time.sleep(1)
     body = self.browser.find_element_by_tag_name('body')
