@@ -35,7 +35,7 @@ class App extends Component {
     render() {
       return (
           <div>
-            <h1>Assets</h1>
+            <h1>Your Assets</h1>
             <ul>
             {this.state.data.map(asset => {
                 return (

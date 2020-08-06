@@ -47,8 +47,8 @@ class NavBar(LiveServerTestCase):
 
   def test_login_button(self):
     self.browser.get(self.live_server_url)
-    register = self.browser.find_element_by_id('id_navbar_login')
-    register.send_keys(Keys.RETURN)
+    login = self.browser.find_element_by_id('id_navbar_login')
+    login.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login Here'))
     body = self.browser.find_element_by_tag_name('body')
@@ -61,4 +61,25 @@ class NavBar(LiveServerTestCase):
       asset.send_keys(Keys.RETURN)
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn("Assets", body.text)
+      self.assertIn("Your Assets", body.text)
+  
+  def test_asset_button_not_viewable_when_logged_out(self):
+    self.browser.get(self.live_server_url)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('Assets', body.text)
+
+  def test_logout_button_not_viewable_when_logged_out(self):
+    self.browser.get(self.live_server_url)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('Log Out', body.text)
+  
+  def test_login_button_not_viewable_when_logged_in(self):
+    self.login()
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('Log In', body.text)
+
+  def test_register_button_not_viewable_when_logged_in(self):
+    self.login()
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('Register', body.text)
+    
