@@ -28,8 +28,9 @@ def clear_data():
 
 def create_user():
     username = get_username()
+    password = "password1234"
     user = User.objects.create(username=username)
-    user.set_password("password1234")
+    user.set_password(password)
     user.save()
     return user
 
