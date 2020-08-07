@@ -43,6 +43,7 @@ class App extends Component {
         return null;
     }
 
+
     handleDelete(asset_object) {
     fetch(`/assets/api/asset/${asset_object.id}`, {
         method: 'DELETE',
@@ -61,6 +62,7 @@ class App extends Component {
       return (
           <div>
             <h1>Assets</h1>
+            <button onClick=
             <ul>
             {this.state.data.map(asset => {
                 return (
