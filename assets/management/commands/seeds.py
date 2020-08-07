@@ -1,13 +1,13 @@
 from django.core.management.base import BaseCommand, CommandError
 from assets.models import Asset
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import Argon2PasswordHasher
 
 import string, random
 
 MODE_REFRESH = 'refresh'
 
 MODE_CLEAR = 'clear'
-
 
 class Command(BaseCommand):
     help = "Seeds the database with usable data"
@@ -27,7 +27,10 @@ def clear_data():
     Asset.objects.all().delete()
 
 def create_user():
-    user = User(username=get_username(), password="password123")
+    username = get_username()
+    password = "password1234"
+    user = User.objects.create(username=username)
+    user.set_password(password)
     user.save()
     return user
 
