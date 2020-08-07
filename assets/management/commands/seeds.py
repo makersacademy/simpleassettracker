@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from assets.models import Asset
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import (Argon2PasswordHasher)
-from argon2 import PasswordHasher
+from django.contrib.auth.hashers import Argon2PasswordHasher
 
 import string, random
 
@@ -28,8 +27,9 @@ def clear_data():
     Asset.objects.all().delete()
 
 def create_user():
-    hasher = PasswordHasher()
-    user = User(username=get_username(), password=hasher.hash("password123"))
+    username = get_username()
+    user = User.objects.create(username=username)
+    user.set_password("password1234")
     user.save()
     return user
 
