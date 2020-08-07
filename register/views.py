@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
-
+from django.contrib.auth.hashers import Argon2PasswordHasher
 
 # Create your views here.
 def register(response):
