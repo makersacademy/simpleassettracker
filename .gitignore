@@ -8,6 +8,8 @@
 
 db.sqlite3
 media
+# Static files
+/reactfrontend/Static/*.css
 
 # Backup files # 
 *.bak 
