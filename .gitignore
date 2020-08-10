@@ -10,6 +10,7 @@ db.sqlite3
 media
 # Static files
 /reactfrontend/Static/*.css
+/AssetTracker/staticfiles/*.css
 
 # Backup files # 
 *.bak 
