@@ -39,3 +39,4 @@ class AssetTest(LiveServerTestCase):
         time.sleep(1)
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('BR20RL', body.text)
+        
