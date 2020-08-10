@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'assets.apps.AssetsConfig',
     'dashboard.apps.DashboardConfig',
     'register.apps.RegisterConfig',
+    'importcsv.apps.ImportcsvConfig',
 ]
 
 MIDDLEWARE = [
