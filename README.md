@@ -1,3 +1,5 @@
+[![Codeship Status for makersacademy/simpleassettracker](https://app.codeship.com/projects/c56a2e20-a7e4-0138-7d2b-2e8a72535188/status?branch=master)](https://app.codeship.com/projects/402832)
+
 # SimpleAssetTracker
 
 ## The Open-Source Asset Tracker for growing Start-Ups
@@ -19,6 +21,8 @@ The team over at SimpleAssetTracker consists of:
 - [John Baxter](https://github.com/john-baxter)
 
 - [Haydon Houghton](https://github.com/Kefuri)
+
+- [Catriona Bennett](https://github.com/cmb84scd)
 
 - [Richard Pattinson](https://github.com/richardpattinson)
 
