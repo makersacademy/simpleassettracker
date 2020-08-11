@@ -34,3 +34,12 @@ class AddAsset(LiveServerTestCase):
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Add an Asset', body.text)
   
+  def test_add_asset_form_is_on_page(self):
+    self.login()
+    self.browser.get(self.live_server_url + '/assets/add')
+    time.sleep(1)
+    asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+    asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+    self.assertEquals(True, asset_tag_field.is_displayed())
+    self.assertEquals(True, asset_type_field.is_displayed())
+    
