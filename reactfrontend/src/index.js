@@ -1,2 +1,15 @@
 import App from "./components/App";
-import addAsset from "./components/addAssetForm/addAssetForm";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom'
+
+const app = (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+)
+
+ReactDOM.render(
+  app,
+  document.getElementById('app')
+);

@@ -6,4 +6,4 @@ def assets(request):
     return render(request, 'reactfrontend/assets.html')
 
 def addAssets(request):
-  return render(request, 'reactfrontend/addAssets.html')
+    return render(request, 'reactfrontend/addAssets.html')

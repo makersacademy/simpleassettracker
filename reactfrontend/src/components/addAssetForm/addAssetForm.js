@@ -17,15 +17,16 @@ class AddAssetForm extends Component {
     const token = localStorage.getItem("token")
     console.log(token)
   }
+  
   render() {
     return(
       <div>
         {this.getUserToken()}
         <h1>Add an Asset</h1>
         <form onSubmit={this.handleSubmit}>
-          <Input inputtype='input' type="text" onChange={console.log('changing')} name="Asset Tag" placeholder="Asset Tag"></Input>
-          <Input inputtype='select' type="text" onChange={console.log('changing')} name="Asset Type" placeholder="Select asset type"></Input>
-          <Input inputtype='input' type="text" onChange={console.log('changing')} name="Asset Tag" placeholder="Asset Tag"></Input>
+          <input inputtype='input' type="text" onChange={console.log('changing')} name="AssetTag" placeholder="Asset Tag"></input>
+          <input inputtype='select' type="text" onChange={console.log('changing')} name="AssetType" placeholder="Select asset type"></input>
+          <input inputtype='input' type="text" onChange={console.log('changing')} name="AssetTag" placeholder="Asset Tag"></input>
         </form>
       </div>
     )
@@ -33,6 +34,3 @@ class AddAssetForm extends Component {
 }
 
 export default AddAssetForm;
-  
-  const container = document.getElementById("app");
-  render(<AddAssetForm />, container);
