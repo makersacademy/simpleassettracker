@@ -5,7 +5,7 @@
 <form action="{% url 'upload_csv' %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 <div class="form-group">
-    <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+    <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label" id="file_upload">File: </label>
     <div class="col-md-8">
         <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
     </div>
