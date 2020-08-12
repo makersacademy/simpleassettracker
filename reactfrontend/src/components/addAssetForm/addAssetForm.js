@@ -46,7 +46,15 @@ class AddAssetForm extends Component {
       createdBy: this.state.asset.createdBy
     }
 
-    axios.post('/', asset)
+    let csrfToken = this.getCookie('csrftoken')
+
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
+    axios.post('/', asset, {
+        method: 'post',
+        "X-CSRFToken": csrfToken,
+        'Content-Type': 'application/json',
+      })
       .then(res => {
         console.log(res)
       })
