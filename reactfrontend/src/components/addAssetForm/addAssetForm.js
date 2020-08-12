@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Redirect } from 'react-router-dom';
+import axios from "../../../axiosAsset";
 
 
 class AddAssetForm extends Component {
@@ -12,6 +13,7 @@ class AddAssetForm extends Component {
         assetType: '',
         createdBy: '',
       },
+      placeholder: ''
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
@@ -25,9 +27,32 @@ class AddAssetForm extends Component {
     this.setState({asset: newData})
   }
 
+  getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+
   submitHandler(event) {
     event.preventDefault()
-    console.log('this ran')
+    const asset = {
+      assetTag: this.state.asset.assetTag,
+      assetType: this.state.asset.assetType,
+      createdBy: this.state.asset.createdBy
+    }
+
+    axios.post('/', asset)
+      .then(res => {
+        console.log(res)
+      })
+      .catch (err => {
+        console.log(err)
+      })
   }
 
   changeHandler(event, identifier) {
@@ -36,8 +61,6 @@ class AddAssetForm extends Component {
     let newDataElement = {...newData[identifier]}
     newDataElement = event.target.value
     newData[identifier] = newDataElement
-    console.log(identifier)
-    console.log(newData)
     this.setState({asset: newData})
   }
   
