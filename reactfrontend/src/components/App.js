@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
           <Switch>
-            <Route path='/assets/add' exact component={AddAssetForm} />
+            <Route path='/assets/add' component={AddAssetForm} />
             <Route path='/assets' exact component={AssetDisplay} />
           </Switch>
       </div>

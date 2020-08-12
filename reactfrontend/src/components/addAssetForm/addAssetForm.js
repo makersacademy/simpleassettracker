@@ -6,14 +6,14 @@ import { Redirect } from 'react-router-dom';
 class AddAssetForm extends Component {
   constructor(props) {
     super(props);
-    this.state ={
-      redirect: null,
+    this.state = {
       asset: {
         assetTag: '',
         assetType: '',
         createdBy: '',
       },
     }
+    this.submitHandler = this.submitHandler.bind(this)
   }
 
   getUserToken() {
@@ -21,24 +21,27 @@ class AddAssetForm extends Component {
     console.log(token)
   }
 
-  handleSubmit(event) {
+  submitHandler(event) {
     event.preventDefault()
-    this.setState({redirect: '/assets'})
     console.log('this ran')
+  }
+
+  changeHandler(event, indentifier) {
+    event.preventDefault()
+    const oldData = {...this.state.asset}
+    console.log(indentifier)
+    console.log(oldData)
   }
   
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
 
     return(
       <div>
         {this.getUserToken()}
         <h1>Add an Asset</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input inputtype='input' type="text" onChange={console.log('changing')} name="AssetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
-          <input inputtype='select' type="text" onChange={console.log('changing')} name="AssetType" id="id_add_asset_type" placeholder="Select asset type"></input>
+        <form onSubmit={this.submitHandler}>
+          <input inputtype='input' type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="AssetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
+          <input inputtype='select' type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="AssetType" id="id_add_asset_type" placeholder="Select asset type"></input>
           <button className='submitButton' id="id_add_asset_submit" type="submit" value="submit">Add Asset</button>
         </form>
       </div>
