@@ -18,11 +18,11 @@ def upload_csv(request):
   try:
     csv_file = request.FILES["csv_file"]
     if not csv_file.name.endswith('.csv'):
-      messages.error(request,'File is not CSV type')
+      messages.error(request, "File is not CSV type")
       return HttpResponseRedirect(reverse("upload_csv"))
       #if file is too large, return
     if csv_file.multiple_chunks():
-      messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
+      messages.error(request, "Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
       return HttpResponseRedirect(reverse("upload_csv"))
 
     file_data = csv_file.read().decode("utf-8")
@@ -41,6 +41,7 @@ def upload_csv(request):
         form = AssetForm(data_dict)
         if form.is_valid():
           form.save()
+          messages.success(request, "The csv file has been successfully uploaded!")
         else:
           logging.getLogger("error_logger").error(form.errors.as_json())
       except Exception as e:
@@ -49,6 +50,6 @@ def upload_csv(request):
 
   except Exception as e:
     logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
-    messages.error(request,"Unable to upload file. "+repr(e))
+    messages.error(request, "Unable to upload file. "+repr(e))
 
   return HttpResponseRedirect(reverse("upload_csv"))
