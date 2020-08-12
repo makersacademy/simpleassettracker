@@ -28,7 +28,9 @@ def upload_csv(request):
     file_data = csv_file.read().decode("utf-8")
 
     lines = file_data.split("\n")
-  	#loop over the lines and save them in db. If error , store as string and then display
+    # removes headers from csv
+    del lines[0]
+  	# loop over the lines and save them in db. If error, store as string and then display
     for line in lines:
       fields = line.split(",")
       data_dict = {}
