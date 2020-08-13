@@ -7,6 +7,8 @@ Login Here
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+<div class="login_container">
     <h1>Login Here</h1>
     <form method="post" class="from-group">
 	    {% csrf_token %}
@@ -14,4 +16,8 @@ Login Here
 	    <p>Don't have an account? Create one <a href="/register">here</a></p>
 	    <button type="submit" class="btn btn-success">Login</button>
     </form>
+</div>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/login.css' %}">
 {% endblock %}
