@@ -8,10 +8,10 @@
 
 db.sqlite3
 media
+
 # Static files
 /AssetTracker/staticfiles/admin/*
 /AssetTracker/staticfiles/rest_framework/*
-
 
 # Backup files # 
 *.bak 

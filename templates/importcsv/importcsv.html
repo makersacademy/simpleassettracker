@@ -1,0 +1,59 @@
+{% extends 'AssetTracker/base.html' %}
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1>Import Assets</h1>
+
+<h3>Upload CSV Instructions</h3>
+<ol>
+  <li>Download the CSV template file below</li>
+  <li>Fill in your data
+  <br>NB: Do not remove the header line or have empty lines</li>
+  <li>Upload the updated file using the link above</li>
+</ol>
+
+<form action="{% url 'upload_csv' %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+<div class="form-group">
+    <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label" id="file_upload">File: </label>
+    <div class="col-md-8">
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+         <button class="btn btn-primary" id="upload_button"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+    </div>
+</div>
+</form>
+
+<script>
+    var data = [
+       ['Test Asset Tag', 'Laptop'],
+       ['Test Asset Tag', 'Laptop'],
+       ['Test Asset Tag', 'Laptop']
+    ];
+
+    function download_csv() {
+        var csv = 'AssetTag,DeviceType\n';
+        data.forEach(function(row) {
+                csv += row.join(',');
+                csv += "\n";
+        });
+
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'template.csv';
+        hiddenElement.click();
+    }
+</script>
+<button onclick="download_csv()">Download CSV template</button>
+{% endblock %}

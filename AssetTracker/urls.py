@@ -24,4 +24,5 @@ urlpatterns = [
     path("register/", v.register, name="register"),
     path('', include("django.contrib.auth.urls")),
     path('', include('reactfrontend.urls')),
+    path('', include('importcsv.urls')),
 ]
