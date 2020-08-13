@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
-import environ
+
 import dj_database_url
+import django_heroku
 import dotenv
+import environ
 
 root = environ.Path(__file__) - 3  # get root of the project
 env = environ.Env()
@@ -27,8 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
-
+  dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -38,7 +38,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
-CRISPY_TEMPLATE_PACK="bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.herokuapp.com']
@@ -48,54 +48,53 @@ LOGOUT_REDIRECT_URL = "/"
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'crispy_forms',
-    'corsheaders',
-    'reactfrontend',
-    'rest_framework',
-    'assets.apps.AssetsConfig',
-    'dashboard.apps.DashboardConfig',
-    'register.apps.RegisterConfig',
-    'importcsv.apps.ImportcsvConfig',
+  'django.contrib.admin',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  'django.contrib.sessions',
+  'django.contrib.messages',
+  'django.contrib.staticfiles',
+  'crispy_forms',
+  'corsheaders',
+  'reactfrontend',
+  'rest_framework',
+  'assets.apps.AssetsConfig',
+  'dashboard.apps.DashboardConfig',
+  'register.apps.RegisterConfig',
+  'importcsv.apps.ImportcsvConfig',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+  'django.middleware.security.SecurityMiddleware',
+  'whitenoise.middleware.WhiteNoiseMiddleware',
+  'django.contrib.sessions.middleware.SessionMiddleware',
+  'django.middleware.common.CommonMiddleware',
+  'django.middleware.csrf.CsrfViewMiddleware',
+  'corsheaders.middleware.CorsMiddleware',
+  'django.contrib.auth.middleware.AuthenticationMiddleware',
+  'django.contrib.messages.middleware.MessageMiddleware',
+  'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'AssetTracker.urls'
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates/"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+  {
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': ["templates/"],
+    'APP_DIRS': True,
+    'OPTIONS': {
+      'context_processors': [
+        'django.template.context_processors.debug',
+        'django.template.context_processors.request',
+        'django.contrib.auth.context_processors.auth',
+        'django.contrib.messages.context_processors.messages',
+      ],
     },
+  },
 ]
 
 WSGI_APPLICATION = 'AssetTracker.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -107,24 +106,24 @@ DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+  {
+    'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+  },
+  {
+    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+  },
+  {
+    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+  },
+  {
+    'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+  },
 ]
 
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+  'django.contrib.auth.hashers.Argon2PasswordHasher',
+  'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+  'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
 # Internationalization
@@ -139,7 +138,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

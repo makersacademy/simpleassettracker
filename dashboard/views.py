@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+
 
 def homePageView(response):
   return render(response, "dashboard/dashboard.html", {})

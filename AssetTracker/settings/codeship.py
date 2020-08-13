@@ -8,8 +8,8 @@ import environ
 from AssetTracker.settings.base import *
 
 env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
+  # set casting, default value
+  DEBUG=(bool, False)
 )
 
 # False if not in os.environ

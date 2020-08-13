@@ -1,12 +1,14 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from django.test import LiveServerTestCase
-from django.contrib.auth.models import User
-from assets.models import Asset
 import time
+
+from assets.models import Asset
+from django.contrib.auth.models import User
+from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 class AssetTest(LiveServerTestCase):
 
@@ -30,13 +32,12 @@ class AssetTest(LiveServerTestCase):
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
 
-  def test_display_assets(self):  
+  def test_display_assets(self):
     with self.settings(DEBUG=True):
-        self.login()
-        body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('admin1', body.text)
-        self.browser.get(self.live_server_url + '/assets')
-        time.sleep(1)
-        body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('BR20RL', body.text)
-        
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('admin1', body.text)
+      self.browser.get(self.live_server_url + '/assets')
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('BR20RL', body.text)
