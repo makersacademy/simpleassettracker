@@ -4,13 +4,12 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
+  dependencies = [
+    ('reactfrontend', '0001_initial'),
+  ]
 
-    dependencies = [
-        ('reactfrontend', '0001_initial'),
-    ]
-
-    operations = [
-        migrations.DeleteModel(
-            name='Asset',
-        ),
-    ]
+  operations = [
+    migrations.DeleteModel(
+      name='Asset',
+    ),
+  ]
