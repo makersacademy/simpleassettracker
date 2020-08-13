@@ -1,17 +1,14 @@
-import os
-import time
-
-from django.contrib.auth.models import User
-from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from django.test import LiveServerTestCase
+from django.contrib.auth.models import User
+import time, sys, os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-csvpath = os.path.join(os.path.sep, ROOT_DIR, '../staticfiles' + os.sep)
-
+csvpath = os.path.join(os.path.sep, ROOT_DIR,'../staticfiles'+ os.sep)
 
 class Importcsv(LiveServerTestCase):
 
@@ -44,7 +41,7 @@ class Importcsv(LiveServerTestCase):
       self.login()
       self.browser.get(self.live_server_url + '/import')
       element = self.browser.find_element_by_id("csv_file")
-      element.send_keys(csvpath + "static_csv/exampleasset.csv")
+      element.send_keys(csvpath+"static_csv/exampleasset.csv")
       button = self.browser.find_element_by_id("upload_button")
       button.send_keys(Keys.RETURN)
       self.browser.get(self.live_server_url + '/assets')

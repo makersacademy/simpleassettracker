@@ -1,13 +1,11 @@
-import time
-
-from django.contrib.auth.models import User
-from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
+from django.test import LiveServerTestCase
+from django.contrib.auth.models import User
+import time
 
 class NavBar(LiveServerTestCase):
 
@@ -18,7 +16,7 @@ class NavBar(LiveServerTestCase):
 
   def tearDown(self):
     self.browser.quit()
-
+  
   def login(self):
     self.browser.get(self.live_server_url + '/login')
     username_field = self.browser.find_element_by_id('id_username')
@@ -82,12 +80,12 @@ class NavBar(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn("Add an Asset", body.text)
-
+  
   def test_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('Assets', body.text)
-
+  
   def test_add_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
@@ -97,7 +95,7 @@ class NavBar(LiveServerTestCase):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('Log Out', body.text)
-
+  
   def test_login_button_not_viewable_when_logged_in(self):
     self.login()
     body = self.browser.find_element_by_tag_name('body')
