@@ -71,11 +71,25 @@ class NavBar(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Import Assets'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn("Import Assets", body.text)
+
+  def test_add_asset_button(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      add_asset = self.browser.find_element_by_id('id_navbar_asset_add')
+      add_asset.send_keys(Keys.RETURN)
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn("Add an Asset", body.text)
   
   def test_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('Assets', body.text)
+  
+  def test_add_asset_button_not_viewable_when_logged_out(self):
+    self.browser.get(self.live_server_url)
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertNotIn('Add Asset', body.text)
 
   def test_logout_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
