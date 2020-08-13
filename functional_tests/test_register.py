@@ -1,13 +1,11 @@
-import time
-
-from django.contrib.auth.models import User
-from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
+from django.test import LiveServerTestCase
+from django.contrib.auth.models import User
+import time
 
 class SignUpFormTest(LiveServerTestCase):
 
@@ -27,7 +25,6 @@ class SignUpFormTest(LiveServerTestCase):
     self.assertIn('Email', body.text)
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Password confirmation', body.text)
-
 
 class SignUpTest(LiveServerTestCase):
 
@@ -52,7 +49,6 @@ class SignUpTest(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Hello', body.text)
-
 
 class LoginAndOutTest(LiveServerTestCase):
 
@@ -82,7 +78,6 @@ class LoginAndOutTest(LiveServerTestCase):
     time.sleep(1)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('admin1', body.text)
-
 
 class IndexTest(LiveServerTestCase):
   def setUp(self):
