@@ -40,27 +40,21 @@ class AddAssetForm extends Component {
 
   submitHandler(event) {
     event.preventDefault()
-    const asset = {
-      assetTag: this.state.asset.assetTag,
-      assetType: this.state.asset.assetType,
-      createdBy: this.state.asset.createdBy
-    }
-
     let csrfToken = this.getCookie('csrftoken')
 
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-
-    axios.post('/', asset, {
-        method: 'post',
-        "X-CSRFToken": csrfToken,
-        'Content-Type': 'application/json',
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch (err => {
-        console.log(err)
-      })
+    fetch('api/asset/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": csrfToken,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "AssetTag": this.state.asset.assetTag,
+            "DeviceType": this.state.asset.assetType,
+            "CreatedBy": this.state.asset.createdBy
+        },),
+    })
+    .then(response => response.json())
   }
 
   changeHandler(event, identifier) {
