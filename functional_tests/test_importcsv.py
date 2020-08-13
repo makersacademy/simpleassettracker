@@ -45,6 +45,6 @@ class Importcsv(LiveServerTestCase):
       button = self.browser.find_element_by_id("upload_button")
       button.send_keys(Keys.RETURN)
       self.browser.get(self.live_server_url + '/assets')
-      time.sleep(1)
+      time.sleep(4)
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('TEST12', body.text)
