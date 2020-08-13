@@ -24,5 +24,28 @@
     </div>
 </div>
 </form>
-
+<script>
+    var data = [
+       ['Test Asset Tag', 'Laptop'],
+       ['Test Asset Tag', 'Laptop'],
+       ['Test Asset Tag', 'Laptop']
+    ];
+     
+     
+    function download_csv() {
+        var csv = 'AssetTag,DeviceType\n';
+        data.forEach(function(row) {
+                csv += row.join(',');
+                csv += "\n";
+        });
+     
+        console.log(csv);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'template.csv';
+        hiddenElement.click();
+    }
+</script>
+<button onclick="download_csv()">Download CSV template</button> 
 {% endblock %}
