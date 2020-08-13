@@ -10,6 +10,15 @@
 {% endif %}
 
 <h1>Import Assets</h1>
+
+<h3>Upload CSV Instructions</h3>
+<ol>
+  <li>Download the CSV template file below</li>
+  <li>Fill in your data
+  <br>NB: Do not remove the header line or have empty lines</li>
+  <li>Upload the updated file using the link above</li>
+</ol>
+
 <form action="{% url 'upload_csv' %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 <div class="form-group">
@@ -24,22 +33,21 @@
     </div>
 </div>
 </form>
+
 <script>
     var data = [
        ['Test Asset Tag', 'Laptop'],
        ['Test Asset Tag', 'Laptop'],
        ['Test Asset Tag', 'Laptop']
     ];
-     
-     
+
     function download_csv() {
         var csv = 'AssetTag,DeviceType\n';
         data.forEach(function(row) {
                 csv += row.join(',');
                 csv += "\n";
         });
-     
-        console.log(csv);
+
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
         hiddenElement.target = '_blank';
@@ -47,5 +55,5 @@
         hiddenElement.click();
     }
 </script>
-<button onclick="download_csv()">Download CSV template</button> 
+<button onclick="download_csv()">Download CSV template</button>
 {% endblock %}
