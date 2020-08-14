@@ -13,7 +13,7 @@ class AddAssetForm extends Component {
         assetType: '',
         createdBy: '',
       },
-      placeholder: ''
+      showMessage: false,
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
@@ -41,7 +41,6 @@ class AddAssetForm extends Component {
   submitHandler(event) {
     event.preventDefault()
     let csrfToken = this.getCookie('csrftoken')
-
     fetch('api/asset/', {
         method: 'POST',
         headers: {
@@ -54,7 +53,16 @@ class AddAssetForm extends Component {
             "CreatedBy": this.state.asset.createdBy
         },),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.ok) {
+          this.setState({ showMessage: true })
+          console.log(this.state.showMessage)
+          return response.json()
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      })
+    .catch(error => console.log(error))
   }
 
   changeHandler(event, identifier) {
@@ -67,10 +75,15 @@ class AddAssetForm extends Component {
   }
   
   render() {
+    let succesMessage = null
+    if(this.state.showMessage) {
+        succesMessage = <h3>Successfully added</h3>
+    }
 
     return(
       <div>
         <h1>Add an Asset</h1>
+        {succesMessage}
         <form onSubmit={this.submitHandler}>
           <input inputtype='input' type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
           <input inputtype='select' type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type" placeholder="Select asset type"></input>
