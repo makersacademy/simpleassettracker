@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { Redirect } from 'react-router-dom';
-import axios from "../../../axiosAsset";
-
+import './addAssetForm.css'
 
 class AddAssetForm extends Component {
   constructor(props) {
@@ -17,6 +14,8 @@ class AddAssetForm extends Component {
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
+    this.hideMessageHandler = this.hideMessageHandler.bind(this)
+
   }
 
   componentDidMount() {
@@ -56,7 +55,7 @@ class AddAssetForm extends Component {
     .then(response => {
         if (response.ok) {
           this.setState({ showMessage: true })
-          console.log(this.state.showMessage)
+          $('#id_add_asset')[0].reset(); 
           return response.json()
         } else {
           throw new Error('Something went wrong ...');
@@ -73,20 +72,30 @@ class AddAssetForm extends Component {
     newData[identifier] = newDataElement
     this.setState({asset: newData})
   }
+
+  hideMessageHandler() {
+    this.setState({showMessage: false})
+  }
   
   render() {
     let succesMessage = null
     if(this.state.showMessage) {
-        succesMessage = <h3>Successfully added</h3>
+      succesMessage = 
+        <div>
+          <div className='backdrop' onClick={this.hideMessageHandler}></div>
+          <div className='showMessage' onClick={this.hideMessageHandler}>
+            <h3>Successfully added</h3>
+          </div>
+        </div>
     }
 
     return(
       <div>
         <h1>Add an Asset</h1>
         {succesMessage}
-        <form onSubmit={this.submitHandler}>
-          <input inputtype='input' type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
-          <input inputtype='select' type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type" placeholder="Select asset type"></input>
+        <form id='id_add_asset' onSubmit={this.submitHandler}>
+          <input inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
+          <input inputtype='select' required type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type" placeholder="Select asset type"></input>
           <button className='submitButton' id="id_add_asset_submit" type="submit" value="submit">Add Asset</button>
         </form>
       </div>
