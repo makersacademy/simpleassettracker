@@ -11,6 +11,7 @@ def importView(response):
   return render(response, "importcsv/importcsv.html", {})
 
 def upload_csv(request):
+  asset_count = 0
   data = {}
   if "GET" == request.method:
     return render(request, "importcsv/importcsv.html", data)
@@ -37,11 +38,12 @@ def upload_csv(request):
       data_dict["AssetTag"] = fields[0]
       data_dict["DeviceType"] = fields[1]
       data_dict["CreatedBy"] = request.user.id
+
       try:
         form = AssetForm(data_dict)
         if form.is_valid():
           form.save()
-          messages.success(request, "The csv file has been successfully uploaded!")
+          asset_count += 1
         else:
           logging.getLogger("error_logger").error(form.errors.as_json())
       except Exception as e:
@@ -52,4 +54,5 @@ def upload_csv(request):
     logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
     messages.error(request, "Unable to upload file. "+repr(e))
 
+  messages.success(request, f'You have successfully uploaded {asset_count} assets!')
   return HttpResponseRedirect(reverse("upload_csv"))
