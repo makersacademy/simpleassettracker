@@ -1,0 +1,25 @@
+.showMessage {
+    position: absolute;
+    z-index: 500;
+    width: 50%;
+    margin: 0% 25%;
+    height: auto;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    padding: 0;
+    transition: all 0.3s ease-out;
+    background-color: cornsilk;
+    text-align: center;
+    padding: 20px;
+}
+
+.backdrop {
+    position: absolute;
+    z-index: 400;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.3;
+    left: 0;
+    top: 0;
+}
