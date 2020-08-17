@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 import time, sys, os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-csvpath = os.path.join(os.path.sep, ROOT_DIR,'../staticfiles'+ os.sep)
+csvpath = os.path.join(os.path.sep, ROOT_DIR,'../static'+ os.sep)
 
 class Importcsv(LiveServerTestCase):
 
