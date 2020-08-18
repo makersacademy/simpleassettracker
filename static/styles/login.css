@@ -1,3 +1,12 @@
 .login_container{
-  padding: 20px;
+  font-family: 'Lato', sans-serif;
+  padding: 25px;
+  margin: 5% 32%;
+  border: black solid 3px;
+  border-radius: 7px;
+}
+
+#login_title{
+  padding-bottom: 10px;
+  margin-left: -2.5px;
 }
