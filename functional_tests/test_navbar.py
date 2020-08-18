@@ -37,13 +37,14 @@ class NavBar(LiveServerTestCase):
     self.assertIn('Hello world', body.text)
 
   def test_register_button(self):
-    self.browser.get(self.live_server_url + '/login')
-    register = self.browser.find_element_by_id('id_navbar_register')
-    register.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Register:'))
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Password confirmation*', body.text)
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url + '/login')
+      register = self.browser.find_element_by_id('id_navbar_register')
+      register.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Register:'))
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Password confirmation*', body.text)
 
   def test_login_button(self):
     self.browser.get(self.live_server_url)

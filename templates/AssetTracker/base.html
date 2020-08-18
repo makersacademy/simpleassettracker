@@ -40,7 +40,7 @@
         <ul class="navbar-nav ml-auto">  
             {% if request.user.is_authenticated %}    
                 <li class="nav-item">
-                    <a class="nav-link" id="id_navbar_logout" >{{ request.user.username.capitalize }} </a>
+                    <a class="nav-link" id="id_navbar_username" >{{ request.user.username.capitalize }} </a>
                 </li>   
                 <li class="nav-item">
                     <a class="nav-link" id="id_navbar_logout" href="/logout">Log Out</a>
