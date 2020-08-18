@@ -31,10 +31,11 @@ class Importcsv(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
 
   def test_import_page_loads(self):
-    self.login()
-    self.browser.get(self.live_server_url + '/import')
-    body = self.browser.find_element_by_id('file_upload')
-    assert 'File:' in body.text
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/import')
+      body = self.browser.find_element_by_id('file_upload')
+      assert 'File:' in body.text
 
   def test_csv_uploads(self):
     with self.settings(DEBUG=True):

@@ -34,7 +34,7 @@ class AssetTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
         self.login()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('admin1', body.text)
+        self.assertIn('Admin1', body.text)
         self.browser.get(self.live_server_url + '/assets')
         time.sleep(1)
         body = self.browser.find_element_by_tag_name('body')
