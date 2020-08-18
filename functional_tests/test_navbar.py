@@ -41,7 +41,7 @@ class NavBar(LiveServerTestCase):
     register = self.browser.find_element_by_id('id_navbar_register')
     register.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Register here'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Register:'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Password confirmation*', body.text)
 
@@ -50,7 +50,7 @@ class NavBar(LiveServerTestCase):
     login = self.browser.find_element_by_id('id_navbar_login')
     login.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login Here'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login:'))
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn("Don't have an account?", body.text)
 

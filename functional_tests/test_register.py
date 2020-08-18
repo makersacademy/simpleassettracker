@@ -72,12 +72,12 @@ class LoginAndOutTest(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello world'))
     body = self.browser.find_element_by_tag_name('body')
 
-    self.assertIn('admin1', body.text)
+    self.assertIn('Admin1', body.text)
     logout = self.browser.find_element_by_id('id_navbar_logout')
     logout.send_keys(Keys.RETURN)
     time.sleep(1)
     body = self.browser.find_element_by_tag_name('body')
-    self.assertNotIn('admin1', body.text)
+    self.assertNotIn('Admin1', body.text)
 
 class IndexTest(LiveServerTestCase):
   def setUp(self):
