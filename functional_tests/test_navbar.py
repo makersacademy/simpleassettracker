@@ -16,7 +16,7 @@ class NavBar(LiveServerTestCase):
 
   def tearDown(self):
     self.browser.quit()
-  
+
   def login(self):
     self.browser.get(self.live_server_url + '/login')
     username_field = self.browser.find_element_by_id('id_username')
@@ -65,13 +65,14 @@ class NavBar(LiveServerTestCase):
       self.assertIn("Your Assets", body.text)
 
   def test_import_button(self):
-    self.login()
-    upload = self.browser.find_element_by_id('id_navbar_import')
-    upload.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Import Assets'))
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn("Import Assets", body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      upload = self.browser.find_element_by_id('id_navbar_import')
+      upload.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Import Assets'))
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn("Import Assets", body.text)
 
   def test_add_asset_button(self):
     with self.settings(DEBUG=True):
@@ -81,12 +82,12 @@ class NavBar(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn("Add an Asset", body.text)
-  
+
   def test_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('Assets', body.text)
-  
+
   def test_add_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
@@ -96,7 +97,7 @@ class NavBar(LiveServerTestCase):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
     self.assertNotIn('Log Out', body.text)
-  
+
   def test_login_button_not_viewable_when_logged_in(self):
     self.login()
     body = self.browser.find_element_by_tag_name('body')
