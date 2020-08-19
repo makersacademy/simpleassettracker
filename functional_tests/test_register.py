@@ -48,9 +48,9 @@ class SignUpTest(LiveServerTestCase):
       password_confirmation_field.send_keys('Th1sIsAT3st.')
       password_field.send_keys(Keys.RETURN)
       wait = WebDriverWait(self.browser, 5)
-      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login:'))
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn('Hello', body.text)
+      self.assertIn('Login:', body.text)
 
 class LoginAndOutTest(LiveServerTestCase):
 
@@ -88,7 +88,7 @@ class IndexTest(LiveServerTestCase):
   def tearDown(self):
     self.browser.quit()
 
-  def test_hello_world(self):
+  def test_index_text(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
-    assert 'Hello' in body.text
+    assert 'Index' in body.text
