@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from assets.models import Asset
 
+@login_required(login_url='/login')
 def dashboardPageView(response):
   asset_count = countAssets()
   laptop_count = countLaptops()
