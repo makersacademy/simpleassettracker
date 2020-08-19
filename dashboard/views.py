@@ -3,7 +3,14 @@ from assets.models import Asset
 
 def dashboardPageView(response):
   asset_count = countAssets()
-  return render(response, "dashboard/dashboard.html", {"asset_count": asset_count})
+  laptop_count = countLaptops()
+  return render(response, "dashboard/dashboard.html", {
+  "asset_count": asset_count,
+  "laptop_count": laptop_count
+  })
 
 def countAssets():
-  return Asset.objects.all().count()
+  return Asset.objects.count()
+
+def countLaptops():
+  return Asset.objects.filter(DeviceType="laptop").count()
