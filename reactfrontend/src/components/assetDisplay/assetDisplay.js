@@ -81,7 +81,7 @@ class AssetDisplay extends Component {
                                 <th scope="row">{asset.AssetTag}</th>
                                 <td>{asset.DeviceType}</td>
                                 <td>{asset.CreatedBy}</td>
-                                <td><button onClick={() => this.handleDelete(asset)}>Delete</button></td>
+                                <td><button id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>Delete</button></td>
                             </tr>
                         );
                     })}

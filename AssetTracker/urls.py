@@ -18,6 +18,7 @@ from django.urls import include, path
 from register import views as v
 
 urlpatterns = [
+    path('', include('index.urls')),
     path('', include('dashboard.urls')),
     path('', include('assets.urls')),
     path('admin/', admin.site.urls),

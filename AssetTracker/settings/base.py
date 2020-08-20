@@ -43,7 +43,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.herokuapp.com']
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/dashboard"
 LOGOUT_REDIRECT_URL = "/"
 # Application definition
 
@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'register.apps.RegisterConfig',
     'importcsv.apps.ImportcsvConfig',
+    'index.apps.IndexConfig',
 ]
 
 MIDDLEWARE = [
