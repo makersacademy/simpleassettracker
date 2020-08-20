@@ -65,18 +65,20 @@ class AssetDisplay extends Component {
       <div className="table_container">
           <h1> Your Assets </h1>
           <div>
-            <ReactBootStrap.Table striped bordered hover>
+            <ReactBootStrap.Table class="table">
                 <div>
                 <thead>
-                    <th> Asset Tag</th>
-                    <th> Device Type</th>
-                    <th> Created By</th>
+                    <tr>
+                        <th scope="col"> Asset Tag</th>
+                        <th scope="col"> Device Type</th>
+                        <th scope="col"> Created By</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {this.state.data.map(asset => {
                         return (
-                            <tr key={asset.id}>
-                                <td>{asset.AssetTag}</td>
+                            <tr key={asset.id} className="Asset-Hover">
+                                <th scope="row">{asset.AssetTag}</th>
                                 <td>{asset.DeviceType}</td>
                                 <td>{asset.CreatedBy}</td>
                                 <td><button onClick={() => this.handleDelete(asset)}>Delete</button></td>
