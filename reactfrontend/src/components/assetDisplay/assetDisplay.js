@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import * as ReactBootStrap from 'react-bootstrap'
+import './assetDisplay.css'
 
 class AssetDisplay extends Component {
     constructor(props) {
@@ -60,20 +62,34 @@ class AssetDisplay extends Component {
 
     render() {
       return (
+      <div className="table_container">
+          <h1> Your Assets </h1>
           <div>
-            <h1>Your Assets</h1>
-            <ul>
-            {this.state.data.map(asset => {
-                return (
-                <li key={asset.id}>
-                    <button onClick={() => this.handleDelete(asset)}>Delete</button>
-                    {asset.AssetTag} - {asset.DeviceType} - {asset.CreatedBy}
-
-                </li>
-                );
-            })}
-            </ul>
-        </div>
+            <ReactBootStrap.Table class="table">
+                <div>
+                <thead>
+                    <tr>
+                        <th scope="col"> Asset Tag</th>
+                        <th scope="col"> Device Type</th>
+                        <th scope="col"> Created By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.data.map(asset => {
+                        return (
+                            <tr key={asset.id} className="Asset-Hover">
+                                <th scope="row">{asset.AssetTag}</th>
+                                <td>{asset.DeviceType}</td>
+                                <td>{asset.CreatedBy}</td>
+                                <td><button onClick={() => this.handleDelete(asset)}>Delete</button></td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+                </div>
+            </ReactBootStrap.Table>
+          </div>
+      </div>
       );
     }
   }

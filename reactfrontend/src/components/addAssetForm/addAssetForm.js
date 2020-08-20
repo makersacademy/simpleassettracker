@@ -90,13 +90,15 @@ class AddAssetForm extends Component {
     }
 
     return(
-      <div>
+      <div className="add_asset_container">
         <h1>Add an Asset</h1>
         {succesMessage}
         <form id='id_add_asset' onSubmit={this.submitHandler}>
-          <input inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag" placeholder="Asset Tag"></input>
-          <input inputtype='select' required type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type" placeholder="Select asset type"></input>
-          <button className='submitButton' id="id_add_asset_submit" type="submit" value="submit">Add Asset</button>
+          <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
+          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
+          <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
+          <input className="add_asset_input" inputtype='select' required type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type"></input>
+          <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
         </form>
       </div>
     )
