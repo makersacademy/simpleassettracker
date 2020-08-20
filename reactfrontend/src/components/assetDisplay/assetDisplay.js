@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import * as ReactBootStrap from 'react-bootstrap'
+import './assetDisplay.css'
 
 class AssetDisplay extends Component {
     constructor(props) {
@@ -58,38 +59,35 @@ class AssetDisplay extends Component {
     });
     };
 
-    renderTable(player, idx) {
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    }
-
 
     render() {
       return (
-        <ReactBootStrap.Table striped bordered hover>
-            <div>
-            <thead>
-                <th> Asset Tag</th>
-                <th> Device Type</th>
-                <th> Created By</th>
-            </thead>
-            <tbody> 
-                {this.state.data.map(asset => {
-                    return (     
-                        <tr key={asset.id}>
-                            <td>{asset.AssetTag}</td>
-                            <td>{asset.DeviceType}</td>
-                            <td>{asset.CreatedBy}</td> 
-                            <td><button onClick={() => this.handleDelete(asset)}>Delete</button></td>
-                        </tr>                                                    
-                    );
-                })}
-                </tbody> 
-            </div> 
-        </ReactBootStrap.Table>
+      <div className="table_container">
+          <h1> Your Assets </h1>
+          <div>
+            <ReactBootStrap.Table striped bordered hover>
+                <div>
+                <thead>
+                    <th> Asset Tag</th>
+                    <th> Device Type</th>
+                    <th> Created By</th>
+                </thead>
+                <tbody>
+                    {this.state.data.map(asset => {
+                        return (
+                            <tr key={asset.id}>
+                                <td>{asset.AssetTag}</td>
+                                <td>{asset.DeviceType}</td>
+                                <td>{asset.CreatedBy}</td>
+                                <td><button onClick={() => this.handleDelete(asset)}>Delete</button></td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+                </div>
+            </ReactBootStrap.Table>
+          </div>
+      </div>
         //   <div>
         //     <h1>Your Assets</h1>
         //     <ul>

@@ -1,0 +1,8 @@
+.table_container{
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    margin: 1%;
+    border: black solid 3px;
+    border-radius: 7px;
+    padding: 10px;
+}
