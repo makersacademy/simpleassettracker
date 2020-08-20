@@ -72,7 +72,7 @@ class NavBar(LiveServerTestCase):
       asset.send_keys(Keys.RETURN)
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn("Your Assets", body.text)
+      self.assertIn("Asset Tag", body.text)
 
   def test_import_button(self):
     with self.settings(DEBUG=True):
