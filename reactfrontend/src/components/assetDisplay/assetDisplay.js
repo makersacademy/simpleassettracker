@@ -90,20 +90,6 @@ class AssetDisplay extends Component {
             </ReactBootStrap.Table>
           </div>
       </div>
-        //   <div>
-        //     <h1>Your Assets</h1>
-        //     <ul>
-        //     {this.state.data.map(asset => {
-        //         return (
-        //         <li key={asset.id}>
-        //             <button onClick={() => this.handleDelete(asset)}>Delete</button>
-        //             {asset.AssetTag} - {asset.DeviceType} - {asset.CreatedBy}
-
-        //         </li>
-        //         );
-        //     })}
-        //     </ul>
-        // </div>
       );
     }
   }
