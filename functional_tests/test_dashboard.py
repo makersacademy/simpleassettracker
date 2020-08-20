@@ -77,3 +77,16 @@ class Dashboard(LiveServerTestCase):
       self.browser.get(self.live_server_url + '/dashboard')
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Total number of assets: 1', body.text)
+  
+  def test_asset_deletes_and_count_decreases(self):
+    self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+    self.A.save()
+    self.login()
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Total number of assets: 1', body.text)
+    self.browser.get(self.live_server_url + '/assets')
+    asset_delete_button = self.browser.find_element_by_id('id_asset_delete_button_' + str(self.A.id))
+    asset_delete_button.send_keys(Keys.RETURN)
+    self.browser.get(self.live_server_url + '/dashboard')
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Total number of assets: 0', body.text)
