@@ -60,3 +60,20 @@ class Dashboard(LiveServerTestCase):
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Total number of laptops: 0', body.text)
     self.assertIn('Total number of mobiles: 1', body.text)
+
+  def test_add_asset_and_count_increases(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of assets: 0', body.text)
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+      asset_tag_field.send_keys('HD1269')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+      asset_type_field.send_keys('laptop')
+      asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
+      asset_submit_button.send_keys(Keys.RETURN)
+      self.browser.get(self.live_server_url + '/dashboard')
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of assets: 1', body.text)
