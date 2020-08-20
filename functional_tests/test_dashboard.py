@@ -87,6 +87,7 @@ class Dashboard(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Total number of assets: 1', body.text)
       self.browser.get(self.live_server_url + '/assets')
+      time.sleep(1)
       asset_delete_button = self.browser.find_element_by_id('id_asset_delete_button_' + str(self.A.id))
       asset_delete_button.send_keys(Keys.RETURN)
       time.sleep(1)
