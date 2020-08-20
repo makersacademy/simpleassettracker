@@ -44,3 +44,19 @@ class Dashboard(LiveServerTestCase):
     self.login()
     body = self.browser.find_element_by_tag_name('body')
     self.assertIn('Total number of assets: 1', body.text)
+
+  def test_dashboard_showing_count_of_laptops(self):
+    self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+    self.A.save()
+    self.login()
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Total number of laptops: 1', body.text)
+    self.assertIn('Total number of mobiles: 0', body.text)
+
+  def test_dashboard_showing_count_of_mobiles(self):
+    self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+    self.A.save()
+    self.login()
+    body = self.browser.find_element_by_tag_name('body')
+    self.assertIn('Total number of laptops: 0', body.text)
+    self.assertIn('Total number of mobiles: 1', body.text)
