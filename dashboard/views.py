@@ -4,20 +4,39 @@ from assets.models import Asset
 
 @login_required(login_url='/login')
 def dashboardPageView(response):
-  asset_count = countAssets()
-  laptop_count = countLaptops()
-  mobile_count = countMobiles()
+  assetCounts = getAssetCounts()
   return render(response, "dashboard/dashboard.html", {
-  "asset_count": asset_count,
-  "laptop_count": laptop_count,
-  "mobile_count": mobile_count
+  "asset_count": assetCounts[0],
+  "laptop_count": assetCounts[1],
+  "mobile_count": assetCounts[2]
   })
 
-def countAssets():
-  return Asset.objects.count()
+def getAssets():
+  return Asset.objects.all()
 
-def countLaptops():
-  return Asset.objects.filter(DeviceType="laptop").count()
+def countAssets(assets):
+  return assets.count()
 
-def countMobiles():
-  return Asset.objects.filter(DeviceType="mobile").count()
+def countLaptops(assets):
+  count = 0
+  for i in range(len(assets)):
+    if assets[i].DeviceType.lower() == "laptop":
+      count += 1
+
+  return count
+
+def countMobiles(assets):
+  count = 0
+  for i in range(len(assets)):
+    if assets[i].DeviceType.lower() == "mobile":
+      count += 1
+
+  return count
+
+def getAssetCounts():
+  assetList = getAssets()
+  counts = []
+  counts.append(countAssets(assetList))
+  counts.append(countLaptops(assetList))
+  counts.append(countMobiles(assetList))
+  return counts
