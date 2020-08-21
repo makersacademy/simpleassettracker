@@ -91,4 +91,4 @@ class IndexTest(LiveServerTestCase):
   def test_index_text(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
-    assert 'Index' in body.text
+    assert 'Simple Asset Tracker' in body.text

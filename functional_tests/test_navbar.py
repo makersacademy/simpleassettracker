@@ -28,13 +28,14 @@ class NavBar(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
   
   def test_home_button(self):
-    self.browser.get(self.live_server_url + '/login')
-    home = self.browser.find_element_by_id('id_navbar_home')
-    home.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Index'))
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Index', body.text)
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url + '/login')
+      home = self.browser.find_element_by_id('id_navbar_home')
+      home.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Simple Asset Tracker'))
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Simple Asset Tracker', body.text)
 
   def test_dashboard_button(self):
     self.login()
@@ -57,13 +58,14 @@ class NavBar(LiveServerTestCase):
       self.assertIn('Password confirmation*', body.text)
 
   def test_login_button(self):
-    self.browser.get(self.live_server_url)
-    login = self.browser.find_element_by_id('id_navbar_login')
-    login.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login:'))
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn("Don't have an account?", body.text)
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url)
+      login = self.browser.find_element_by_id('id_navbar_login')
+      login.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Login:'))
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn("Don't have an account?", body.text)
 
   def test_asset_button(self):
     with self.settings(DEBUG=True):
