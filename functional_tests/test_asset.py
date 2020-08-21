@@ -28,7 +28,7 @@ class AssetTest(LiveServerTestCase):
     password_field.send_keys('admin1')
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
   def test_display_assets(self):  
     with self.settings(DEBUG=True):

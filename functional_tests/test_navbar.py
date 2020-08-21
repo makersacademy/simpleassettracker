@@ -25,7 +25,7 @@ class NavBar(LiveServerTestCase):
     password_field.send_keys('admin1')
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
   
   def test_home_button(self):
     self.browser.get(self.live_server_url + '/login')
@@ -42,9 +42,9 @@ class NavBar(LiveServerTestCase):
     home = self.browser.find_element_by_id('id_navbar_home')
     home.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
     body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Hello world', body.text)
+    self.assertIn('Your Dashboard', body.text)
 
   def test_register_button(self):
     with self.settings(DEBUG=True):
