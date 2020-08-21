@@ -71,7 +71,7 @@ class LoginAndOutTest(LiveServerTestCase):
     password_field.send_keys('admin1')
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello world'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
     body = self.browser.find_element_by_tag_name('body')
 
     self.assertIn('Admin1', body.text)
@@ -91,4 +91,4 @@ class IndexTest(LiveServerTestCase):
   def test_index_text(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
-    assert 'Index' in body.text
+    assert 'Simple Asset Tracker' in body.text

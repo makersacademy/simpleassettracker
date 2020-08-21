@@ -25,7 +25,7 @@ class AddAsset(LiveServerTestCase):
     password_field.send_keys('admin1')
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
   
   def test_add_asset_on_page(self):
     self.login()

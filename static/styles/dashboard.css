@@ -1,0 +1,41 @@
+.dashboard_container{
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  padding: 10px;
+  margin: 10% 20%;
+  border: black solid 3px;
+  border-radius: 7px;
+}
+
+#dashboard_title{
+  padding-bottom: 10px;
+  margin-left: -2.5px;
+}
+
+.dashboard_stat_container_left{
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  float: left;
+  padding: 10px;
+  border: black solid 3px;
+  border-radius: 7px;
+}
+
+.dashboard_stat_container_center{
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  float: center;
+  margin: 0 35% 0 35%;
+  padding: 10px;
+  border: black solid 3px;
+  border-radius: 7px;
+}
+
+.dashboard_stat_container_right{
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  float: right;
+  padding: 10px;
+  border: black solid 3px;
+  border-radius: 7px;
+}

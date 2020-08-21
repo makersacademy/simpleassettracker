@@ -3,7 +3,16 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-
-<h1>Index</h1>
-
+<div class="index_container">
+    <h1 id="id_index_title">Simple Asset Tracker</h1>
+    <div class="index_paragraph">
+        <p>
+            Highly customizable system, unlimited users, and anytime, anywhere access to vital business information are just a few features that set Simple Asset Tracker apart from the competition. Our clients love how simple asset tracker saves them time and money, and you will too!
+            <br><br>
+            While we build out the core functionality of the app enjoy the worldwide free trial, for a limited time only.
+        </p>
+    </div>
+</div>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
 {% endblock %}

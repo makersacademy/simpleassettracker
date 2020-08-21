@@ -26,7 +26,7 @@ class Dashboard(LiveServerTestCase):
     password_field.send_keys('admin1')
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Hello'))
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
   def test_dashboard_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url + '/dashboard')
