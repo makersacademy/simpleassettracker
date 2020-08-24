@@ -7,7 +7,7 @@ class AddAssetForm extends Component {
     this.state = {
       asset: {
         assetTag: '',
-        assetType: '',
+        assetType: 'Laptop',
         createdBy: '',
       },
       showMessage: false,
@@ -97,7 +97,10 @@ class AddAssetForm extends Component {
           <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
           <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
           <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
-          <input className="add_asset_input" inputtype='select' required type="text" onChange={(event) => this.changeHandler(event, 'assetType')} name="assetType" id="id_add_asset_type"></input>
+          <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
+            <option value="Laptop">Laptop</option>
+            <option value="Mobile">Mobile</option>
+          </select>
           <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
         </form>
       </div>
