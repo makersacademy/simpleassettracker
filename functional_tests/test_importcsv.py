@@ -41,6 +41,7 @@ class Importcsv(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/import')
+      time.sleep(4)
       element = self.browser.find_element_by_id("csv_file")
       element.send_keys(csvpath+"static_csv/exampleasset.csv")
       button = self.browser.find_element_by_id("upload_button")
