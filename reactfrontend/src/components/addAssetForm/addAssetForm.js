@@ -90,19 +90,21 @@ class AddAssetForm extends Component {
     }
 
     return(
-      <div className="add_asset_container">
-        <h1>Add an Asset</h1>
+      <div>
         {succesMessage}
-        <form id='id_add_asset' onSubmit={this.submitHandler}>
-          <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
-          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
-          <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
-          <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
-            <option value="Laptop">Laptop</option>
-            <option value="Mobile">Mobile</option>
-          </select>
-          <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
-        </form>
+        <div className="add_asset_container">
+            <h1>Add an Asset</h1>
+            <form id='id_add_asset' onSubmit={this.submitHandler}>
+            <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
+            <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
+            <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
+            <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
+                <option value="Laptop">Laptop</option>
+                <option value="Mobile">Mobile</option>
+            </select>
+            <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
+            </form>
+        </div>
       </div>
     )
   }

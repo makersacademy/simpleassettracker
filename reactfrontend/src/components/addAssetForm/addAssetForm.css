@@ -1,14 +1,15 @@
 .showMessage {
     position: absolute;
     z-index: 500;
-    width: 25%;
-    margin: 28px calc(12.5%-28px) 0px 12.5%;
+    width: 50%;
+    margin: 10% 25%;
     height: auto;
     box-shadow: 1px 1px 1px black;
     padding: 25px;
     transition: all 0.3s ease-out;
-    background-color: lightgreen;
+    background-color: white;
     text-align: center;
+    border-radius: 7px;
 }
 
 
@@ -18,7 +19,7 @@
     height: 100%;
     width: 100%;
     background-color: black;
-    opacity: 0.3;
+    opacity: 0.5;
     left: 0;
     top: 0;
 }

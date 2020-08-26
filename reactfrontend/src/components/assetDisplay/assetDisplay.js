@@ -63,32 +63,29 @@ class AssetDisplay extends Component {
     render() {
       return (
       <div className="table_container">
-          <h1> Your Assets </h1>
-          <div>
-            <ReactBootStrap.Table class="table">
-                <div>
-                <thead>
-                    <tr>
-                        <th scope="col"> Asset Tag</th>
-                        <th scope="col"> Device Type</th>
-                        <th scope="col"> Created By</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.data.map(asset => {
-                        return (
-                            <tr key={asset.id} className="Asset-Hover">
-                                <th scope="row">{asset.AssetTag}</th>
-                                <td>{asset.DeviceType}</td>
-                                <td>{asset.CreatedBy}</td>
-                                <td><button id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>Delete</button></td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-                </div>
-            </ReactBootStrap.Table>
-          </div>
+        <h1 style={{marginLeft: '63px'}}>Your Assets</h1>
+        <ReactBootStrap.Table>
+            <thead>
+                <tr>
+                    <th scope="col" className='delete_col'></th>
+                    <th scope="col">Asset Tag</th>
+                    <th scope="col">Device Type</th>
+                    <th scope="col" className='align_center'>Created By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {this.state.data.map(asset => {
+                    return (
+                        <tr key={asset.id} className="asset_row">
+                            <td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
+                            <th scope="row">{asset.AssetTag}</th>
+                            <td>{asset.DeviceType}</td>
+                            <td className='align_center'>{asset.CreatedBy}</td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </ReactBootStrap.Table>
       </div>
       );
     }
