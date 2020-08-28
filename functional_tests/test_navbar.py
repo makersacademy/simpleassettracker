@@ -26,7 +26,7 @@ class NavBar(LiveServerTestCase):
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
-  
+
   def test_home_button(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/login')
@@ -38,14 +38,15 @@ class NavBar(LiveServerTestCase):
       self.assertIn('Simple Asset Tracker', body.text)
 
   def test_dashboard_button(self):
-    self.login()
-    self.browser.get(self.live_server_url + '/login')
-    home = self.browser.find_element_by_id('id_navbar_home')
-    home.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Your Dashboard', body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/login')
+      home = self.browser.find_element_by_id('id_navbar_home')
+      home.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Your Dashboard', body.text)
 
   def test_register_button(self):
     with self.settings(DEBUG=True):
@@ -111,14 +112,16 @@ class NavBar(LiveServerTestCase):
     self.assertNotIn('Log Out', body.text)
 
   def test_login_button_not_viewable_when_logged_in(self):
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertNotIn('Log In', body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertNotIn('Log In', body.text)
 
   def test_register_button_not_viewable_when_logged_in(self):
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertNotIn('Register', body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertNotIn('Register', body.text)
 
   def test_import_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
