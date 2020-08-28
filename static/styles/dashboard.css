@@ -12,7 +12,12 @@
   margin-left: -2.5px;
 }
 
+.dashboard_stat{
+  width: 100%;
+}
+
 .dashboard_stat_container_left{
+  width: 30%;
   background-color: white;
   font-family: 'Lato', sans-serif;
   float: left;
@@ -22,6 +27,7 @@
 }
 
 .dashboard_stat_container_center{
+  width: 30%;
   background-color: white;
   font-family: 'Lato', sans-serif;
   float: center;
@@ -32,6 +38,7 @@
 }
 
 .dashboard_stat_container_right{
+  width: 30%;
   background-color: white;
   font-family: 'Lato', sans-serif;
   float: right;

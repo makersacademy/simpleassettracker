@@ -12,19 +12,19 @@
   {% endif %}
   <div class="dashboard_container">
   <h1 id="dashboard_title">Your Dashboard</h1> 
+  <div class='dashboard_stat'>
+    <div class="dashboard_stat_container_left">
+        Total number of assets: {{ asset_count }}
+    </div>
 
-  <div class="dashboard_stat_container_left">
-    Total number of assets: {{ asset_count }}
+    <div class="dashboard_stat_container_right">
+        Total number of mobiles: {{ mobile_count }}
+    </div>
+
+    <div class="dashboard_stat_container_center">
+        Total number of laptops: {{ laptop_count }}
+    </div>
   </div>
-
-  <div class="dashboard_stat_container_right">
-    Total number of mobiles: {{ mobile_count }}
-  </div>
-
-  <div class="dashboard_stat_container_center">
-    Total number of laptops: {{ laptop_count }}
-  </div>
-
   </div>
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'styles/dashboard.css' %}">  
