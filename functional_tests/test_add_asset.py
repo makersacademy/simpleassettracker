@@ -16,7 +16,7 @@ class AddAsset(LiveServerTestCase):
 
   def tearDown(self):
     self.browser.quit()
-  
+
   def login(self):
     self.browser.get(self.live_server_url + '/login')
     username_field = self.browser.find_element_by_id('id_username')
@@ -26,34 +26,37 @@ class AddAsset(LiveServerTestCase):
     password_field.send_keys(Keys.RETURN)
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
-  
+
   def test_add_asset_on_page(self):
-    self.login()
-    self.browser.get(self.live_server_url + '/assets/add')
-    time.sleep(1)
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Add an Asset', body.text)
-  
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Add an Asset', body.text)
+
   def test_add_asset_form_is_on_page(self):
-    self.login()
-    self.browser.get(self.live_server_url + '/assets/add')
-    time.sleep(1)
-    asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-    asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-    self.assertEquals(True, asset_tag_field.is_displayed())
-    self.assertEquals(True, asset_type_field.is_displayed())
-    
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+      self.assertEquals(True, asset_tag_field.is_displayed())
+      self.assertEquals(True, asset_type_field.is_displayed())
+
   def test_form_can_be_submitted_and_redirect(self):
-    self.login()
-    self.browser.get(self.live_server_url + '/assets/add')
-    time.sleep(1)
-    asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-    asset_tag_field.send_keys('HD1269')
-    asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-    asset_type_field.send_keys('Laptop')
-    asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
-    asset_submit_button.send_keys(Keys.RETURN)
-    self.browser.get(self.live_server_url + '/assets')
-    time.sleep(1)
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('HD1269', body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+      asset_tag_field.send_keys('HD1269')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+      asset_type_field.send_keys('Laptop')
+      asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
+      asset_submit_button.send_keys(Keys.RETURN)
+      self.browser.get(self.live_server_url + '/assets')
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('HD1269', body.text)

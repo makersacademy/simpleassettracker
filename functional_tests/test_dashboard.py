@@ -29,37 +29,42 @@ class Dashboard(LiveServerTestCase):
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
   def test_dashboard_not_viewable_when_logged_out(self):
-    self.browser.get(self.live_server_url + '/dashboard')
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Login:', body.text)
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url + '/dashboard')
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Login:', body.text)
 
   def test_zero_asset_count(self):
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Total number of assets: 0', body.text)
+    with self.settings(DEBUG=True):
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of assets: 0', body.text)
 
   def test_dashboard_showing_count_of_assets(self):
-    self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
-    self.A.save()
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Total number of assets: 1', body.text)
+    with self.settings(DEBUG=True):
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A.save()
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of assets: 1', body.text)
 
   def test_dashboard_showing_count_of_laptops(self):
-    self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
-    self.A.save()
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Total number of laptops: 1', body.text)
-    self.assertIn('Total number of mobiles: 0', body.text)
+    with self.settings(DEBUG=True):
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A.save()
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of laptops: 1', body.text)
+      self.assertIn('Total number of mobiles: 0', body.text)
 
   def test_dashboard_showing_count_of_mobiles(self):
-    self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
-    self.A.save()
-    self.login()
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertIn('Total number of laptops: 0', body.text)
-    self.assertIn('Total number of mobiles: 1', body.text)
+    with self.settings(DEBUG=True):
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+      self.A.save()
+      self.login()
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Total number of laptops: 0', body.text)
+      self.assertIn('Total number of mobiles: 1', body.text)
 
   def test_add_asset_and_count_increases(self):
     with self.settings(DEBUG=True):

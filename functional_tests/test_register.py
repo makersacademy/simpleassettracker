@@ -63,23 +63,23 @@ class LoginAndOutTest(LiveServerTestCase):
     self.browser.quit()
 
   def test_user_can_login_and_logout(self):
-    # loggin in
-    self.browser.get(self.live_server_url + '/login')
-    username_field = self.browser.find_element_by_id('id_username')
-    username_field.send_keys('admin1')
-    password_field = self.browser.find_element_by_id('id_password')
-    password_field.send_keys('admin1')
-    password_field.send_keys(Keys.RETURN)
-    wait = WebDriverWait(self.browser, 5)
-    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
-    body = self.browser.find_element_by_tag_name('body')
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url + '/login')
+      username_field = self.browser.find_element_by_id('id_username')
+      username_field.send_keys('admin1')
+      password_field = self.browser.find_element_by_id('id_password')
+      password_field.send_keys('admin1')
+      password_field.send_keys(Keys.RETURN)
+      wait = WebDriverWait(self.browser, 5)
+      wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
+      body = self.browser.find_element_by_tag_name('body')
 
-    self.assertIn('Admin1', body.text)
-    logout = self.browser.find_element_by_id('id_navbar_logout')
-    logout.send_keys(Keys.RETURN)
-    time.sleep(1)
-    body = self.browser.find_element_by_tag_name('body')
-    self.assertNotIn('Admin1', body.text)
+      self.assertIn('Admin1', body.text)
+      logout = self.browser.find_element_by_id('id_navbar_logout')
+      logout.send_keys(Keys.RETURN)
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertNotIn('Admin1', body.text)
 
 class IndexTest(LiveServerTestCase):
   def setUp(self):
@@ -89,6 +89,7 @@ class IndexTest(LiveServerTestCase):
     self.browser.quit()
 
   def test_index_text(self):
-    self.browser.get(self.live_server_url)
-    body = self.browser.find_element_by_tag_name('body')
-    assert 'Simple Asset Tracker' in body.text
+    with self.settings(DEBUG=True):
+      self.browser.get(self.live_server_url)
+      body = self.browser.find_element_by_tag_name('body')
+      assert 'Simple Asset Tracker' in body.text

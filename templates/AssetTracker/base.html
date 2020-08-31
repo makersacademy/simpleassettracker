@@ -1,7 +1,8 @@
 <html>
     <head>
-        {% load static %}        
-        <link rel="stylesheet" type="image/x-icon/png" href="{% static 'img/favicon.ico' %}">
+        {% load static %}
+        <link rel="shortcut icon" href="{% static '/img/favicon.ico' %}" type='image/x-icon' >
+        <link rel="icon" href="{% static '/img/favicon.ico' %}" type='image/x-icon'>
         <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
@@ -21,39 +22,39 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="id_navbar_asset" href="/assets">Assets</a>
-                    </li>           
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="id_navbar_asset_add" href="/assets/add">Add Asset</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="id_navbar_import" href="/import">Import</a>
-                    </li>    
+                    </li>
                     {% else %}
                     <li class="nav-item active">
                         <a class="nav-link" id="id_navbar_home" href="/">Home<span class="sr-only">(current)</span></a>
-                    </li>          
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="id_navbar_register" href="/register">Register</a>
-                    </li>          
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="id_navbar_login" href="/login">Log In</a>
-                    </li>          
+                    </li>
                     {% endif %}
                 </li>
                 </ul>
             </div>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">  
-                    {% if request.user.is_authenticated %}    
+                <ul class="navbar-nav ml-auto">
+                    {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" id="id_navbar_username" >{{ request.user.username.capitalize }} </a>
-                        </li>   
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" id="id_navbar_logout" href="/logout">Log Out</a>
-                        </li>  
+                        </li>
                     {% endif %}
                 </ul>
-            </div> 
+            </div>
         </nav>
     </head>
     <body style="background-color:rgba(242, 242, 242, 0.836);">
