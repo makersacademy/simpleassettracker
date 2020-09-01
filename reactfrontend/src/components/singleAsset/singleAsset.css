@@ -1,0 +1,12 @@
+.singleAsset {
+    margin: 56px 3%;
+    width: 94%;
+    height: 80%;
+    background-color: burlywood;
+    z-index: 100;
+    position: absolute;
+    padding: 30px;
+    box-sizing: border-box;
+    left: 0px;
+    top: 1%;
+}

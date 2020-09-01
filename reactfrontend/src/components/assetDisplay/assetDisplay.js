@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import * as ReactBootStrap from 'react-bootstrap'
 import './assetDisplay.css'
+import SingleAsset from '../singleAsset/singleAsset'
 
 class AssetDisplay extends Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class AssetDisplay extends Component {
             data: [],
             loaded: false,
             placeholder: "Loading",           
-            descending: false,
+						descending: false,
+						showAsset: false
         };
     }
   
@@ -90,6 +92,10 @@ class AssetDisplay extends Component {
 		this.setState({ data: newData })
 	}
 
+	showAsset() {
+		this.setState({ showAsset: true })
+	}
+
 	render() {
 		let arrow = null
 		if(this.state.descending === false) {          
@@ -97,9 +103,15 @@ class AssetDisplay extends Component {
 		} else {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8595;</p>
 		}
+
+		let asset = null
+		if(this.state.showAsset === true){
+			asset = <SingleAsset />
+		}
 		
 		return (
 		<div className="table_container">
+			{asset}
 			<h1 style={{marginLeft: '63px'}}>Your Assets</h1>
 			<ReactBootStrap.Table>
 				<thead>
@@ -113,7 +125,7 @@ class AssetDisplay extends Component {
 				<tbody>
 					{this.state.data.map(asset => {
 						return (
-							<tr key={asset.id} className="asset_row">
+							<tr key={asset.id} className="asset_row" onClick={() => this.showAsset()}>
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
 								<td scope="row">{asset.AssetTag}</td>
 								<td>{asset.DeviceType}</td>
