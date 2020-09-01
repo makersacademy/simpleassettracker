@@ -25,7 +25,7 @@ class AssetDisplay extends Component {
 			return response.json();
 			})
 			.then(data => {
-				console.log(data)
+				data = this.finalizeResponse(data)
 				this.setState(() => {
 					return {
 					data,
@@ -33,6 +33,18 @@ class AssetDisplay extends Component {
 					};
 				});
 			});
+	}
+
+	finalizeResponse(data) {
+		var length = data.length
+		var newArray = []
+		for(var i=0; i < length; i++) {
+				console.log(data[i].CreatedBy)
+				if (data[i].CreatedBy == window.django.user.user_id) {
+						newArray.push(data[i])
+				}
+		}
+		return newArray
 	}
 
 	getCookie(name) {
@@ -45,7 +57,6 @@ class AssetDisplay extends Component {
 		}
 		return null;
 	}
-
 
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
