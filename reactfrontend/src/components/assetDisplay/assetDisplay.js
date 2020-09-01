@@ -25,7 +25,6 @@ class AssetDisplay extends Component {
 			return response.json();
 			})
 			.then(data => {
-				data = this.finalizeResponse(data)
 				this.setState(() => {
 					return {
 					data,
