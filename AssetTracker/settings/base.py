@@ -63,6 +63,9 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     'importcsv.apps.ImportcsvConfig',
     'index.apps.IndexConfig',
+    'companies.apps.CompaniesConfig',
+    'companyusers.apps.CompanyusersConfig',
+
 ]
 
 MIDDLEWARE = [
