@@ -19,14 +19,11 @@ class AddAssetForm extends Component {
   }
 
   componentDidMount() {
-    console.log("mounting")
-    getCompanyID()
     const newData = {...this.state.asset}
     let newDataUser = {...newData["createdBy"]}
     newDataUser = window.django.user.user_id
     newData["createdBy"] = newDataUser
     this.setState({asset: newData})
-    getCompanyID()
   }
 
   getCookie(name) {
