@@ -77,3 +77,16 @@ class Importcsv(LiveServerTestCase):
       time.sleep(1)
       message = self.browser.find_element_by_class_name('messages')
       self.assertIn('Unable to upload file.', message.text)
+
+  def test_empty_field_invalid(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/import')
+      time.sleep(1)
+      element = self.browser.find_element_by_id("csv_file")
+      element.send_keys(csvpath+"static_csv/invalidasset.csv")
+      button = self.browser.find_element_by_id("upload_button")
+      button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      message = self.browser.find_element_by_class_name('messages')
+      self.assertIn('Field required - unable to upload.', message.text)
