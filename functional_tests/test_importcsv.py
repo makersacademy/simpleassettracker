@@ -51,3 +51,29 @@ class Importcsv(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('TEST12', body.text)
+
+  def test_invalid_file_type(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/import')
+      time.sleep(1)
+      element = self.browser.find_element_by_id("csv_file")
+      element.send_keys(csvpath+"static_csv/invalidasset.txt")
+      button = self.browser.find_element_by_id("upload_button")
+      button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      message = self.browser.find_element_by_class_name('messages')
+      self.assertIn('File is not CSV type', message.text)
+
+  def test_invalid_file_format(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/import')
+      time.sleep(1)
+      element = self.browser.find_element_by_id("csv_file")
+      element.send_keys(csvpath+"static_csv/invalidasset.csv")
+      button = self.browser.find_element_by_id("upload_button")
+      button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      message = self.browser.find_element_by_class_name('messages')
+      self.assertIn('Unable to upload file.', message.text)
