@@ -7,6 +7,7 @@ from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
 from assets.models import Asset
 from companies.models import Company
+from companyusers.models import CompanyUser
 import time
 
 class AssetTest(LiveServerTestCase):
@@ -15,10 +16,15 @@ class AssetTest(LiveServerTestCase):
     self.browser = webdriver.Firefox()
     self.company = Company(Name="Makers")
     self.company.save()
+    self.company2 = Company(Name="IBM")
+    self.company2.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.user2 = User.objects.create_user(username='admin2', password='admin2', email='test2@test.com', is_active=True)
     self.user2.save()
+    self.CompanyUser2 = CompanyUser.objects.get(User=self.user2)
+    self.CompanyUser2.Company = self.company2
+    self.CompanyUser2.save()
     self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user, Company=self.company)
     self.A.save()
 
@@ -55,7 +61,7 @@ class AssetTest(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('BR20RL', body.text)
 
-  def test_asset_only_available_to_creator(self):
+  def test_asset_not_available_to_user_from_different_company(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
