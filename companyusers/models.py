@@ -15,9 +15,5 @@ class CompanyUser(models.Model):
 @receiver(post_save, sender=User)
 def create_companyuser(sender, instance, created, **kwargs):
     if created:
-        C = CompanyUser.objects.create(User=instance, Company=Company.objects.get(id=1))
+        C = CompanyUser.objects.create(User=instance, Company=Company.objects.get(Name="Makers"))
         C.save()
-
-# @receiver(post_save, sender=User)
-# def save_companyuser(sender, instance, **kwargs):
-#     instance.CompanyUser.save()

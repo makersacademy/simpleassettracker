@@ -6,17 +6,20 @@ from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
 from assets.models import Asset
+from companies.models import Company
 import time
 
 class AssetTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.user2 = User.objects.create_user(username='admin2', password='admin2', email='test2@test.com', is_active=True)
     self.user2.save()
-    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user)
+    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user, Company=self.company)
     self.A.save()
 
   def tearDown(self):

@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
+from companies.models import Company
 import time
 
 class SignUpFormTest(LiveServerTestCase):
@@ -30,6 +31,8 @@ class SignUpFormTest(LiveServerTestCase):
 class SignUpTest(LiveServerTestCase):
 
   def setUp(self):
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.browser = webdriver.Firefox()
 
   def tearDown(self):
@@ -47,7 +50,7 @@ class SignUpTest(LiveServerTestCase):
       password_confirmation_field = self.browser.find_element_by_id('id_password2')
       password_confirmation_field.send_keys('Th1sIsAT3st.')
       password_field.send_keys(Keys.RETURN)
-      time.sleep(1)
+      time.sleep(2)
       message = self.browser.find_element_by_class_name('messages')
       self.assertIn('Your account has been created! Please sign in', message.text)
 
@@ -87,6 +90,8 @@ class LoginAndOutTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
 

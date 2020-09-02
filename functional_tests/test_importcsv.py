@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
+from companies.models import Company
 import time, sys, os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,6 +15,8 @@ class Importcsv(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
 
