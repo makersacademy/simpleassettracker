@@ -46,6 +46,7 @@ def upload_csv(request):
           asset_count += 1
         else:
           logging.getLogger("error_logger").error(form.errors.as_json())
+          messages.error(request, "Field required - unable to upload. "+form.errors.as_json())
       except Exception as e:
         logging.getLogger("error_logger").error(repr(e))
         pass
