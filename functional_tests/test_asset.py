@@ -25,6 +25,8 @@ class AssetTest(LiveServerTestCase):
     self.CompanyUser2 = CompanyUser.objects.get(User=self.user2)
     self.CompanyUser2.Company = self.company2
     self.CompanyUser2.save()
+    self.user3 = User.objects.create_user(username='admin3', password='admin3', email='test3@test.com', is_active=True)
+    self.user3.save()
     self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user, Company=self.company)
     self.A.save()
 
@@ -51,15 +53,44 @@ class AssetTest(LiveServerTestCase):
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
+  def login3(self):
+    self.browser.get(self.live_server_url + '/login')
+    username_field = self.browser.find_element_by_id('id_username')
+    username_field.send_keys('admin3')
+    password_field = self.browser.find_element_by_id('id_password')
+    password_field.send_keys('admin3')
+    password_field.send_keys(Keys.RETURN)
+    wait = WebDriverWait(self.browser, 5)
+    wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
+
   def test_display_assets(self):  
     with self.settings(DEBUG=True):
       self.login()
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Admin1', body.text)
       self.browser.get(self.live_server_url + '/assets')
-      time.sleep(1)
+      time.sleep(3)
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('BR20RL', body.text)
+
+  def test_asset_visible_to_different_users_from_same_company(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+      asset_tag_field.send_keys('HD1269')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+      asset_type_field.send_keys('Laptop')
+      asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
+      asset_submit_button.send_keys(Keys.RETURN)
+      logout = self.browser.find_element_by_id('id_navbar_logout')
+      logout.send_keys(Keys.RETURN)
+      self.login3()
+      self.browser.get(self.live_server_url + '/assets')
+      time.sleep(5)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('HD1269', body.text)
 
   def test_asset_not_available_to_user_from_different_company(self):
     with self.settings(DEBUG=True):
@@ -79,3 +110,4 @@ class AssetTest(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertNotIn('HD1269', body.text)
+      self.assertNotIn('BR20RL', body.text)
