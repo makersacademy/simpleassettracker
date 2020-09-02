@@ -10,6 +10,7 @@ class AddAssetForm extends Component {
         assetType: 'Laptop',
         createdBy: '',
       },
+      company: "",
       showMessage: false,
     }
     this.submitHandler = this.submitHandler.bind(this)
@@ -24,6 +25,7 @@ class AddAssetForm extends Component {
     newDataUser = window.django.user.user_id
     newData["createdBy"] = newDataUser
     this.setState({asset: newData})
+    this.getCompanyID()
   }
 
   getCookie(name) {
@@ -37,6 +39,27 @@ class AddAssetForm extends Component {
     return null;
   }
 
+  getCompanyID(){
+    fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
+			.then(response => {
+				if (response.status > 400) {
+					return this.setState(() => {
+						return { placeholder: "Something went wrong!" };
+					});
+				}
+			return response.json();
+			})
+			.then(data => {
+			  console.log(data)
+				this.setState(() => {
+				  return {
+            company: data.Company
+          }
+				});
+			});
+    }
+
+
   submitHandler(event) {
     event.preventDefault()
     let csrfToken = this.getCookie('csrftoken')
@@ -49,8 +72,9 @@ class AddAssetForm extends Component {
         body: JSON.stringify({
             "AssetTag": this.state.asset.assetTag,
             "DeviceType": this.state.asset.assetType,
-            "CreatedBy": this.state.asset.createdBy
-        },),
+            "CreatedBy": this.state.asset.createdBy,
+            "Company": this.state.company
+        }),
     })
     .then(response => {
         if (response.ok) {
