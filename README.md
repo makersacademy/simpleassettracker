@@ -13,6 +13,12 @@ Ever struggled keeping track of which Mac Book each of your employees are holdin
 
 Providing a barebones yet full experience, this app was built with smaller start-ups in mind - where you don't need a load of fancy-shmancy features.
 
+### The App
+![Your Assets](https://user-images.githubusercontent.com/41115973/92376218-29ae4b00-f0fa-11ea-8ce6-c104fb6a44f5.png)
+
+![Add an Asset](https://user-images.githubusercontent.com/41115973/92376522-99bcd100-f0fa-11ea-9999-c300ae07f3d9.png)
+
+![Import Assets](https://user-images.githubusercontent.com/41115973/92376609-bb1dbd00-f0fa-11ea-9d32-a92fd8aaafe2.png)
 
 ### <a name="Contributors">Contributors</a>
 
