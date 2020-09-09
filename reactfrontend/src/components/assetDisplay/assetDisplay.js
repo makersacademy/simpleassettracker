@@ -12,7 +12,8 @@ class AssetDisplay extends Component {
             loaded: false,
             placeholder: "Loading",           
             descending: false,
-            showAsset: false
+            showAsset: false,
+            asset: null,
         };
     }
   
@@ -114,8 +115,12 @@ class AssetDisplay extends Component {
 		this.setState({ data: newData })
 	}
 
-	showAsset() {
-		this.setState({ showAsset: true })
+	showAsset(asset) {
+        this.setState({ showAsset: true , asset: asset})
+    }
+    
+	hideAsset() {
+		this.setState({ showAsset: false })
 	}
 
 	render() {
@@ -128,7 +133,7 @@ class AssetDisplay extends Component {
 
 		let asset = null
 		if(this.state.showAsset === true){
-			asset = <SingleAsset />
+			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
 		}
 		
 		return (
@@ -147,7 +152,7 @@ class AssetDisplay extends Component {
 				<tbody>
 					{this.state.data.map(asset => {
 						return (
-							<tr key={asset.id} className="asset_row" onClick={() => this.showAsset()}>
+							<tr key={asset.id} className="asset_row" onClick={() => this.showAsset(asset)}>
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
 								<td scope="row">{asset.AssetTag}</td>
 								<td>{asset.DeviceType}</td>

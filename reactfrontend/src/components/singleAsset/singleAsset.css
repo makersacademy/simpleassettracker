@@ -1,12 +1,61 @@
 .singleAsset {
-    margin: 56px 3%;
-    width: 94%;
+    margin: 56px 8px;
+    width: 98%;
     height: 80%;
-    background-color: burlywood;
+    background-color: white;
     z-index: 100;
     position: absolute;
-    padding: 30px;
+    padding: 15px 20px;
     box-sizing: border-box;
     left: 0px;
     top: 1%;
+    border: black solid 3px;
+    border-radius: 7px;
+}
+
+.SingleAssetTitle {
+    justify-content: space-between;
+    clear: both;
+}
+
+.SingleAssetHeader {
+    clear: both;
+}
+
+.SingleAssetPicture {
+    float: left;
+}
+
+.SingleAssetSummary {
+    float: left;
+}
+
+.SingleAssetOptions {  
+    clear: both;
+    display: flex;
+    padding: 10px 0 0 0;
+}
+
+.SingleAssetOptionsTab {
+    padding: 0 10px 0 0;
+    margin: 0;
+}
+
+.SingleAssetDetails {
+    clear: both;
+    width: 100%;
+    height: 53%;
+    border: black solid 3px;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.SingleAssetButton { 
+    bottom: 10px;
+    left: 10px;
+    position: absolute;
+    padding: 5px 20px;
+    margin: 0 8px;
+    border: black solid 3px;
+    border-radius: 7px;
 }
