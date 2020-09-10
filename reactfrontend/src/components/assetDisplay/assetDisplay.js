@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import * as ReactBootStrap from 'react-bootstrap'
 import './assetDisplay.css'
+import SingleAsset from '../singleAsset/singleAsset'
 
 class AssetDisplay extends Component {
     constructor(props) {
@@ -11,6 +12,8 @@ class AssetDisplay extends Component {
             loaded: false,
             placeholder: "Loading",           
             descending: false,
+            showAsset: false,
+            asset: null,
         };
     }
   
@@ -35,6 +38,17 @@ class AssetDisplay extends Component {
 			});
 	}
 
+	getCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+        return null;
+    }
+    
 	finalizeResponse(data) {
 		var length = data.length
 		var newArray = []
@@ -101,6 +115,14 @@ class AssetDisplay extends Component {
 		this.setState({ data: newData })
 	}
 
+	showAsset(asset) {
+        this.setState({ showAsset: true , asset: asset})
+    }
+    
+	hideAsset() {
+		this.setState({ showAsset: false })
+	}
+
 	render() {
 		let arrow = null
 		if(this.state.descending === false) {          
@@ -108,9 +130,15 @@ class AssetDisplay extends Component {
 		} else {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8595;</p>
 		}
+
+		let asset = null
+		if(this.state.showAsset === true){
+			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
+		}
 		
 		return (
 		<div className="table_container">
+			{asset}
 			<h1 style={{marginLeft: '63px'}}>Your Assets</h1>
 			<ReactBootStrap.Table>
 				<thead>
@@ -126,9 +154,9 @@ class AssetDisplay extends Component {
 						return (
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
-								<td scope="row">{asset.AssetTag}</td>
-								<td>{asset.DeviceType}</td>
-								<td className='align_center'>{asset.CreatedBy}</td>
+								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.AssetTag}</td>
+								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
+								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.CreatedBy}</td>
 							</tr>
 						);
 					})}

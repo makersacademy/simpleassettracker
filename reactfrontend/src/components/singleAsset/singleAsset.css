@@ -1,0 +1,62 @@
+.singleAsset {
+    width: 98%;
+    height: 80%;
+    background-color: white;
+    z-index: 100;
+    position: absolute;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    left: 1%;
+    top: 10%;
+    border: black solid 3px;
+    border-radius: 7px;
+}
+
+.SingleAssetTitle {
+    justify-content: space-between;
+    clear: both;
+}
+
+.SingleAssetHeader {
+    clear: both;
+}
+
+.SingleAssetPicture {
+    float: left;
+    width: 200px;
+}
+
+.SingleAssetSummary {
+    float: left;
+    margin: 35px 0 0 0;
+}
+
+.SingleAssetOptions {  
+    height: 16%;
+    clear: both;
+    display: flex;
+    padding: 10px 0 0 0;
+}
+
+.SingleAssetOptionsTab {
+    padding: 0 10px 0 10px;
+    margin: 0;
+    border: black solid 1px;
+    border-radius: 7px;
+}
+
+.SingleAssetDetails {
+    clear: both;
+    width: 100%;
+    height: 70%;
+    border: black solid 3px;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.SingleAssetButton {
+    clear: both;
+    padding: 5px 20px;
+    border: black solid 3px;
+    border-radius: 7px;
+}
