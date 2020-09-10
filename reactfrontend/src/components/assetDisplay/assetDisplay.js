@@ -152,11 +152,11 @@ class AssetDisplay extends Component {
 				<tbody>
 					{this.state.data.map(asset => {
 						return (
-							<tr key={asset.id} className="asset_row" onClick={() => this.showAsset(asset)}>
+							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
-								<td scope="row">{asset.AssetTag}</td>
-								<td>{asset.DeviceType}</td>
-								<td className='align_center'>{asset.CreatedBy}</td>
+								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.AssetTag}</td>
+								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
+								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.CreatedBy}</td>
 							</tr>
 						);
 					})}

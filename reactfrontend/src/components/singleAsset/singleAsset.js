@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import './singleAsset.css'
 
 class SingleAsset extends Component {
@@ -13,35 +12,43 @@ class SingleAsset extends Component {
 
     render() {
         let details = null
+        let tab1 = 'white'
+        let tab2 = 'white'
+        let tab3 = 'white'
         if(this.state.details === 'history'){
-            details = <h1>History</h1>
+            details = <h1>History component</h1>
+            tab1 = 'gray'
         } else if(this.state.details === 'details'){
-            details = <h1>Details</h1>
+            details = <h1>Details component</h1>
+            tab2 = 'gray'
         } else if(this.state.details === 'notes'){
-            details = <h1>Notes</h1>
+            details = <h1>Notes component</h1>
+            tab3 = 'gray'
         } 
-
 
         return(
             <div className='singleAsset'>
-                <div className='SingleAssetTitle'><h1>Single Asset</h1></div>
                 <div className='SingleAssetHeader'>
-                    <h1 className='SingleAssetPicture'>picture</h1>
-                    <div className='SingleAssetSummary'>
-                        {console.log(this.props.asset)}
-                        <h3>{this.props.asset.AssetTag}</h3>
-                        <h3>{this.props.asset.DeviceType}</h3>
+                    <div style={{ height: '40%'}}>
+                        <img className='SingleAssetPicture' alt='picture' src='../../../static/frontend/img/laptop.png'/>
+                        <div className='SingleAssetSummary'>
+                            {console.log(this.props.asset)}
+                            <h3>{this.props.asset.AssetTag}</h3>
+                            <h3>{this.props.asset.DeviceType}</h3>
+                        </div>
                     </div>
-                    <div className='SingleAssetOptions'>
-                        <h1 onClick={() => this.setState({ details: 'notes' })} className='SingleAssetOptionsTab'>Notes</h1>
-                        <h1 onClick={() => this.setState({ details: 'history' })}  className='SingleAssetOptionsTab'>History</h1>
-                        <h1 onClick={() => this.setState({ details: 'details' })}  className='SingleAssetOptionsTab'>Details</h1>
-                    </div>
-                    <div className='SingleAssetDetails'>
-                        {details}
+                    <div style={{ height: '60%'}}>
+                        <div className='SingleAssetOptions'>
+                            <h3 onClick={() => this.setState({ details: 'history' })} style={{backgroundColor: tab1}} className='SingleAssetOptionsTab' id='history-tab'>History</h3>
+                            <h3 onClick={() => this.setState({ details: 'details' })} style={{backgroundColor: tab2}} className='SingleAssetOptionsTab' id='details-tab'>Details</h3>
+                            <h3 onClick={() => this.setState({ details: 'notes' })} style={{backgroundColor: tab3}} className='SingleAssetOptionsTab' id='notes-tab'>Notes</h3>
+                        </div>
+                        <div className='SingleAssetDetails'>
+                            {details}
+                        </div>
+                        <button className='SingleAssetButton' onClick={this.props.hide} id='single-asset-submit'>  ✔  </button>
                     </div>
                 </div>
-                <button className='SingleAssetButton' onClick={this.props.hide}>  ✔  </button>
             </div>
         )
     }
