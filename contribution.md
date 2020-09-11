@@ -38,8 +38,8 @@ Our working schedule is Monday to Friday from 9 30 am to 1 pm, we are very flexi
 
 ### Testing 
 
-Ensure that all the code you write is tested, we have high test coverage and are doing our best to maintain it.
+Ensure that all the code you write is test-driven or tested, we have high test coverage and are doing our best to maintain it.
 
 ### Deployment
 
-We use automatic deployment on Heroku, which means every time we make changes to the master branch Heroku will recognize them and automatically deploy those changes to the live server. We also use Codeship as another layer of security. What Codeship does is it ensures that the app is working and all the tests are passing. If Codeship is failing that means either your code has a bug that prevents the app to be successfully deployed or at least one test not passing.
+We use automatic deployment on Heroku, which means every time we make changes to the master branch Heroku will recognize them and automatically deploy those changes to the live server. We also use Codeship as another layer of security. What Codeship does is it ensures that the app is working and all the tests are passing. If Codeship is failing that means either your code has a bug that prevents the app to be successfully deployed or at least one test is not passing.
