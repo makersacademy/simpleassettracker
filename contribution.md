@@ -6,7 +6,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 1. Ensure any dependencies you add are mentioned either in requirements.txt if its Django related or reactfrontend/package.json if its React related.
 2. Update the README.md with details of changes if you think that they were significant enough to do so.
-4. You have to ask another developer to review and approve your pull request before you can merge.
+3. You have to ask another developer to review and approve your pull request before you can merge.
 
 ### Our Standards
 
