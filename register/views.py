@@ -3,7 +3,8 @@ from .forms import RegisterForm
 from .forms import CompanyRegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from companyusers.models import CompanyUser
+from companies.models import Company
 
 # Create your views here.
 def register(response):
@@ -13,10 +14,12 @@ def register(response):
 
 
     if form.is_valid and company_form.is_valid():
-      user = form.save()
+      username = form.save()
+      user_object = User.objects.get(username=username)
       company = company_form.save()
-      company(Owned_by=User.models.get(username=user))
+      company.Owned_by=user_object
       company.save()
+      company_user = CompanyUser.objects.create(User=user_object, Company=company)
       messages.success(response, 'Your account and company has been created! Please sign in.')
       return redirect('login')
 
