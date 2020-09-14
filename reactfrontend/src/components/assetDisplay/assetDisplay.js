@@ -13,37 +13,52 @@ class AssetDisplay extends Component {
             placeholder: "Loading",           
             descending: false,
         };
-    }
-  
-	componentDidMount() {
-    this.getCompanyID();
-      fetch("api/asset")
-        .then(response => {
-          if (response.status > 400) {
-            return this.setState(() => {
-              return { placeholder: "Something went wrong!" };
-            });
-          }
-        return response.json();
-        })
-        .then(data => {
-          console.log(data)
-          data = this.finalizeResponse(data)
-          console.log(data)
-          this.setState(() => {
-            return {
-            data,
-            loaded: true
-            };
-          });
-        });
-
-	}
+		}
+	
+		componentDidMount() {
+			fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+				return response.json();
+				})
+				.then(data => {
+					this.setState(() => {
+						return {
+							company: data.Company
+						}
+					});
+					return fetch("api/asset")
+				})
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+					return response.json();
+					})
+					.then(data => {
+						console.log(data)
+						data = this.finalizeResponse(data)
+						console.log(data)
+						this.setState(() => {
+							return {
+							data,
+							loaded: true
+							};
+						});
+				});
+			}
 
 
 	finalizeResponse(data) {
 		var length = data.length
 		var newArray = []
+		console.log(this.state.company)
 		for(var i=0; i < length; i++) {
 				if (data[i].Company == this.state.company) {
 						newArray.push(data[i])
@@ -74,7 +89,6 @@ class AssetDisplay extends Component {
 			return response.json();
 			})
 			.then(data => {
-			  console.log(data)
 				this.setState(() => {
 				  return {
             company: data.Company
