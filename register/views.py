@@ -43,9 +43,9 @@ def registeruser(response):
     if form.is_valid and company_form.is_valid():
       username = form.save()
       user_object = User.objects.get(username=username)
-      company = company_form.save()
-      company_object=Company.objects.get(Name=company)
-      company_user = CompanyUser.objects.create(User=user_object, Company=company_object)
+      company_name = company_form.cleaned_data["Name"]
+      company_object=Company.objects.get(Name=company_name)
+      CompanyUser.objects.create(User=user_object, Company=company_object)
       messages.success(response, 'Your account has been created! Please sign in.')
       return redirect('login')
 
