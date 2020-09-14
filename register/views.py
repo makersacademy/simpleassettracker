@@ -7,7 +7,7 @@ from companyusers.models import CompanyUser
 from companies.models import Company
 
 # Create your views here.
-def register(response):
+def registercompany(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
@@ -33,3 +33,32 @@ def register(response):
     company_form = CompanyRegisterForm()
     form = RegisterForm()
     return render(response, "register/register.html", {"form": form, "company_form": company_form})
+
+def registeruser(response):
+  if response.method == "POST":
+    form = RegisterForm(response.POST)
+    company_form = CompanyRegisterForm(response.POST)
+
+
+    if form.is_valid and company_form.is_valid():
+      username = form.save()
+      user_object = User.objects.get(username=username)
+      company = company_form.save()
+      company_object=Company.objects.get(Name=company)
+      company_user = CompanyUser.objects.create(User=user_object, Company=company_object)
+      messages.success(response, 'Your account has been created! Please sign in.')
+      return redirect('login')
+
+    else:
+      form = RegisterForm()
+      company_form = CompanyRegisterForm()
+      messages.error(response, 'Invalid form submission')
+      return render(response, "register/register.html", {"form": form, "company_form": company_form})
+
+  else:
+    company_form = CompanyRegisterForm()
+    form = RegisterForm()
+    return render(response, "register/register.html", {"form": form, "company_form": company_form})
+
+def preregisterview(response):
+  return render(response, "register/preregister.html", {})
