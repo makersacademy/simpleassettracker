@@ -9,6 +9,7 @@ class AddAssetForm extends Component {
         assetTag: '',
         assetType: 'Laptop',
         createdBy: '',
+        assetStatus: 'Ready'
       },
       showMessage: false,
     }
@@ -49,7 +50,8 @@ class AddAssetForm extends Component {
         body: JSON.stringify({
             "AssetTag": this.state.asset.assetTag,
             "DeviceType": this.state.asset.assetType,
-            "CreatedBy": this.state.asset.createdBy
+            "CreatedBy": this.state.asset.createdBy,
+            "AssetStatus": this.state.asset.assetStatus
         },),
     })
     .then(response => {
