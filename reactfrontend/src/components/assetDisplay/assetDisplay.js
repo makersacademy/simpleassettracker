@@ -16,25 +16,28 @@ class AssetDisplay extends Component {
     }
   
 	componentDidMount() {
-		fetch("api/asset")
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
-					});
-				}
-			return response.json();
-			})
-			.then(data => {
-				data = this.finalizeResponse(data)
-				this.setState(() => {
-					return {
-					data,
-					loaded: true
-					};
-				});
-			});
-			this.getCompanyID()
+    this.getCompanyID();
+      fetch("api/asset")
+        .then(response => {
+          if (response.status > 400) {
+            return this.setState(() => {
+              return { placeholder: "Something went wrong!" };
+            });
+          }
+        return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          data = this.finalizeResponse(data)
+          console.log(data)
+          this.setState(() => {
+            return {
+            data,
+            loaded: true
+            };
+          });
+        });
+
 	}
 
 
@@ -42,7 +45,6 @@ class AssetDisplay extends Component {
 		var length = data.length
 		var newArray = []
 		for(var i=0; i < length; i++) {
-				console.log(data[i].Company)
 				if (data[i].Company == this.state.company) {
 						newArray.push(data[i])
 				}
@@ -125,7 +127,6 @@ class AssetDisplay extends Component {
 	}
 
 	render() {
-	  console.log(this.state.data)
 		let arrow = null
 		if(this.state.descending === false) {          
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8593;</p>

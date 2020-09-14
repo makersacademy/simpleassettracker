@@ -17,7 +17,8 @@
         {% endif %}
         <form method="POST" class="form-group">
         {% csrf_token %}
-        {{ form|crispy }}
+            {{ company_form|crispy }}
+            {{ form|crispy }}
         <button type="submit" id="register_button" class="btn btn-success">Register</button>
         </form>
     </div>
