@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
 from companies.models import Company
+from companyusers.models import CompanyUser
 import time
 
 class AddAsset(LiveServerTestCase):
@@ -16,6 +17,7 @@ class AddAsset(LiveServerTestCase):
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
+    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
 
   def tearDown(self):
     self.browser.quit()
