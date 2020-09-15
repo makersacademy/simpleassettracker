@@ -70,7 +70,12 @@ class AddAssetForm extends Component {
     event.preventDefault()
     const newData = {...this.state.asset}
     let newDataElement = {...newData[identifier]}
-    newDataElement = event.target.value
+    console.log(identifier)
+    if (identifier === 'assetTag') {
+      newDataElement = 'MA' + event.target.value
+    } else {
+      newDataElement = event.target.value
+    }
     newData[identifier] = newDataElement
     this.setState({asset: newData})
   }
