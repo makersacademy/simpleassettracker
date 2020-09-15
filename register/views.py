@@ -26,12 +26,12 @@ def registercompany(response):
       form = RegisterForm()
       company_form = CompanyRegisterForm()
       messages.error(response, 'Invalid form submission')
-      return render(response, "register/register.html", {"form": form, "company_form": company_form})
+      return render(response, "register/registercompany.html", {"form": form, "company_form": company_form})
 
   else:
     company_form = CompanyRegisterForm()
     form = RegisterForm()
-    return render(response, "register/register.html", {"form": form, "company_form": company_form})
+    return render(response, "register/registercompany.html", {"form": form, "company_form": company_form})
 
 def registeruser(response):
   if response.method == "POST":
@@ -51,12 +51,12 @@ def registeruser(response):
       form = RegisterForm()
       company_form = CompanyRegisterForm()
       messages.error(response, 'Invalid form submission')
-      return render(response, "register/register.html", {"form": form, "company_form": company_form})
+      return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
   else:
     company_form = CompanyRegisterForm()
     form = RegisterForm()
-    return render(response, "register/register.html", {"form": form, "company_form": company_form})
+    return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
 def preregisterview(response):
   return render(response, "register/preregister.html", {})
