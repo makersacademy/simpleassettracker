@@ -7,16 +7,17 @@ class AssetDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            company: '',
-            data: [],
+            companyusers: [],
+            assets: [],
             loaded: false,
             placeholder: "Loading",           
             descending: false,
         };
 		}
+
 	
 		componentDidMount() {
-			fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
+			fetch('/companyusers/api/companyusers/')
 				.then(response => {
 					if (response.status > 400) {
 						return this.setState(() => {
@@ -26,9 +27,10 @@ class AssetDisplay extends Component {
 				return response.json();
 				})
 				.then(data => {
+					data = this.finalizeCompanyResponse(data)
 					this.setState(() => {
 						return {
-							company: data.Company
+							companyusers: data
 						}
 					});
 					return fetch("api/asset")
@@ -42,25 +44,27 @@ class AssetDisplay extends Component {
 					return response.json();
 					})
 					.then(data => {
-						console.log(data)
 						data = this.finalizeResponse(data)
-						console.log(data)
 						this.setState(() => {
 							return {
-							data,
+							assets: data,
 							loaded: true
 							};
 						});
 				});
 			}
+	
+	finalizeCompanyResponse(data) {
+		var newArray = data.map(x => x.User)
+		return newArray
+	}
 
 
 	finalizeResponse(data) {
 		var length = data.length
 		var newArray = []
-		console.log(this.state.company)
 		for(var i=0; i < length; i++) {
-				if (data[i].Company == this.state.company) {
+				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
 						newArray.push(data[i])
 				}
 		}
@@ -78,24 +82,24 @@ class AssetDisplay extends Component {
 		return null;
 	}
 
-  getCompanyID(){
-    fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
-					});
-				}
-			return response.json();
-			})
-			.then(data => {
-				this.setState(() => {
-				  return {
-            company: data.Company
-          }
-				});
-			});
-    }
+  // getCompanyID(){
+  //   fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
+	// 		.then(response => {
+	// 			if (response.status > 400) {
+	// 				return this.setState(() => {
+	// 					return { placeholder: "Something went wrong!" };
+	// 				});
+	// 			}
+	// 		return response.json();
+	// 		})
+	// 		.then(data => {
+	// 			this.setState(() => {
+	// 			  return {
+  //           company: data.Company
+  //         }
+	// 			});
+	// 		});
+  //   }
 
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
@@ -161,7 +165,7 @@ class AssetDisplay extends Component {
 					</tr>
 				</thead>
 				<tbody>
-					{this.state.data.map(asset => {
+					{this.state.assets.map(asset => {
 						return (
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
