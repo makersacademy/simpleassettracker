@@ -7,7 +7,22 @@ class SingleAsset extends Component {
         this.state = {
             data: [],
             details: null,
+            asset: {
+              assetTag: '',
+              assetType: '',
+              createdBy: '',
+              assetStatus: ''
+            }
         };
+    }
+
+    componentDidMount() {
+      this.setState({
+        assetTag: this.props.asset.assetTag,
+        assetType: this.props.asset.assetType,
+        createdBy: this.props.asset.createdBy,
+        assetStatus: this.props.asset.assetStatus
+      })
     }
 
     render() {
@@ -32,8 +47,23 @@ class SingleAsset extends Component {
                     <div style={{ height: '40%'}}>
                         <img className='SingleAssetPicture' alt='picture' src='../../../static/frontend/img/laptop.png'/>
                         <div className='SingleAssetSummary'>
-                            {console.log(this.props.asset)}
                             <h3>{this.props.asset.AssetTag}</h3>
+                            <div>
+                              <h3>{this.props.asset.AssetStatus}</h3>
+                              <select defaultValue={this.props.assetStatus} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'assetType')}>
+                                <option value="In Repair">In Repair</option>
+                                <option value="Locked at the office">Locked at the office</option>
+                                <option value="On Loan">On Loan</option>
+                                <option value="Needs Resetting">Needs Resetting</option>
+                                <option value="Extended Loan">Extended Loan</option>
+                                <option value="Unknown">Unknown</option>
+                                <option value="Lost">Lost</option>
+                                <option value="Stolen">Stolen</option>
+                                <option value="Unavailable">Unavailable</option>
+                                <option value="Broken">Broken</option>
+                                <option value="Ready">Ready</option>
+                              </select>
+                            </div>
                             <h3>{this.props.asset.DeviceType}</h3>
                         </div>
                     </div>
