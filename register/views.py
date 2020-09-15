@@ -12,7 +12,6 @@ def registercompany(response):
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
 
-
     if form.is_valid and company_form.is_valid():
       username = form.save()
       user_object = User.objects.get(username=username)
@@ -38,7 +37,6 @@ def registeruser(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
-
 
     if form.is_valid and company_form.is_valid():
       username = form.save()
