@@ -199,16 +199,3 @@ class LoginAndOutTest(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertNotIn('Admin1', body.text)
-
-class IndexTest(LiveServerTestCase):
-  def setUp(self):
-    self.browser = webdriver.Firefox()
-
-  def tearDown(self):
-    self.browser.quit()
-
-  def test_index_text(self):
-    with self.settings(DEBUG=True):
-      self.browser.get(self.live_server_url)
-      body = self.browser.find_element_by_tag_name('body')
-      assert 'Simple Asset Tracker' in body.text
