@@ -49,7 +49,6 @@ class SingleAsset extends Component {
                         <div className='SingleAssetSummary'>
                             <h3>{this.props.asset.AssetTag}</h3>
                             <div>
-                              <h3>{this.props.asset.AssetStatus}</h3>
                               <select defaultValue={this.props.assetStatus} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'assetType')}>
                                 <option value="In Repair">In Repair</option>
                                 <option value="Locked at the office">Locked at the office</option>
