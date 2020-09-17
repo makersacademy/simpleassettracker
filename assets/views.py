@@ -9,5 +9,3 @@ class AssetListCreate(generics.ListCreateAPIView):
 class AssetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
-
-

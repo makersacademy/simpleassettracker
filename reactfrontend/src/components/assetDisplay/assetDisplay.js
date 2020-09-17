@@ -8,53 +8,65 @@ class AssetDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            companyusers: [],
+            assets: [],
             loaded: false,
             placeholder: "Loading",           
             descending: false,
             showAsset: false,
             asset: null,
         };
-    }
-  
-	componentDidMount() {
-		fetch("api/asset")
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
+		}
+
+	
+		componentDidMount() {
+			fetch('/companyusers/api/companyusers/')
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+				return response.json();
+				})
+				.then(data => {
+					data = this.finalizeCompanyResponse(data)
+					this.setState(() => {
+						return {
+							companyusers: data
+						}
 					});
-				}
-			return response.json();
-			})
-			.then(data => {
-				data = this.finalizeResponse(data)
-				this.setState(() => {
-					return {
-					data,
-					loaded: true
-					};
+					return fetch("api/asset")
+				})
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+					return response.json();
+					})
+					.then(data => {
+						data = this.finalizeResponse(data)
+						this.setState(() => {
+							return {
+							assets: data,
+							loaded: true
+							};
+						});
 				});
-			});
+			}
+	
+	finalizeCompanyResponse(data) {
+		var newArray = data.map(x => x.User)
+		return newArray
 	}
 
-	getCookie(name) {
-		var nameEQ = name + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0;i < ca.length;i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1,c.length);
-			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-		}
-        return null;
-    }
-    
 	finalizeResponse(data) {
 		var length = data.length
 		var newArray = []
 		for(var i=0; i < length; i++) {
-				console.log(data[i].CreatedBy)
-				if (data[i].CreatedBy == window.django.user.user_id) {
+				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
 						newArray.push(data[i])
 				}
 		}
@@ -71,6 +83,7 @@ class AssetDisplay extends Component {
 		}
 		return null;
 	}
+
 
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
@@ -150,7 +163,7 @@ class AssetDisplay extends Component {
 					</tr>
 				</thead>
 				<tbody>
-					{this.state.data.map(asset => {
+					{this.state.assets.map(asset => {
 						return (
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
