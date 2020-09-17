@@ -9,7 +9,6 @@ from companyusers.models import CompanyUser
 from companies.models import Company
 import time, sys, os
 
-
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 csvpath = os.path.join(os.path.sep, ROOT_DIR,'../static'+ os.sep)
 
