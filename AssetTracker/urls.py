@@ -29,4 +29,5 @@ urlpatterns = [
     path('', include("django.contrib.auth.urls")),
     path('', include('reactfrontend.urls')),
     path('', include('importcsv.urls')),
+    path('', include('notifications.urls')),
 ]

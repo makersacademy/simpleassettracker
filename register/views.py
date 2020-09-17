@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from companyusers.models import CompanyUser
 from companies.models import Company
+from notifications.models import Notification
 
 # Create your views here.
 def registercompany(response):
@@ -45,6 +46,7 @@ def registeruser(response):
       company_object = Company.objects.get(Name=company_name)
       CompanyUser.objects.create(User=user_object, Company=company_object)
       messages.success(response, 'Your account has been created! Please sign in.')
+      Notification.objects.create(Type="User Authentication", Title=f'{user_object} requires Authentication', Body="", Company=company_object, Admin_Only=True, Action_Required=True)
       return redirect('login')
 
     else:

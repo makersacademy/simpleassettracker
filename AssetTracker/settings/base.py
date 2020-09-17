@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'index.apps.IndexConfig',
     'companies.apps.CompaniesConfig',
     'companyusers.apps.CompanyusersConfig',
+    'notifications.apps.NotificationsConfig',
 ]
 
 MIDDLEWARE = [
