@@ -82,24 +82,6 @@ class AssetDisplay extends Component {
 		return null;
 	}
 
-  // getCompanyID(){
-  //   fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
-	// 		.then(response => {
-	// 			if (response.status > 400) {
-	// 				return this.setState(() => {
-	// 					return { placeholder: "Something went wrong!" };
-	// 				});
-	// 			}
-	// 		return response.json();
-	// 		})
-	// 		.then(data => {
-	// 			this.setState(() => {
-	// 			  return {
-  //           company: data.Company
-  //         }
-	// 			});
-	// 		});
-  //   }
 
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {

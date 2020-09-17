@@ -41,7 +41,7 @@ def create_user():
   return user
 
 def create_asset(user_instance):
-  A = Asset(AssetTag=get_random_tag(), DeviceType=get_random_type(), CreatedBy=user_instance, Company=CompanyUser.objects.get(User=user_instance).Company)
+  A = Asset(AssetTag=get_random_tag(), DeviceType=get_random_type(), CreatedBy=user_instance)
   A.save()
 
 def create_company(name):

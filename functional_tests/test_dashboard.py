@@ -47,7 +47,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_assets(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -55,7 +55,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_laptops(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -64,7 +64,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_mobiles(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -91,7 +91,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_asset_deletes_and_count_decreases(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
