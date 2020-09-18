@@ -11,14 +11,14 @@ class AssetDisplay extends Component {
             companyusers: [],
             assets: [],
             loaded: false,
-            placeholder: "Loading",           
+            placeholder: "Loading",
             descending: false,
             showAsset: false,
             asset: null,
         };
 		}
 
-	
+
 		componentDidMount() {
 			fetch('/companyusers/api/companyusers/')
 				.then(response => {
@@ -56,7 +56,7 @@ class AssetDisplay extends Component {
 						});
 				});
 			}
-	
+
 	finalizeCompanyResponse(data) {
 		var newArray = data.map(x => x.User)
 		return newArray
@@ -94,7 +94,7 @@ class AssetDisplay extends Component {
 			},
 		})
 		.then(() => {
-			this.setState({data: this.state.data.filter(asset => asset_object.id !== asset.id)})
+			this.setState({assets: this.state.assets.filter(asset => asset_object.id !== asset.id)})
 		});
 	};
 
@@ -131,14 +131,14 @@ class AssetDisplay extends Component {
 	showAsset(asset) {
         this.setState({ showAsset: true , asset: asset})
     }
-    
+
 	hideAsset() {
 		this.setState({ showAsset: false })
 	}
 
 	render() {
 		let arrow = null
-		if(this.state.descending === false) {          
+		if(this.state.descending === false) {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8593;</p>
 		} else {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8595;</p>
@@ -148,7 +148,7 @@ class AssetDisplay extends Component {
 		if(this.state.showAsset === true){
 			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
 		}
-		
+
 		return (
 		<div className="table_container">
 			{asset}
@@ -179,5 +179,5 @@ class AssetDisplay extends Component {
 		);
 	}
 }
-  
+
 export default AssetDisplay;
