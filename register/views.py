@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .forms import CompanyRegisterForm
 from django.contrib import messages
+from register.models import UnauthorizedUser
 from django.contrib.auth.models import User
 from companyusers.models import CompanyUser
 from companies.models import Company
@@ -40,11 +41,13 @@ def registeruser(response):
 
     if form.is_valid():
       company_name = response.POST["Name"]
-      username = form.save()
-      user_object = User.objects.get(username=username)
+      user = form.save()
       company_object = Company.objects.get(Name=company_name)
-      CompanyUser.objects.create(User=user_object, Company=company_object)
-      messages.success(response, 'Your account has been created! Please sign in.')
+      print(company_object)
+      user.Company_id = company_object.id
+      user.save()
+      # CompanyUser.objects.create(User=user_object, Company=company_object)
+      messages.success(response, 'Your account request has been submitted and is awaiting approval.')
       return redirect('login')
 
     else:
