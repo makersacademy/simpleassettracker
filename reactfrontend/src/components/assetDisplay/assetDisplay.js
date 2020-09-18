@@ -94,6 +94,7 @@ class AssetDisplay extends Component {
 			},
 		})
 		.then(() => {
+		  print(this.state.data)
 			this.setState({data: this.state.data.filter(asset => asset_object.id !== asset.id)})
 		});
 	};

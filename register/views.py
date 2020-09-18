@@ -20,6 +20,7 @@ def registercompany(response):
       company.Owned_by=user_object
       company.save()
       company_user = CompanyUser.objects.create(User=user_object, Company=company)
+      company_user.save()
       messages.success(response, 'Your account and company has been created! Please sign in.')
       return redirect('login')
 
@@ -46,7 +47,7 @@ def registeruser(response):
       company_object = Company.objects.get(Name=company_name)
       CompanyUser.objects.create(User=user_object, Company=company_object)
       messages.success(response, 'Your account has been created! Please sign in.')
-      Notification.objects.create(Type="User Authentication", Title=f'{user_object} requires Authentication', Body="", Company=company_object, Admin_Only=True, Action_Required=True)
+      Notification.objects.create(Type="User Authentication", Title=f'{user_object} requires Authentication', Body=f'Please authenticate {user_object}', Company=company_object, Admin_Only=True, Action_Required=True)
       return redirect('login')
 
     else:
