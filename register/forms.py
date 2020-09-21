@@ -4,12 +4,18 @@ from django.contrib.auth.models import User
 from register.models import UnauthorizedUser
 from companies.models import Company
 
-
-class RegisterForm(forms.ModelForm):
+class RegisterUnauthForm(forms.ModelForm):
 
   class Meta:
     model = UnauthorizedUser
-    fields = ("Username", "Password", "Email")
+    fields = ("Username", "Email", "Password")
+
+class RegisterForm(UserCreationForm):
+  email = forms.EmailField()
+
+  class Meta:
+    model = User
+    fields = ("username", "email", "password1", "password2")
 
 
 class CompanyRegisterForm(forms.ModelForm):

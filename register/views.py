@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .forms import CompanyRegisterForm
+from .forms import RegisterUnauthForm
 from django.contrib import messages
 from register.models import UnauthorizedUser
 from django.contrib.auth.models import User
@@ -36,7 +37,7 @@ def registercompany(response):
 
 def registeruser(response):
   if response.method == "POST":
-    form = RegisterForm(response.POST)
+    form = RegisterUnauthForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
 
     if form.is_valid():
@@ -51,14 +52,14 @@ def registeruser(response):
       return redirect('login')
 
     else:
-      form = RegisterForm()
+      form = RegisterUnauthForm()
       company_form = CompanyRegisterForm()
       messages.error(response, 'Invalid form submission')
       return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
   else:
     company_form = CompanyRegisterForm()
-    form = RegisterForm()
+    form = RegisterUnauthForm()
     return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
 def preregisterview(response):
