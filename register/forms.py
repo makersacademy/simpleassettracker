@@ -5,6 +5,8 @@ from register.models import UnauthorizedUser
 from companies.models import Company
 
 class RegisterUnauthForm(forms.ModelForm):
+  Password = forms.CharField(widget=forms.PasswordInput)
+  Email = forms.EmailField()
 
   class Meta:
     model = UnauthorizedUser
