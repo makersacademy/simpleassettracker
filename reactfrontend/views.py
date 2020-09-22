@@ -7,3 +7,6 @@ def assets(request):
 
 def addAssets(request):
     return render(request, 'reactfrontend/addAssets.html')
+
+def unauthorizedUsers(request):
+  return render(request, 'reactfrontend/unauthorizedUsers.html')
