@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .forms import CompanyRegisterForm
+from .serializers import UnauthorizedUserSerializer
+from rest_framework import generics
 from django.contrib import messages
 from register.models import UnauthorizedUser
 from django.contrib.auth.models import User
@@ -64,3 +66,10 @@ def registeruser(response):
 
 def preregisterview(response):
   return render(response, "register/preregister.html", {})
+
+class UnauthorizedUserList(generics.ListAPIView):
+  serializer_class = UnauthorizedUserSerializer
+  
+  def get_queryset(self):
+    queryset = UnauthorizedUser.objects.all()
+    return queryset
