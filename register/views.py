@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .forms import CompanyRegisterForm
-from .forms import RegisterUnauthForm
 from django.contrib import messages
 from register.models import UnauthorizedUser
 from django.contrib.auth.models import User
@@ -37,29 +36,30 @@ def registercompany(response):
 
 def registeruser(response):
   if response.method == "POST":
-    form = RegisterUnauthForm(response.POST)
+    form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
 
     if form.is_valid():
       company_name = response.POST["Name"]
       user = form.save()
+      user_object = User.objects.get(username=user)
+      user_object.is_active = False
       company_object = Company.objects.get(Name=company_name)
-      print(company_object)
-      user.Company_id = company_object.id
-      user.save()
-      # CompanyUser.objects.create(User=user_object, Company=company_object)
+      unauth_user = UnauthorizedUser.objects.create(User=user_object, Company=company_object)
+      user_object.save()
+      unauth_user.save()
       messages.success(response, 'Your account request has been submitted and is awaiting approval.')
       return redirect('login')
 
     else:
-      form = RegisterUnauthForm()
+      form = RegisterForm()
       company_form = CompanyRegisterForm()
       messages.error(response, 'Invalid form submission')
       return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
   else:
     company_form = CompanyRegisterForm()
-    form = RegisterUnauthForm()
+    form = RegisterForm()
     return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
 def preregisterview(response):
