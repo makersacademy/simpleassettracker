@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import AssetForm
+from companyusers.models import CompanyUser
 import logging
 # Create your views here.
 @login_required(login_url='/login')
