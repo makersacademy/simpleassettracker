@@ -101,6 +101,15 @@ class NavBar(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn("Add an Asset", body.text)
 
+  def test_user_management_button(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      user_management = self.browser.find_element_by_id('id_navbar_user_management')
+      user_management.send_keys(Keys.RETURN)
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn("Users Awaiting Authorization", body.text)
+
   def test_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)
     body = self.browser.find_element_by_tag_name('body')
@@ -121,7 +130,7 @@ class NavBar(LiveServerTestCase):
       self.login()
       body = self.browser.find_element_by_tag_name('body')
       self.assertNotIn('Log In', body.text)
-  
+
   def test_register_button_not_viewable_when_logged_in(self):
     with self.settings(DEBUG=True):
       self.login()
