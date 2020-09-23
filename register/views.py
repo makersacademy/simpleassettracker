@@ -60,3 +60,6 @@ def registeruser(response):
 
 def preregisterview(response):
   return render(response, "register/preregister.html", {})
+
+def passwordresetview(response):
+  return render(response, "register/password_reset_form.html", {})
