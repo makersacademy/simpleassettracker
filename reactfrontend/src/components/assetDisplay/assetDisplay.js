@@ -8,7 +8,7 @@ class AssetDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            companyusers: [],
+            company: [],
             assets: [],
             loaded: false,
             placeholder: "Loading",
@@ -18,26 +18,33 @@ class AssetDisplay extends Component {
         };
 		}
 
-
-		componentDidMount() {
-			fetch('/companyusers/api/companyusers/')
-				.then(response => {
+    componentDidMount(){
+      fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
+        if (response.status > 400) {
+          return this.setState(() => {
+            return { placeholder: "Something went wrong!" };
+          });
+        }
+      return response.json();
+      })
+      .then(data => {
+					data = this.finalizeCompanyResponse(data)
+					this.setState(() => {
+						return {
+							company: data
+						}
+					});
+      return fetch('/assets/api/asset')
+      })
+        .then(response => {
 					if (response.status > 400) {
 						return this.setState(() => {
 							return { placeholder: "Something went wrong!" };
 						});
 					}
-				return response.json();
-				})
-				.then(data => {
-					data = this.finalizeCompanyResponse(data)
-					this.setState(() => {
-						return {
-							companyusers: data
-						}
-					});
-					return fetch("api/asset")
-				})
+        return response.json();
+      })
+      return fetch("api/asset")
 				.then(response => {
 					if (response.status > 400) {
 						return this.setState(() => {
@@ -55,20 +62,21 @@ class AssetDisplay extends Component {
 							};
 						});
 				});
-			}
 
-	finalizeCompanyResponse(data) {
-		var newArray = data.map(x => x.User)
-		return newArray
-	}
+    }
 
-	finalizeResponse(data) {
-		var length = data.length
-		var newArray = []
-		for(var i=0; i < length; i++) {
-				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
-						newArray.push(data[i])
-				}
+    finalizeCompanyResponse(data) {
+		  var companydata = data.Company
+		  return companydata
+	  }
+
+	  finalizeResponse(data) {
+      var length = data.length
+      var newArray = []
+      for(var i=0; i < length; i++) {
+          if ( data[i].Company == this.state.company ) {
+              newArray.push(data[i])
+          }
 		}
 		return newArray
 	}
