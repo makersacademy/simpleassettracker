@@ -72,4 +72,13 @@ class UnauthorizedUserList(generics.ListAPIView):
   
   def get_queryset(self):
     queryset = UnauthorizedUser.objects.all()
-    return queryset
+    user = self.request.user
+    company_id = CompanyUser.objects.get(User=user).Company.id
+    if company_id is not None:
+      queryset = queryset.filter(Company=company_id)
+      return queryset
+    else:
+      return Response(
+        {"detail": "No company present"},
+        status=status.HTTP_400_BAD_REQUEST
+      )
