@@ -19,7 +19,7 @@ class DeleteAsset(LiveServerTestCase):
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
-    self.asset = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+    self.asset = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
     self.asset.save()
 
   def tearDown(self):
