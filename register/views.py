@@ -71,7 +71,7 @@ def preregisterview(response):
 
 class UnauthorizedUserList(generics.ListAPIView):
   serializer_class = UnauthorizedUserSerializer
-  
+
   def get_queryset(self):
     queryset = UnauthorizedUser.objects.all()
     user = self.request.user
@@ -81,7 +81,7 @@ class UnauthorizedUserList(generics.ListAPIView):
       company_id = None
 
     if company_id is not None:
-      queryset = queryset.filter(Company=company_id).select_related('User').annotate(username=F"User__username")
+      queryset = queryset.filter(Company=company_id).select_related('User')
       return queryset
 
     else:

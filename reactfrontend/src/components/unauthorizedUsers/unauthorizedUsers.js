@@ -39,19 +39,23 @@ class UnauthorizedUsersDisplay extends Component {
           <thead>
             <tr>
              <th>User ID</th>
+             <th>Username</th>
+             <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.unauthorizedusers.map(user => {
+            {Object.keys(this.state.unauthorizedusers).map((user) => {
               return(
                 <tr key={user.id} className="user_row">
-                  <td id="userid">{user.User}</td>
+                  <td id="userid">{this.state.unauthorizedusers[user].id}</td>
+                  <td id="username">{this.state.unauthorizedusers[user].username}</td>
+                  <td id="useremail">{this.state.unauthorizedusers[user].email}</td>
                 </tr>
               )
             })}
           </tbody>
         </ReactBootStrap.Table>
-        
+
       </div>
     )
   }
