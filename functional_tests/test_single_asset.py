@@ -19,7 +19,7 @@ class SingleAssetTest(LiveServerTestCase):
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
-    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user)
+    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user, Company=self.company)
     self.A.save()
 
   def tearDown(self):

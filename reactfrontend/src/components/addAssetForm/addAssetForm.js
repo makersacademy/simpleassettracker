@@ -12,6 +12,7 @@ class AddAssetForm extends Component {
       },
       company: "",
       showMessage: false,
+      companyusers: "",
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
@@ -63,30 +64,31 @@ class AddAssetForm extends Component {
   submitHandler(event) {
     event.preventDefault()
     let csrfToken = this.getCookie('csrftoken')
-    fetch('api/asset/', {
-        method: 'POST',
-        headers: {
-            "X-CSRFToken": csrfToken,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            "AssetTag": this.state.asset.assetTag,
-            "DeviceType": this.state.asset.assetType,
-            "CreatedBy": this.state.asset.createdBy,
-            "Company": this.state.company
-        }),
-    })
-    .then(response => {
-        if (response.ok) {
-          this.setState({ showMessage: true })
-          $('#id_add_asset')[0].reset(); 
-          return response.json()
-        } else {
-          throw new Error('Something went wrong ...');
-        }
+      fetch('api/asset/', {
+          method: 'POST',
+          headers: {
+              "X-CSRFToken": csrfToken,
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              "AssetTag": this.state.asset.assetTag,
+              "DeviceType": this.state.asset.assetType,
+              "CreatedBy": this.state.asset.createdBy,
+              "Company": this.state.company,
+          }),
       })
-    .catch(error => console.log(error))
-  }
+      .then(response => {
+          if (response.ok) {
+            this.setState({ showMessage: "successMessage" })
+            $('#id_add_asset')[0].reset();
+            return response.json()
+          } else {
+            this.setState({ showMessage: "failMessage" });
+          }
+        })
+      .catch(error => (console.log(error)));
+    }
+
 
   changeHandler(event, identifier) {
     event.preventDefault()
@@ -100,22 +102,88 @@ class AddAssetForm extends Component {
   hideMessageHandler() {
     this.setState({showMessage: false})
   }
+
+  assetTagIsUnique() {
+  console.log("start")
+			fetch('/companyusers/api/companyusers/')
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+				return response.json();
+				console.log("")
+				})
+				.then(data => {
+					data = this.finalizeCompanyResponse(data)
+					this.setState(() => {
+						return {
+							companyusers: data
+						}
+					});
+					return fetch("api/asset")
+				})
+				.then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+					return response.json();
+					})
+					.then(data => {
+						data = this.finalizeResponse(data)
+						if (data.includes(this.state.assetTag)){
+						  return false
+						  } else {
+						  return true
+						  }
+						});
+	    };
+
+	finalizeCompanyResponse(data) {
+		var newArray = data.map(x => x.User)
+		return newArray
+	}
+
+	finalizeResponse(data) {
+		var length = data.length
+		var newArray = []
+		for(var i=0; i < length; i++) {
+				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
+						newArray.push(data[i])
+				}
+		}
+		return newArray
+	}
+
   
   render() {
-    let succesMessage = null
-    if(this.state.showMessage) {
-      succesMessage = 
+    let successMessage = null
+    let failMessage = null
+    if(this.state.showMessage == "successMessage") {
+      successMessage =
         <div>
           <div className='backdrop' onClick={this.hideMessageHandler}></div>
           <div className='showMessage' onClick={this.hideMessageHandler}>
             <h3>Successfully added</h3>
           </div>
         </div>
+    } else if(this.state.showMessage == "failMessage"){
+      failMessage =
+        <div>
+          <div className='backdrop' onClick={this.hideMessageHandler}></div>
+          <div className='showMessage' onClick={this.hideMessageHandler}>
+            <h3>Failed to Add Asset - AssetTag Not Unique</h3>
+          </div>
+        </div>
     }
 
     return(
       <div>
-        {succesMessage}
+        {successMessage}
+        {failMessage}
         <div className="add_asset_container">
             <h1>Add an Asset</h1>
             <form id='id_add_asset' onSubmit={this.submitHandler}>

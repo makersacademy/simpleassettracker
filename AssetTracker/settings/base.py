@@ -45,6 +45,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.herokuapp.com']
 
 LOGIN_REDIRECT_URL = "/dashboard"
 LOGOUT_REDIRECT_URL = "/"
+
 # Application definition
 
 INSTALLED_APPS = [
