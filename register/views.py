@@ -3,6 +3,8 @@ from .forms import RegisterForm
 from .forms import CompanyRegisterForm
 from .serializers import UnauthorizedUserSerializer
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
 from django.contrib import messages
 from register.models import UnauthorizedUser
 from django.contrib.auth.models import User
@@ -73,10 +75,15 @@ class UnauthorizedUserList(generics.ListAPIView):
   def get_queryset(self):
     queryset = UnauthorizedUser.objects.all()
     user = self.request.user
-    company_id = CompanyUser.objects.get(User=user).Company.id
+    try:
+      company_id = CompanyUser.objects.get(User=user).Company.id
+    except CompanyUser.DoesNotExist:
+      company_id = None
+
     if company_id is not None:
-      queryset = queryset.filter(Company=company_id)
+      queryset = queryset.filter(Company=company_id).select_related('User').annotate(username=F"User__username")
       return queryset
+
     else:
       return Response(
         {"detail": "No company present"},
