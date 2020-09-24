@@ -21,9 +21,11 @@ Login
 	    {% csrf_token %}
 	    {{form|crispy}}
 	    <p>Don't have an account? Create one <a href="/register">here</a></p>
+        <p>Forgotten your Password? Reset it <a href="/password_reset">here</a></p>
 	    <button type="submit" class="btn btn-success">Login</button>
     </form>
 </div>
+
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/login.css' %}">
 {% endblock %}
