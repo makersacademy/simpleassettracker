@@ -44,23 +44,14 @@ class AssetDisplay extends Component {
 					}
         return response.json();
       })
-      return fetch("api/asset")
-				.then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-					return response.json();
-					})
-					.then(data => {
-						data = this.finalizeResponse(data)
-						this.setState(() => {
-							return {
-							assets: data,
-							loaded: true
-							};
-						});
+				.then(data => {
+					data = this.finalizeResponse(data)
+					this.setState(() => {
+						return {
+						assets: data,
+						loaded: true
+						};
+					});
 				});
 
     }

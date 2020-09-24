@@ -39,7 +39,7 @@ class SingleAssetTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
-      time.sleep(2)
+      time.sleep(1)
       self.browser.find_element_by_id('tagid').click()
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
@@ -49,7 +49,7 @@ class SingleAssetTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
-      time.sleep(2)
+      time.sleep(1)
       self.browser.find_element_by_id('tagid').click()
       time.sleep(1)
       self.browser.find_element_by_id('history-tab').click()
@@ -61,7 +61,7 @@ class SingleAssetTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
-      time.sleep(2)
+      time.sleep(1)
       self.browser.find_element_by_id('tagid').click()
       time.sleep(1)
       self.browser.find_element_by_id('single-asset-submit').click()

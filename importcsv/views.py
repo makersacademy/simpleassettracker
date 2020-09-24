@@ -13,7 +13,7 @@ def importView(response):
 
 def upload_csv(request):
   asset_count = 0
-  company = CompanyUser.objects.get(user=request.user.id).Company
+  company = CompanyUser.objects.get(User=request.user.id).Company
   data = {}
   if "GET" == request.method:
     return render(request, "importcsv/importcsv.html", data)
