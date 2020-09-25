@@ -60,3 +60,4 @@ def registeruser(response):
 
 def preregisterview(response):
   return render(response, "register/preregister.html", {})
+
