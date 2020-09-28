@@ -23,42 +23,45 @@ class UnauthorizedUsersDisplay extends Component {
       return response.json();
       })
       .then(data => {
-        console.log(data)
+        const newdata = data.map(user => {
+          return user.User
+        })
+        console.log(newdata)
         this.setState(() => {
           return {
-            unauthorizedusers: data
+            unauthorizedusers: newdata
           }
         });
       })
   }
+
   render() {
-    return (
+      return (
       <div className="table_container">
-        <h1>Users Awaiting Authorization</h1>
+        <h1 style={{marginLeft: '63px'}}>Unauthorized Users</h1>
         <ReactBootStrap.Table>
           <thead>
             <tr>
-             <th>User ID</th>
-             <th>Username</th>
-             <th>Email</th>
+              <th scope="col">User ID</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
             </tr>
           </thead>
           <tbody>
-            {Object.keys(this.state.unauthorizedusers).map((user) => {
-              return(
+            {this.state.unauthorizedusers.map(user => {
+              return (
                 <tr key={user.id} className="user_row">
-                  <td id="userid">{this.state.unauthorizedusers[user].id}</td>
-                  <td id="username">{this.state.unauthorizedusers[user].username}</td>
-                  <td id="useremail">{this.state.unauthorizedusers[user].email}</td>
+                  <td>{user.id}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </ReactBootStrap.Table>
-
       </div>
-    )
-  }
+      );
+    }
 }
 
 export default UnauthorizedUsersDisplay;
