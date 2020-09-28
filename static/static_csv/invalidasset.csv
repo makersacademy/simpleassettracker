@@ -1,5 +1,5 @@
-AssetTag,DeviceType
-TEST12,Laptop
-TEST34,Laptop
-TEST45,Laptop
- ,
+AssetTag,DeviceType,AssetStatus,SerialNumber
+TEST12,Laptop,Ready,1
+TEST34,Laptop,Ready,2
+TEST45,Laptop,Ready,3
+ ,Laptop,Ready,3

@@ -39,6 +39,8 @@ def upload_csv(request):
       data_dict = {}
       data_dict["AssetTag"] = fields[0]
       data_dict["DeviceType"] = fields[1]
+      data_dict["AssetStatus"] = fields[2]
+      data_dict["SerialNumber"] = fields[3]
       data_dict["CreatedBy"] = request.user.id
       data_dict["Company"] = company
 
