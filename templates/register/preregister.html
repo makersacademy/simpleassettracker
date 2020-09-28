@@ -1,0 +1,18 @@
+{% extends 'AssetTracker/base.html' %}
+
+{% block title %}Pick an Option{% endblock %}
+{% block content %}
+<div class='Preregister_container'>
+  <h1 id='preregister_title'>Registration Options:</h1>
+  <form action="/registercompany">
+      <button id="company_button"class="btn btn-success">Create A Workspace and Superuser</button>
+  </form>
+
+  <form action="/registeruser" >
+      <button id="user_button" class="btn btn-success">Sign-In to an Existing Workspace</button>
+  </form>
+</div>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/preregister.css' %}">
+{% endblock %}

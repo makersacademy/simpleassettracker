@@ -5,11 +5,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
+from assets.models import Asset
 from companies.models import Company
 from companyusers.models import CompanyUser
 import time
 
-class AddAsset(LiveServerTestCase):
+class DeleteAsset(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
@@ -18,6 +19,8 @@ class AddAsset(LiveServerTestCase):
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.asset = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
+    self.asset.save()
 
   def tearDown(self):
     self.browser.quit()
@@ -32,36 +35,13 @@ class AddAsset(LiveServerTestCase):
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
-  def test_add_asset_on_page(self):
+  def test_delete_asset_and_does_not_display(self):
     with self.settings(DEBUG=True):
       self.login()
-      self.browser.get(self.live_server_url + '/assets/add')
-      time.sleep(1)
-      body = self.browser.find_element_by_tag_name('body')
-      self.assertIn('Add an Asset', body.text)
-
-  def test_add_asset_form_is_on_page(self):
-    with self.settings(DEBUG=True):
-      self.login()
-      self.browser.get(self.live_server_url + '/assets/add')
-      time.sleep(1)
-      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      self.assertEquals(True, asset_tag_field.is_displayed())
-      self.assertEquals(True, asset_type_field.is_displayed())
-
-  def test_form_can_be_submitted_and_redirect(self):
-    with self.settings(DEBUG=True):
-      self.login()
-      self.browser.get(self.live_server_url + '/assets/add')
-      time.sleep(1)
-      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-      asset_tag_field.send_keys('HD1269')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_type_field.send_keys('Laptop')
-      asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
-      asset_submit_button.send_keys(Keys.RETURN)
       self.browser.get(self.live_server_url + '/assets')
       time.sleep(1)
+      asset_delete_button = self.browser.find_element_by_id('id_asset_delete_button_' + str(self.asset.id))
+      asset_delete_button.send_keys(Keys.RETURN)
+      time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn('HD1269', body.text)
+      self.assertNotIn('BR20RL', body.text)

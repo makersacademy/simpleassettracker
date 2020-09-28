@@ -8,55 +8,66 @@ class AssetDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            company: [],
+            assets: [],
             loaded: false,
-            placeholder: "Loading",           
+            placeholder: "Loading",
             descending: false,
             showAsset: false,
             asset: null,
         };
-    }
-  
-	componentDidMount() {
-		fetch("api/asset")
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
-					});
-				}
-			return response.json();
-			})
-			.then(data => {
-				data = this.finalizeResponse(data)
-				this.setState(() => {
-					return {
-					data,
-					loaded: true
-					};
-				});
-			});
-	}
-
-	getCookie(name) {
-		var nameEQ = name + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0;i < ca.length;i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1,c.length);
-			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
 		}
-        return null;
+
+    componentDidMount(){
+      fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
+        if (response.status > 400) {
+          return this.setState(() => {
+            return { placeholder: "Something went wrong!" };
+          });
+        }
+      return response.json();
+      })
+      .then(data => {
+					data = this.finalizeCompanyResponse(data)
+					this.setState(() => {
+						return {
+							company: data
+						}
+					});
+      return fetch('/assets/api/asset')
+      })
+        .then(response => {
+					if (response.status > 400) {
+						return this.setState(() => {
+							return { placeholder: "Something went wrong!" };
+						});
+					}
+        return response.json();
+      })
+				.then(data => {
+					data = this.finalizeResponse(data)
+					this.setState(() => {
+						return {
+						assets: data,
+						loaded: true
+						};
+					});
+				});
+
     }
-    
-	finalizeResponse(data) {
-		var length = data.length
-		var newArray = []
-		for(var i=0; i < length; i++) {
-				console.log(data[i].CreatedBy)
-				if (data[i].CreatedBy == window.django.user.user_id) {
-						newArray.push(data[i])
-				}
+
+    finalizeCompanyResponse(data) {
+		  var companydata = data.Company
+		  return companydata
+	  }
+
+	  finalizeResponse(data) {
+      var length = data.length
+      var newArray = []
+      for(var i=0; i < length; i++) {
+          if ( data[i].Company == this.state.company ) {
+              newArray.push(data[i])
+          }
 		}
 		return newArray
 	}
@@ -72,6 +83,7 @@ class AssetDisplay extends Component {
 		return null;
 	}
 
+
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
 			method: 'DELETE',
@@ -81,7 +93,7 @@ class AssetDisplay extends Component {
 			},
 		})
 		.then(() => {
-			this.setState({data: this.state.data.filter(asset => asset_object.id !== asset.id)})
+			this.setState({assets: this.state.assets.filter(asset => asset_object.id !== asset.id)})
 		});
 	};
 
@@ -118,14 +130,14 @@ class AssetDisplay extends Component {
 	showAsset(asset) {
         this.setState({ showAsset: true , asset: asset})
     }
-    
+
 	hideAsset() {
 		this.setState({ showAsset: false })
 	}
 
 	render() {
 		let arrow = null
-		if(this.state.descending === false) {          
+		if(this.state.descending === false) {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8593;</p>
 		} else {
 			arrow = <p style={{margin: '0 0 0 9px'}}>&#8595;</p>
@@ -135,7 +147,7 @@ class AssetDisplay extends Component {
 		if(this.state.showAsset === true){
 			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
 		}
-		
+
 		return (
 		<div className="table_container">
 			{/* is the {asset} necessary? does it show or will show sth in the future? */}
@@ -153,7 +165,7 @@ class AssetDisplay extends Component {
 					</tr>
 				</thead>
 				<tbody>
-					{this.state.data.map(asset => {
+					{this.state.assets.map(asset => {
 						return (
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
@@ -171,5 +183,5 @@ class AssetDisplay extends Component {
 		);
 	}
 }
-  
+
 export default AssetDisplay;

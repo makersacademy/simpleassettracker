@@ -6,14 +6,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
 from assets.models import Asset
+from companies.models import Company
+from companyusers.models import CompanyUser
 import time
 
 class Dashboard(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
+    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
 
   def tearDown(self):
     self.browser.quit()
@@ -42,7 +47,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_assets(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -50,7 +55,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_laptops(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -59,7 +64,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_mobiles(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -86,7 +91,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_asset_deletes_and_count_decreases(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')

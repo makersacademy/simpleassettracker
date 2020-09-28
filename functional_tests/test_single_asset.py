@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
+from companyusers.models import CompanyUser
+from companies.models import Company
 from assets.models import Asset
 import time
 
@@ -12,11 +14,12 @@ class SingleAssetTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
+    self.company = Company(Name="Makers")
+    self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.user2 = User.objects.create_user(username='admin2', password='admin2', email='test2@test.com', is_active=True)
-    self.user2.save()
-    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user)
+    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.A = Asset(AssetTag='BR20RL', DeviceType='Laptop', CreatedBy=self.user, Company=self.company)
     self.A.save()
 
   def tearDown(self):
@@ -32,7 +35,7 @@ class SingleAssetTest(LiveServerTestCase):
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
-  def test_display_single_asset(self):  
+  def test_display_single_asset(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
@@ -42,7 +45,7 @@ class SingleAssetTest(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('BR20RL', body.text)
 
-  def test_change_details(self):  
+  def test_change_details(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
@@ -54,7 +57,7 @@ class SingleAssetTest(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('History component', body.text)
 
-  def test_hide_asset(self):  
+  def test_hide_asset(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')
