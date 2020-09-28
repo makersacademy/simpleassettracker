@@ -11,7 +11,8 @@ class SingleAsset extends Component {
               assetTag: '',
               assetType: '',
               createdBy: '',
-              assetStatus: ''
+              assetStatus: '',
+              serialNumber: ''
             }
         };
     }
@@ -21,7 +22,8 @@ class SingleAsset extends Component {
         assetTag: this.props.asset.assetTag,
         assetType: this.props.asset.assetType,
         createdBy: this.props.asset.createdBy,
-        assetStatus: this.props.asset.assetStatus
+        assetStatus: this.props.asset.assetStatus,
+        serialNumber: this.props.asset.serialNumber
       })
     }
 
@@ -48,6 +50,7 @@ class SingleAsset extends Component {
                         <img className='SingleAssetPicture' alt='picture' src='../../../static/frontend/img/laptop.png'/>
                         <div className='SingleAssetSummary'>
                             <h3>{this.props.asset.AssetTag}</h3>
+                            <h3>{this.props.asset.SerialNumber}</h3>
                             <div>
                               <select defaultValue={this.props.assetStatus} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'assetType')}>
                                 <option value="In Repair">In Repair</option>

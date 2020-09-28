@@ -138,6 +138,7 @@ class AssetDisplay extends Component {
 		
 		return (
 		<div className="table_container">
+			{/* is the {asset} necessary? does it show or will show sth in the future? */}
 			{asset}
 			<h1 style={{marginLeft: '63px'}}>Your Assets</h1>
 			<ReactBootStrap.Table>
@@ -145,6 +146,7 @@ class AssetDisplay extends Component {
 					<tr>
 						<th scope="col" className='delete_col'>{arrow}</th>
 						<th scope="col" onClick={() => this.filterData('AssetTag')}>Asset Tag</th>
+						<th scope="col" onClick={() => this.filterData('SerialNumber')} className='align_center'>Serial Number</th>
 						<th scope="col" onClick={() => this.filterData('DeviceType')}>Device Type</th>
             <th scope="col" onClick={() => this.filterData('AssetStatus')}>Status</th>
 						<th scope="col" onClick={() => this.filterData('CreatedBy')} className='align_center'>Created By</th>
@@ -156,6 +158,7 @@ class AssetDisplay extends Component {
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
 								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.AssetTag}</td>
+								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.SerialNumber}</td>
 								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
                 <td onClick={() => this.showAsset(asset)}>{asset.AssetStatus}</td>
 								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.CreatedBy}</td>

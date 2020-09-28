@@ -9,7 +9,8 @@ class AddAssetForm extends Component {
         assetTag: '',
         assetType: 'Laptop',
         createdBy: '',
-        assetStatus: 'Ready'
+        assetStatus: 'Ready',
+        serialNumber: '',
       },
       showMessage: false,
     }
@@ -51,7 +52,8 @@ class AddAssetForm extends Component {
             "AssetTag": this.state.asset.assetTag,
             "DeviceType": this.state.asset.assetType,
             "CreatedBy": this.state.asset.createdBy,
-            "AssetStatus": this.state.asset.assetStatus
+            "AssetStatus": this.state.asset.assetStatus,
+            "SerialNumber": this.state.asset.serialNumber
         },),
     })
     .then(response => {
@@ -109,6 +111,8 @@ class AddAssetForm extends Component {
                 <option value="Laptop">Laptop</option>
                 <option value="Mobile">Mobile</option>
             </select>
+            <label className="asset_add_serial_number" for="id_add_serial_number">Serial Number:</label>
+            <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
             <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
             </form>
         </div>
