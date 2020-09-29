@@ -16,9 +16,13 @@ class UnauthUserTest(LiveServerTestCase):
     self.browser = webdriver.Firefox()
     self.company = Company(Name="Makers")
     self.company.save()
-    self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
+    self.admin = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
+    self.admin.save()
+    self.company_user = CompanyUser.objects.create(User=self.admin, Company=self.company)
+    self.user = User.objects.create_user(username='adam', password='adam1', email='adam@test.com', is_active=False)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.unauth_user = UnauthorizedUser.objects.create(User=self.user, Company=self.company)
+    self.unauth_user.save()
 
   def tearDown(self):
     self.browser.quit()
@@ -39,4 +43,26 @@ class UnauthUserTest(LiveServerTestCase):
       self.browser.get(self.live_server_url + '/usermanagement/unauthorized')
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn('Unauthorized Users', body.text)
+      self.assertIn('adam', body.text)
+
+  def test_approve_user(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/usermanagement/unauthorized')
+      time.sleep(1)
+      user_approve_button = self.browser.find_element_by_id('id_user_approve_button_' + str(self.user.id))
+      user_approve_button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertNotIn('adam', body.text)
+
+  def test_deny_user(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/usermanagement/unauthorized')
+      time.sleep(1)
+      user_deny_button = self.browser.find_element_by_id('id_user_deny_button_' + str(self.user.id))
+      user_deny_button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertNotIn('adam', body.text)
