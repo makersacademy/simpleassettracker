@@ -5,56 +5,56 @@ import './assetDisplay.css'
 import SingleAsset from '../singleAsset/singleAsset'
 
 class AssetDisplay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            company: [],
-            assets: [],
-            loaded: false,
-            placeholder: "Loading",
-            descending: false,
-            showAsset: false,
-            asset: null,
-        };
-		}
+  constructor(props) {
+    super(props);
+    this.state = {
+      company: [],
+      assets: [],
+      loaded: false,
+      placeholder: "Loading",
+      descending: false,
+      showAsset: false,
+      asset: null,
+    };
+  }
 
-    componentDidMount(){
-      fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
+  componentDidMount(){
+    fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      data = this.finalizeCompanyResponse(data)
+      this.setState(() => {
+        return {
+          company: data
         }
+      });
+    return fetch('/assets/api/asset')
+    })
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
       return response.json();
-      })
-      .then(data => {
-					data = this.finalizeCompanyResponse(data)
-					this.setState(() => {
-						return {
-							company: data
-						}
-					});
-      return fetch('/assets/api/asset')
-      })
-        .then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-        return response.json();
-      })
-				.then(data => {
-					data = this.finalizeResponse(data)
-					this.setState(() => {
-						return {
-						assets: data,
-						loaded: true
-						};
-					});
-				});
+    })
+    .then(data => {
+      data = this.finalizeResponse(data)
+      this.setState(() => {
+        return {
+        assets: data,
+        loaded: true
+        };
+      });
+    });
 
-    }
+  }
 
     finalizeCompanyResponse(data) {
 		  var companydata = data.Company
@@ -65,9 +65,9 @@ class AssetDisplay extends Component {
       var length = data.length
       var newArray = []
       for(var i=0; i < length; i++) {
-          if ( data[i].Company == this.state.company ) {
-              newArray.push(data[i])
-          }
+        if ( data[i].Company == this.state.company ) {
+            newArray.push(data[i])
+        }
 		}
 		return newArray
 	}
@@ -88,8 +88,8 @@ class AssetDisplay extends Component {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
 			method: 'DELETE',
 			headers: {
-					"X-CSRFToken": this.getCookie('csrftoken'),
-					'Content-Type': 'application/json',
+        "X-CSRFToken": this.getCookie('csrftoken'),
+        'Content-Type': 'application/json',
 			},
 		})
 		.then(() => {
@@ -97,7 +97,7 @@ class AssetDisplay extends Component {
 		});
 	};
 
-	dynamicsort(property,order) {
+	dynamicsort(property, order) {
 		let sort_order = 1;
 		if(order === "desc"){
 			sort_order = -1;
@@ -117,8 +117,8 @@ class AssetDisplay extends Component {
 		const newData = [...this.state.data]
 		let order = 'asc'
 		if(this.state.descending === false) {
-				order = 'desc'
-				this.setState({ descending: true })
+      order = 'desc'
+      this.setState({ descending: true })
 		} else {
 				this.setState({ descending: false })
 		}
@@ -128,7 +128,7 @@ class AssetDisplay extends Component {
 	}
 
 	showAsset(asset) {
-        this.setState({ showAsset: true , asset: asset})
+      this.setState({ showAsset: true, asset: asset})
     }
 
 	hideAsset() {
@@ -150,7 +150,6 @@ class AssetDisplay extends Component {
 
 		return (
 		<div className="table_container">
-			{/* is the {asset} necessary? does it show or will show sth in the future? */}
 			{asset}
 			<h1 style={{marginLeft: '63px'}}>Your Assets</h1>
 			<ReactBootStrap.Table>
