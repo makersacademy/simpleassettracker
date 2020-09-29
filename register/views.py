@@ -91,6 +91,9 @@ class UnauthorizedUserList(generics.ListAPIView):
         status=status.HTTP_400_BAD_REQUEST
       )
 
+class UnauthorizedUserDelete(generics.DestroyAPIView):
+  queryset = UnauthorizedUser.objects.all()
+  serializer_class = UnauthorizedUserSerializer
 
 class ApproveUser(generics.RetrieveUpdateDestroyAPIView):
   queryset = User.objects.all()

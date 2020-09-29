@@ -27,7 +27,9 @@ class UnauthorizedUsersDisplay extends Component {
         console.log(data)
         const newdata = data.map(user => {
           this.setState({company: user.Company})
-          return user.User
+          const extendUser = {...user.User, unauth_id: user.id}
+          console.log(extendUser)
+          return extendUser
         })
         console.log(this.state.company)
         this.setState(() => {
@@ -69,6 +71,15 @@ class UnauthorizedUsersDisplay extends Component {
             "User": user_object.id,
             "Company": this.state.company
         }),
+      })
+		})
+		.then(() => {
+      fetch(`/unauthorizedusers/api/unauthorizedusers/${user_object.unauth_id}/`, {
+        method: 'DELETE',
+        headers: {
+            "X-CSRFToken": this.getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        },
       })
 		})
 		.then(() => {
