@@ -112,16 +112,15 @@ class UnauthorizedUsersDisplay extends Component {
         <ReactBootStrap.Table>
           <thead>
             <tr>
-              <th scope="col">User ID</th>
               <th scope="col">Username</th>
               <th scope="col">Email</th>
+              <th scope="col">Approve/Deny</th>
             </tr>
           </thead>
           <tbody>
             {this.state.unauthorizedusers.map(user => {
               return (
                 <tr key={user.id} className="user_row">
-                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td><button class="btn btn-success" id={"id_user_approve_button_" + user.id } onClick={() => this.handleApprove(user)}>Approve</button>
