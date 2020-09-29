@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .forms import CompanyRegisterForm
 from .serializers import UnauthorizedUserSerializer
+from .serializers import ApproveUserSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
@@ -89,3 +90,19 @@ class UnauthorizedUserList(generics.ListAPIView):
         {"detail": "No company present"},
         status=status.HTTP_400_BAD_REQUEST
       )
+
+
+class ApproveUser(generics.RetrieveUpdateDestroyAPIView):
+  queryset = User.objects.all()
+  serializer_class = ApproveUserSerializer
+
+  def update(self, request, *args, **kwargs):
+    instance = self.get_object()
+    instance.is_active = True
+    instance.save()
+
+    serializer = self.get_serializer(instance)
+
+    return Response(serializer.data)
+
+

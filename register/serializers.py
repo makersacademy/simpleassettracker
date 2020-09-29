@@ -13,3 +13,11 @@ class UnauthorizedUserSerializer(serializers.ModelSerializer):
   class Meta:
     model = UnauthorizedUser
     fields = ('User', 'Company')
+
+class ApproveUserSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = User
+    fields = ('is_active',)
+
+
