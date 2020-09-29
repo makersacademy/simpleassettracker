@@ -24,14 +24,11 @@ class UnauthorizedUsersDisplay extends Component {
       return response.json();
       })
       .then(data => {
-        console.log(data)
         const newdata = data.map(user => {
           this.setState({company: user.Company})
           const extendUser = {...user.User, unauth_id: user.id}
-          console.log(extendUser)
           return extendUser
         })
-        console.log(this.state.company)
         this.setState(() => {
           return {
             unauthorizedusers: newdata
@@ -52,7 +49,6 @@ class UnauthorizedUsersDisplay extends Component {
   }
 
   handleApprove(user_object) {
-    console.log(user_object)
     fetch(`/approveuser/api/approveuser/${user_object.id}/`, {
 			method: 'PATCH',
 			headers: {
@@ -87,6 +83,28 @@ class UnauthorizedUsersDisplay extends Component {
 		});
   }
 
+  handleDeny(user_object){
+    fetch(`/unauthorizedusers/api/unauthorizedusers/${user_object.unauth_id}/`, {
+      method: 'DELETE',
+      headers: {
+        "X-CSRFToken": this.getCookie('csrftoken'),
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(() => {
+      fetch(`/approveuser/api/approveuser/${user_object.id}/`,{
+        method: 'DELETE',
+        headers: {
+          "X-CSRFToken": this.getCookie('csrftoken'),
+          'Content-Type': 'application/json',
+        },
+      })
+    })
+    .then(() => {
+      this.setState({unauthorizedusers: this.state.unauthorizedusers.filter(unauthorizedusers => user_object.id !== unauthorizedusers.id)})
+    });
+  }
+
   render() {
       return (
       <div className="table_container">
@@ -106,7 +124,8 @@ class UnauthorizedUsersDisplay extends Component {
                   <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td className='approve_col'><button className='user_approve_button' id={"id_user_approve_button_" + user.id } onClick={() => this.handleApprove(user)}>Approve</button></td>
+                  <td><button class="btn btn-success" id={"id_user_approve_button_" + user.id } onClick={() => this.handleApprove(user)}>Approve</button>
+                  <button class="btn btn-danger" id={"id_user_deny_button_" + user.id } onClick={() => this.handleDeny(user)}>Deny</button></td>
                 </tr>
               );
             })}
