@@ -10,7 +10,10 @@ class UnauthorizedUsersDisplay extends Component {
       company: "",
       loaded: false,
       placeholder: "loading",
+      showMessage: false,
+      message: "",
     };
+    this.hideMessageHandler = this.hideMessageHandler.bind(this)
   }
 
   componentDidMount() {
@@ -80,7 +83,10 @@ class UnauthorizedUsersDisplay extends Component {
 		})
 		.then(() => {
 			this.setState({unauthorizedusers: this.state.unauthorizedusers.filter(unauthorizedusers => user_object.id !== unauthorizedusers.id)})
+			this.setState({showMessage: true})
+			this.setState({message: "approve"})
 		});
+
   }
 
   handleDeny(user_object){
@@ -102,34 +108,61 @@ class UnauthorizedUsersDisplay extends Component {
     })
     .then(() => {
       this.setState({unauthorizedusers: this.state.unauthorizedusers.filter(unauthorizedusers => user_object.id !== unauthorizedusers.id)})
+      this.setState({showMessage: true})
+      this.setState({message: "deny"})
     });
   }
 
+  hideMessageHandler() {
+    this.setState({showMessage: false})
+  }
+
   render() {
+  let successMessage = null
+    if(this.state.showMessage && this.state.message == "approve"){
+    successMessage =
+      <div>
+        <div className='backdrop' onClick={this.hideMessageHandler}></div>
+        <div className='showMessage' onClick={this.hideMessageHandler}>
+          <h3>Successfully Approved</h3>
+        </div>
+      </div>
+    }else if(this.state.showMessage && this.state.message == "deny"){
+    successMessage =
+      <div>
+        <div className='backdrop' onClick={this.hideMessageHandler}></div>
+        <div className='showMessage' onClick={this.hideMessageHandler}>
+          <h3>Successfully Denied</h3>
+        </div>
+      </div>
+    }
       return (
-      <div className="table_container">
-        <h1>Unauthorized Users</h1>
-        <ReactBootStrap.Table>
-          <thead>
-            <tr>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Approve/Deny</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.unauthorizedusers.map(user => {
-              return (
-                <tr key={user.id} className="user_row">
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td><button class="btn btn-success" id={"id_user_approve_button_" + user.id } onClick={() => this.handleApprove(user)}>Approve</button>
-                  <button class="btn btn-danger" id={"id_user_deny_button_" + user.id } onClick={() => this.handleDeny(user)}>Deny</button></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </ReactBootStrap.Table>
+      <div>
+        {successMessage}
+        <div className="table_container">
+          <h1>Unauthorized Users</h1>
+          <ReactBootStrap.Table>
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Approve/Deny</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.unauthorizedusers.map(user => {
+                return (
+                  <tr key={user.id} className="user_row">
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td><button class="btn btn-success" id={"id_user_approve_button_" + user.id } onClick={() => this.handleApprove(user)}>Approve</button>
+                    <button class="btn btn-danger" id={"id_user_deny_button_" + user.id } onClick={() => this.handleDeny(user)}>Deny</button></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </ReactBootStrap.Table>
+        </div>
       </div>
       );
     }

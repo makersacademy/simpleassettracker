@@ -102,9 +102,9 @@ class AddAssetForm extends Component {
   }
   
   render() {
-    let succesMessage = null
+    let successMessage = null
     if(this.state.showMessage) {
-      succesMessage = 
+      successMessage =
         <div>
           <div className='backdrop' onClick={this.hideMessageHandler}></div>
           <div className='showMessage' onClick={this.hideMessageHandler}>
@@ -115,7 +115,7 @@ class AddAssetForm extends Component {
 
     return(
       <div>
-        {succesMessage}
+        {successMessage}
         <div className="add_asset_container">
             <h1>Add an Asset</h1>
             <form id='id_add_asset' onSubmit={this.submitHandler}>
