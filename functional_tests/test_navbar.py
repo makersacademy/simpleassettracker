@@ -108,7 +108,7 @@ class NavBar(LiveServerTestCase):
       user_management.send_keys(Keys.RETURN)
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
-      self.assertIn("Users Awaiting Authorization", body.text)
+      self.assertIn("Unauthorized Users", body.text)
 
   def test_asset_button_not_viewable_when_logged_out(self):
     self.browser.get(self.live_server_url)

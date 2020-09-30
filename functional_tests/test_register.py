@@ -130,7 +130,7 @@ class SignUpUserTest(LiveServerTestCase):
       password_field.send_keys(Keys.RETURN)
       time.sleep(2)
       message = self.browser.find_element_by_class_name('messages')
-      self.assertIn('Your account has been created! Please sign in', message.text)
+      self.assertIn('Your account request has been submitted and is awaiting approval.', message.text)
 
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):
