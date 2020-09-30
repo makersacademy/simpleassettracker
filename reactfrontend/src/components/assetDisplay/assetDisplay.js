@@ -46,6 +46,7 @@ class AssetDisplay extends Component {
     })
     .then(data => {
       data = this.finalizeResponse(data)
+      console.log(data)
       this.setState(() => {
         return {
         assets: data,
