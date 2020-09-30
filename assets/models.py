@@ -11,6 +11,7 @@ class Asset(models.Model):
   SerialNumber = models.CharField(max_length=64, unique=True)
   CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE)
   Company = models.ForeignKey(Company, on_delete=models.CASCADE)
+  AssetCondition = models.CharField(max_length=30, default='Good')
 
   class Meta:
     unique_together = ['AssetTag', 'Company',]

@@ -12,7 +12,8 @@ class SingleAsset extends Component {
         assetType: '',
         createdBy: '',
         assetStatus: '',
-        serialNumber: ''
+        serialNumber: '',
+        assetCondition: ''
       }
     };
   }
@@ -23,6 +24,7 @@ class SingleAsset extends Component {
       assetType: this.props.asset.assetType,
       createdBy: this.props.asset.createdBy,
       assetStatus: this.props.asset.assetStatus,
+      assetCondition: this.props.asset.assetCondition,
       serialNumber: this.props.asset.serialNumber
     })
   }

@@ -10,6 +10,7 @@ class AddAssetForm extends Component {
         assetType: 'Laptop',
         createdBy: '',
         assetStatus: 'Ready',
+        assetCondition: 'Good',
         serialNumber: '',
       },
       messageType: '',
@@ -45,22 +46,22 @@ class AddAssetForm extends Component {
 
   getCompanyID(){
     fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
-					});
-				}
-			return response.json();
-			})
-			.then(data => {
-				this.setState(() => {
-				  return {
-            company: data.Company
-          }
-				});
-			});
-    }
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      this.setState(() => {
+        return {
+          company: data.Company
+        }
+      });
+    });
+  }
 
 
   submitHandler(event) {
@@ -78,6 +79,7 @@ class AddAssetForm extends Component {
         "CreatedBy": this.state.asset.createdBy,
         "AssetStatus": this.state.asset.assetStatus,
         "SerialNumber": this.state.asset.serialNumber,
+        "AssetCondition": this.state.asset.assetCondition,
         "Company": this.state.company,
       }),
     })
@@ -114,39 +116,39 @@ class AddAssetForm extends Component {
 
   assetTagIsUnique() {
     fetch('/companyusers/api/companyusers/')
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-      return response.json();
-      })
-      .then(data => {
-        data = this.finalizeCompanyResponse(data)
-        this.setState(() => {
-          return {
-            companyusers: data
-          }
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
         });
-        return fetch("api/asset")
-      })
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
+      }
+    return response.json();
+    })
+    .then(data => {
+      data = this.finalizeCompanyResponse(data)
+      this.setState(() => {
+        return {
+          companyusers: data
         }
-        return response.json();
-      })
-      .then(data => {
-        data = this.finalizeResponse(data)
-        if (data.includes(this.state.assetTag)){
-          return false
-          } else {
-          return true
-          }
       });
+      return fetch("api/asset")
+    })
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      data = this.finalizeResponse(data)
+      if (data.includes(this.state.assetTag)){
+        return false
+        } else {
+        return true
+        }
+    });
   };
 
 	finalizeCompanyResponse(data) {
@@ -198,6 +200,11 @@ class AddAssetForm extends Component {
           <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
             <option value="Laptop">Laptop</option>
             <option value="Mobile">Mobile</option>
+          </select>
+          <label className="asset_add_title" for="id_add_asset_condition" >Asset Condition:</label>
+          <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
+            <option value="Good">Good</option>
+            <option value="Bad">Bad</option>
           </select>
           <label className="asset_add_serial_number" for="id_add_serial_number">Serial Number:</label>
           <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>

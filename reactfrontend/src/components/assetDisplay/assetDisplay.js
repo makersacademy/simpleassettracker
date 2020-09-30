@@ -53,23 +53,22 @@ class AssetDisplay extends Component {
         };
       });
     });
-
   }
 
-    finalizeCompanyResponse(data) {
-		  var companydata = data.Company
-		  return companydata
-	  }
+  finalizeCompanyResponse(data) {
+    var companydata = data.Company
+    return companydata
+  }
 
-	  finalizeResponse(data) {
-      var length = data.length
-      var newArray = []
-      for(var i=0; i < length; i++) {
-        if ( data[i].Company == this.state.company ) {
-            newArray.push(data[i])
-        }
-		}
-		return newArray
+  finalizeResponse(data) {
+    var length = data.length
+    var newArray = []
+    for(var i=0; i < length; i++) {
+      if ( data[i].Company == this.state.company ) {
+        newArray.push(data[i])
+      }
+  }
+  return newArray
 	}
 
 	getCookie(name) {
@@ -160,6 +159,7 @@ class AssetDisplay extends Component {
 						<th scope="col" onClick={() => this.filterData('SerialNumber')} className='align_center'>Serial Number</th>
 						<th scope="col" onClick={() => this.filterData('DeviceType')}>Device Type</th>
             <th scope="col" onClick={() => this.filterData('AssetStatus')}>Status</th>
+            <th scope="col" onClick={() => this.filterData('AssetCondition')}>Condition</th>
 						<th scope="col" onClick={() => this.filterData('CreatedBy')} className='align_center'>Created By</th>
 					</tr>
 				</thead>
@@ -172,6 +172,7 @@ class AssetDisplay extends Component {
 								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.SerialNumber}</td>
 								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
                 <td onClick={() => this.showAsset(asset)}>{asset.AssetStatus}</td>
+                <td onClick={() => this.showAsset(asset)}>{asset.AssetCondition}</td>
 								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.CreatedBy}</td>
 							</tr>
 						);
