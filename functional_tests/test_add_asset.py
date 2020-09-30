@@ -67,6 +67,8 @@ class AddAsset(LiveServerTestCase):
       asset_type_field.send_keys('Laptop')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
       asset_type_field.send_keys('5')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_status')
+      asset_type_field.send_keys('Ready')
       asset_type_field = self.browser.find_element_by_id('id_add_condition')
       asset_type_field.send_keys('Good')
       asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')

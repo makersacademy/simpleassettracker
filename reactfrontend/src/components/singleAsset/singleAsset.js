@@ -64,7 +64,6 @@ class SingleAsset extends Component {
                   <option value="Lost">Lost</option>
                   <option value="Stolen">Stolen</option>
                   <option value="Unavailable">Unavailable</option>
-                  <option value="Broken">Broken</option>
                   <option value="Ready">Ready</option>
                 </select>
               </div>

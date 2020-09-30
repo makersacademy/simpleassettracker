@@ -204,7 +204,20 @@ class AddAssetForm extends Component {
           <label className="asset_add_title" for="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
             <option value="Good">Good</option>
-            <option value="Bad">Bad</option>
+            <option value="Bad">Broken</option>
+          </select>
+          <label className="asset_add_title" for="id_add_asset_status" >Asset Status:</label>
+          <select defaultValue='Ready' name="assetStatus" id="id_add_asset_status" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetStatus')}>
+            <option value="Ready">Ready</option>
+            <option value="In Repair">In Repair</option>
+            <option value="Locked at the office">Locked at the office</option>
+            <option value="On Loan">On Loan</option>
+            <option value="Needs Resetting">Needs Resetting</option>
+            <option value="Extended Loan">Extended Loan</option>
+            <option value="Unknown">Unknown</option>
+            <option value="Lost">Lost</option>
+            <option value="Stolen">Stolen</option>
+            <option value="Unavailable">Unavailable</option>
           </select>
           <label className="asset_add_serial_number" for="id_add_serial_number">Serial Number:</label>
           <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
