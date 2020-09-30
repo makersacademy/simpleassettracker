@@ -49,8 +49,12 @@ class AddAsset(LiveServerTestCase):
       time.sleep(1)
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
+      asset_serial_number_field = self.browser.find_element_by_id('id_add_serial_number')
+      asset_condition_field = self.browser.find_element_by_id('id_add_condition')
       self.assertEquals(True, asset_tag_field.is_displayed())
       self.assertEquals(True, asset_type_field.is_displayed())
+      self.assertEquals(True, asset_serial_number_field.is_displayed())
+      self.assertEquals(True, asset_condition_field.is_displayed())
 
   def test_form_can_be_submitted_and_redirect(self):
     with self.settings(DEBUG=True):
@@ -63,6 +67,8 @@ class AddAsset(LiveServerTestCase):
       asset_type_field.send_keys('Laptop')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
       asset_type_field.send_keys('5')
+      asset_type_field = self.browser.find_element_by_id('id_add_condition')
+      asset_type_field.send_keys('Good')
       asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
       asset_submit_button.send_keys(Keys.RETURN)
       self.browser.get(self.live_server_url + '/assets')
