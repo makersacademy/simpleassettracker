@@ -9,7 +9,11 @@ class AddAssetForm extends Component {
         assetTag: '',
         assetType: 'Laptop',
         createdBy: '',
+        assetStatus: 'Ready',
+        assetCondition: 'Good',
+        serialNumber: '',
       },
+      messageType: '',
       company: "",
       showMessage: false,
       companyusers: "",
@@ -34,67 +38,74 @@ class AddAssetForm extends Component {
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
       var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      while (c.charAt(0)==' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
   }
 
   getCompanyID(){
     fetch('/companyusers/api/companyusers/'+ window.django.user.user_id)
-			.then(response => {
-				if (response.status > 400) {
-					return this.setState(() => {
-						return { placeholder: "Something went wrong!" };
-					});
-				}
-			return response.json();
-			})
-			.then(data => {
-			  console.log(data)
-				this.setState(() => {
-				  return {
-            company: data.Company
-          }
-				});
-			});
-    }
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      this.setState(() => {
+        return {
+          company: data.Company
+        }
+      });
+    });
+  }
 
 
   submitHandler(event) {
     event.preventDefault()
     let csrfToken = this.getCookie('csrftoken')
-      fetch('api/asset/', {
-          method: 'POST',
-          headers: {
-              "X-CSRFToken": csrfToken,
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              "AssetTag": this.state.asset.assetTag,
-              "DeviceType": this.state.asset.assetType,
-              "CreatedBy": this.state.asset.createdBy,
-              "Company": this.state.company,
-          }),
+    fetch('api/asset/', {
+      method: 'POST',
+      headers: {
+        "X-CSRFToken": csrfToken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "AssetTag": this.state.asset.assetTag,
+        "DeviceType": this.state.asset.assetType,
+        "CreatedBy": this.state.asset.createdBy,
+        "AssetStatus": this.state.asset.assetStatus,
+        "SerialNumber": this.state.asset.serialNumber,
+        "AssetCondition": this.state.asset.assetCondition,
+        "Company": this.state.company,
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        this.setState({ showMessage: true, messageType: "successMessage" })
+        $('#id_add_asset')[0].reset(); 
+        return response.json()
+      } else {
+        this.setState({ showMessage: true, messageType: "failMessage" })
+        throw new Error('Something went wrong ...');
+      }
       })
-      .then(response => {
-          if (response.ok) {
-            this.setState({ showMessage: "successMessage" })
-            $('#id_add_asset')[0].reset();
-            return response.json()
-          } else {
-            this.setState({ showMessage: "failMessage" });
-          }
-        })
-      .catch(error => (console.log(error)));
-    }
+    .catch(error => (console.log(error)));
+  }
 
 
   changeHandler(event, identifier) {
     event.preventDefault()
     const newData = {...this.state.asset}
     let newDataElement = {...newData[identifier]}
-    newDataElement = event.target.value
+    if (identifier === 'assetTag') {
+      newDataElement = 'MA' + event.target.value
+    } else {
+      newDataElement = event.target.value
+    }
     newData[identifier] = newDataElement
     this.setState({asset: newData})
   }
@@ -104,43 +115,41 @@ class AddAssetForm extends Component {
   }
 
   assetTagIsUnique() {
-  console.log("start")
-			fetch('/companyusers/api/companyusers/')
-				.then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-				return response.json();
-				console.log("")
-				})
-				.then(data => {
-					data = this.finalizeCompanyResponse(data)
-					this.setState(() => {
-						return {
-							companyusers: data
-						}
-					});
-					return fetch("api/asset")
-				})
-				.then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-					return response.json();
-					})
-					.then(data => {
-						data = this.finalizeResponse(data)
-						if (data.includes(this.state.assetTag)){
-						  return false
-						  } else {
-						  return true
-						  }
-						});
-	    };
+    fetch('/companyusers/api/companyusers/')
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      data = this.finalizeCompanyResponse(data)
+      this.setState(() => {
+        return {
+          companyusers: data
+        }
+      });
+      return fetch("api/asset")
+    })
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      data = this.finalizeResponse(data)
+      if (data.includes(this.state.assetTag)){
+        return false
+        } else {
+        return true
+        }
+    });
+  };
 
 	finalizeCompanyResponse(data) {
 		var newArray = data.map(x => x.User)
@@ -151,51 +160,69 @@ class AddAssetForm extends Component {
 		var length = data.length
 		var newArray = []
 		for(var i=0; i < length; i++) {
-				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
-						newArray.push(data[i])
-				}
+      if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
+          newArray.push(data[i])
+      }
 		}
 		return newArray
 	}
 
   
   render() {
-    let successMessage = null
-    let failMessage = null
-    if(this.state.showMessage == "successMessage") {
-      successMessage =
+    let message = null
+    if(this.state.messageType == "successMessage" && this.state.showMessage == true) {
+      message =
         <div>
-          <div className='backdrop' onClick={this.hideMessageHandler}></div>
-          <div className='showMessage' onClick={this.hideMessageHandler}>
+          <div className='backdrop' onClick={() => this.hideMessageHandler()}></div>
+          <div className='showMessage' onClick={() => this.hideMessageHandler()}>
             <h3>Successfully added</h3>
           </div>
         </div>
-    } else if(this.state.showMessage == "failMessage"){
-      failMessage =
+    } else if(this.state.messageType == "failMessage" && this.state.showMessage == true){
+      message =
         <div>
-          <div className='backdrop' onClick={this.hideMessageHandler}></div>
-          <div className='showMessage' onClick={this.hideMessageHandler}>
-            <h3>Failed to Add Asset - AssetTag Not Unique</h3>
+          <div className='backdrop' onClick={() => this.hideMessageHandler()}></div>
+          <div className='showMessage' onClick={() => this.hideMessageHandler()}>
+            <h3>Failed to Add Asset - Asset Tag or Serial Number Not Unique</h3>
           </div>
         </div>
     }
 
     return(
       <div>
-        {successMessage}
-        {failMessage}
+        {message}
         <div className="add_asset_container">
-            <h1>Add an Asset</h1>
-            <form id='id_add_asset' onSubmit={this.submitHandler}>
-            <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
-            <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
-            <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
-            <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
-                <option value="Laptop">Laptop</option>
-                <option value="Mobile">Mobile</option>
-            </select>
-            <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
-            </form>
+          <h1>Add an Asset</h1>
+          <form id='id_add_asset' onSubmit={this.submitHandler}>
+          <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
+          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
+          <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
+          <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
+            <option value="Laptop">Laptop</option>
+            <option value="Mobile">Mobile</option>
+          </select>
+          <label className="asset_add_title" for="id_add_asset_condition" >Asset Condition:</label>
+          <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
+            <option value="Good">Good</option>
+            <option value="Bad">Broken</option>
+          </select>
+          <label className="asset_add_title" for="id_add_asset_status" >Asset Status:</label>
+          <select defaultValue='Ready' name="assetStatus" id="id_add_asset_status" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetStatus')}>
+            <option value="Ready">Ready</option>
+            <option value="In Repair">In Repair</option>
+            <option value="Locked at the office">Locked at the office</option>
+            <option value="On Loan">On Loan</option>
+            <option value="Needs Resetting">Needs Resetting</option>
+            <option value="Extended Loan">Extended Loan</option>
+            <option value="Unknown">Unknown</option>
+            <option value="Lost">Lost</option>
+            <option value="Stolen">Stolen</option>
+            <option value="Unavailable">Unavailable</option>
+          </select>
+          <label className="asset_add_serial_number" for="id_add_serial_number">Serial Number:</label>
+          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
+          <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
+          </form>
         </div>
       </div>
     )

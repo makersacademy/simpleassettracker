@@ -39,13 +39,13 @@
 
     <script>
         var data = [
-           ['Test Asset Tag', 'Laptop'],
-           ['Test Asset Tag', 'Laptop'],
-           ['Test Asset Tag', 'Laptop']
+           ['Test Asset 1', 'Laptop', 'Ready', '1'],
+           ['Test Asset 2', 'Laptop', 'Ready', '2'],
+           ['Test Asset 3', 'Laptop', 'Ready', '3']
         ];
 
         function download_csv() {
-            var csv = 'AssetTag,DeviceType\n';
+            var csv = 'AssetTag,DeviceType,AssetStatus,SerialNumber\n';
             data.forEach(function(row) {
                     csv += row.join(',');
                     csv += "\n";
