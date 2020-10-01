@@ -68,9 +68,9 @@ class AssetDisplay extends Component {
       if ( data[i].Company == this.state.company ) {
         newArray.push(data[i])
       }
+  	}
+  	return newArray
   }
-  return newArray
-	}
 
 	getCookie(name) {
 		var nameEQ = name + "=";
@@ -82,7 +82,6 @@ class AssetDisplay extends Component {
 		}
 		return null;
 	}
-
 
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
@@ -128,8 +127,8 @@ class AssetDisplay extends Component {
 	}
 
 	showAsset(asset) {
-      this.setState({ showAsset: true, asset: asset})
-    }
+    this.setState({ showAsset: true, asset: asset})
+  }
 
 	hideAsset() {
 		this.setState({ showAsset: false })

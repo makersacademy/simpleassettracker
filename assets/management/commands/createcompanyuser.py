@@ -23,6 +23,7 @@ def create_user(self, username, password, company_name):
   user.set_password(password)
   user.save()
   company = Company(Name=company_name)
+  company.Owned_by = user
   company.save()
   company_user = CompanyUser(User_id=user.id, Company_id=company.id)
   company_user.save()

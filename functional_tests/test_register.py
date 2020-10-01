@@ -22,7 +22,7 @@ class SignUpFormTest(LiveServerTestCase):
       self.browser.get(self.live_server_url + '/registercompany')
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Register A New Company and User:', body.text)
-      self.assertIn('Name', body.text)
+      self.assertIn('Company Name', body.text)
       self.assertIn('Username', body.text)
       self.assertIn('Password', body.text)
       self.assertIn('Email', body.text)
@@ -33,7 +33,7 @@ class SignUpFormTest(LiveServerTestCase):
       self.browser.get(self.live_server_url + '/registeruser')
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Register A New User:', body.text)
-      self.assertIn('Name', body.text)
+      self.assertIn('Company Name', body.text)
       self.assertIn('Username', body.text)
       self.assertIn('Password', body.text)
       self.assertIn('Email', body.text)
@@ -130,7 +130,7 @@ class SignUpUserTest(LiveServerTestCase):
       password_field.send_keys(Keys.RETURN)
       time.sleep(2)
       message = self.browser.find_element_by_class_name('messages')
-      self.assertIn('Your account has been created! Please sign in', message.text)
+      self.assertIn('Your account request has been submitted and is awaiting approval.', message.text)
 
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):

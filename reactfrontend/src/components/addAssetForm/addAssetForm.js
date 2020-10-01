@@ -167,7 +167,6 @@ class AddAssetForm extends Component {
 		return newArray
 	}
 
-  
   render() {
     let message = null
     if(this.state.messageType == "successMessage" && this.state.showMessage == true) {
