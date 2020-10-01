@@ -107,5 +107,3 @@ class ApproveUser(generics.RetrieveUpdateDestroyAPIView):
     serializer = self.get_serializer(instance)
 
     return Response(serializer.data)
-
-

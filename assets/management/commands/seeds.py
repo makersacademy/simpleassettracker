@@ -40,8 +40,8 @@ def create_user():
   user.save()
   return user
 
-def create_asset(user_instance):
-  A = Asset(AssetTag=get_random_tag(), DeviceType=get_random_type(), CreatedBy=user_instance)
+def create_asset(user_instance, company_instance):
+  A = Asset(AssetTag=get_random_tag(), DeviceType=get_random_type(), CreatedBy=user_instance, Company=company_instance, SerialNumber=get_random_tag())
   A.save()
 
 def create_company(name):
@@ -62,7 +62,7 @@ def create_objects(users, assets, company_name):
       company.save()
     create_companyuser(user, company)
     for j in range(assets):
-      create_asset(user)
+      create_asset(user, company)
 
 def get_random_tag():
   key=''

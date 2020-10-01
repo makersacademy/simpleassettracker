@@ -5,74 +5,72 @@ import './assetDisplay.css'
 import SingleAsset from '../singleAsset/singleAsset'
 
 class AssetDisplay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            companyusers: [],
-            assets: [],
-            loaded: false,
-            placeholder: "Loading",
-            descending: false,
-            showAsset: false,
-            asset: null,
+  constructor(props) {
+    super(props);
+    this.state = {
+      company: [],
+      assets: [],
+      loaded: false,
+      placeholder: "Loading",
+      descending: false,
+      showAsset: false,
+      asset: null,
+    };
+  }
+
+  componentDidMount(){
+    fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      data = this.finalizeCompanyResponse(data)
+      this.setState(() => {
+        return {
+          company: data
+        }
+      });
+    return fetch('/assets/api/asset')
+    })
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      data = this.finalizeResponse(data)
+      console.log(data)
+      this.setState(() => {
+        return {
+        assets: data,
+        loaded: true
         };
-		}
+      });
+    });
+  }
 
+  finalizeCompanyResponse(data) {
+    var companydata = data.Company
+    return companydata
+  }
 
-		componentDidMount() {
-			fetch('/companyusers/api/companyusers/')
-				.then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-				return response.json();
-				})
-				.then(data => {
-					data = this.finalizeCompanyResponse(data)
-					this.setState(() => {
-						return {
-							companyusers: data
-						}
-					});
-					return fetch("api/asset")
-				})
-				.then(response => {
-					if (response.status > 400) {
-						return this.setState(() => {
-							return { placeholder: "Something went wrong!" };
-						});
-					}
-					return response.json();
-					})
-					.then(data => {
-						data = this.finalizeResponse(data)
-						console.log(data)
-						this.setState(() => {
-							return {
-							assets: data,
-							loaded: true
-							};
-						});
-				});
-			}
-
-	finalizeCompanyResponse(data) {
-		var newArray = data.map(x => x.User)
-		return newArray
-	}
-
-	finalizeResponse(data) {
-		var length = data.length
-		var newArray = []
-		for(var i=0; i < length; i++) {
-				if ( this.state.companyusers.includes(data[i].CreatedBy) ) {
-						newArray.push(data[i])
-				}
-		}
-		return newArray
-	}
+  finalizeResponse(data) {
+    var length = data.length
+    var newArray = []
+    for(var i=0; i < length; i++) {
+      if ( data[i].Company == this.state.company ) {
+        newArray.push(data[i])
+      }
+  	}
+  	return newArray
+  }
 
 	getCookie(name) {
 		var nameEQ = name + "=";
@@ -85,13 +83,12 @@ class AssetDisplay extends Component {
 		return null;
 	}
 
-
 	handleDelete(asset_object) {
 		fetch(`/assets/api/asset/${asset_object.id}`, {
 			method: 'DELETE',
 			headers: {
-					"X-CSRFToken": this.getCookie('csrftoken'),
-					'Content-Type': 'application/json',
+        "X-CSRFToken": this.getCookie('csrftoken'),
+        'Content-Type': 'application/json',
 			},
 		})
 		.then(() => {
@@ -99,7 +96,7 @@ class AssetDisplay extends Component {
 		});
 	};
 
-	dynamicsort(property,order) {
+	dynamicsort(property, order) {
 		let sort_order = 1;
 		if(order === "desc"){
 			sort_order = -1;
@@ -119,8 +116,8 @@ class AssetDisplay extends Component {
 		const newData = [...this.state.data]
 		let order = 'asc'
 		if(this.state.descending === false) {
-				order = 'desc'
-				this.setState({ descending: true })
+      order = 'desc'
+      this.setState({ descending: true })
 		} else {
 				this.setState({ descending: false })
 		}
@@ -130,8 +127,8 @@ class AssetDisplay extends Component {
 	}
 
 	showAsset(asset) {
-        this.setState({ showAsset: true , asset: asset})
-    }
+    this.setState({ showAsset: true, asset: asset})
+  }
 
 	hideAsset() {
 		this.setState({ showAsset: false })
@@ -159,7 +156,10 @@ class AssetDisplay extends Component {
 					<tr>
 						<th scope="col" className='delete_col'>{arrow}</th>
 						<th scope="col" onClick={() => this.filterData('AssetTag')}>Asset Tag</th>
+						<th scope="col" onClick={() => this.filterData('SerialNumber')} className='align_center'>Serial Number</th>
 						<th scope="col" onClick={() => this.filterData('DeviceType')}>Device Type</th>
+            <th scope="col" onClick={() => this.filterData('AssetStatus')}>Status</th>
+            <th scope="col" onClick={() => this.filterData('AssetCondition')}>Condition</th>
 						<th scope="col" onClick={() => this.filterData('CreatedBy')} className='align_center'>Created By</th>
 					</tr>
 				</thead>
@@ -169,7 +169,10 @@ class AssetDisplay extends Component {
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
 								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.AssetTag}</td>
+								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.SerialNumber}</td>
 								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
+                <td onClick={() => this.showAsset(asset)}>{asset.AssetStatus}</td>
+                <td onClick={() => this.showAsset(asset)}>{asset.AssetCondition}</td>
 								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.CreatedBy}</td>
 							</tr>
 						);

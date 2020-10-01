@@ -7,6 +7,7 @@
 **/node_modules/
 **/.DS_Store
 .DS_Store
+.vscode/
 
 db.sqlite3
 media

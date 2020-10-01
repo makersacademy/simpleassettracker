@@ -47,7 +47,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_assets(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', AssetStatus='Ready', SerialNumber='57', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -55,7 +55,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_laptops(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', AssetStatus='Ready', SerialNumber='56', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -64,7 +64,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_mobiles(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', AssetStatus='Ready', SerialNumber='55', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -82,6 +82,8 @@ class Dashboard(LiveServerTestCase):
       asset_tag_field.send_keys('HD1269')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
       asset_type_field.send_keys('laptop')
+      asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
+      asset_type_field.send_keys('7')
       asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
       asset_submit_button.send_keys(Keys.RETURN)
       time.sleep(1)
@@ -91,7 +93,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_asset_deletes_and_count_decreases(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', CreatedBy=self.user)
+      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', AssetStatus='Ready', SerialNumber='58', CreatedBy=self.user, Company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
