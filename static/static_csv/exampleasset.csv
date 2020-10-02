@@ -1,4 +1,4 @@
-AssetTag,DeviceType,AssetStatus,SerialNumber
-TEST12,Laptop,Ready,1
-TEST34,Laptop,Ready,2
-TEST45,Laptop,Ready,3
+AssetTag,DeviceType,DeviceModel,AssetStatus,SerialNumber,AssetCondition,ScreenSize,HardDrive,Ram,Year
+TEST12,Laptop,Air,Ready,1,Good,14,500,16,2017
+TEST34,Laptop,Pro,Ready,2,Bad,14,1000,16,2014
+TEST45,Laptop,Air,Ready,3,Good,14,500,16,2017
