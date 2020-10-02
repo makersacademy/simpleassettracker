@@ -35,14 +35,21 @@ class SingleAsset extends Component {
     let tab2 = 'white'
     let tab3 = 'white'
     if(this.state.details === 'history'){
-        details = <h1>History component</h1>
-        tab1 = 'gray'
+      details = <h1>History component</h1>
+      tab1 = 'gray'
     } else if(this.state.details === 'details'){
-        details = <h1>Details component</h1>
-        tab2 = 'gray'
+      details = 
+        <div>
+          <h3>Screen Size: {this.props.asset.ScreenSize}</h3>
+          <h3>Ram: {this.props.asset.Ram}</h3>
+          <h3>Year: {this.props.asset.Year}</h3>
+          <h3>Hard Drive: {this.props.asset.HardDrive}</h3>
+          <h3>Condition: {this.props.asset.AssetCondition}</h3>
+        </div>
+      tab2 = 'gray'
     } else if(this.state.details === 'notes'){
-        details = <h1>Notes component</h1>
-        tab3 = 'gray'
+      details = <h1>Notes component</h1>
+      tab3 = 'gray'
     } 
 
     return(
@@ -72,8 +79,8 @@ class SingleAsset extends Component {
           </div>
           <div style={{ height: '60%'}}>
             <div className='SingleAssetOptions'>
-              <h3 onClick={() => this.setState({ details: 'history' })} style={{backgroundColor: tab1}} className='SingleAssetOptionsTab' id='history-tab'>History</h3>
               <h3 onClick={() => this.setState({ details: 'details' })} style={{backgroundColor: tab2}} className='SingleAssetOptionsTab' id='details-tab'>Details</h3>
+              <h3 onClick={() => this.setState({ details: 'history' })} style={{backgroundColor: tab1}} className='SingleAssetOptionsTab' id='history-tab'>History</h3>
               <h3 onClick={() => this.setState({ details: 'notes' })} style={{backgroundColor: tab3}} className='SingleAssetOptionsTab' id='notes-tab'>Notes</h3>
             </div>
             <div className='SingleAssetDetails'>

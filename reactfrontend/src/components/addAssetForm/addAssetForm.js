@@ -8,10 +8,15 @@ class AddAssetForm extends Component {
       asset: {
         assetTag: '',
         assetType: 'Laptop',
+        assetModel: '',
         createdBy: '',
         assetStatus: 'Ready',
         assetCondition: 'Good',
         serialNumber: '',
+        year: '',
+        hardDrive: '',
+        screenSize: '',
+        ram: '',
       },
       messageType: '',
       company: "",
@@ -66,6 +71,7 @@ class AddAssetForm extends Component {
 
   submitHandler(event) {
     event.preventDefault()
+    console.log(this.state.asset)
     let csrfToken = this.getCookie('csrftoken')
     fetch('api/asset/', {
       method: 'POST',
@@ -76,10 +82,15 @@ class AddAssetForm extends Component {
       body: JSON.stringify({
         "AssetTag": this.state.asset.assetTag,
         "DeviceType": this.state.asset.assetType,
+        "DeviceModel": this.state.asset.assetModel,
         "CreatedBy": this.state.asset.createdBy,
         "AssetStatus": this.state.asset.assetStatus,
         "SerialNumber": this.state.asset.serialNumber,
         "AssetCondition": this.state.asset.assetCondition,
+        "Ram": this.state.asset.ram,
+        "Year": this.state.asset.year,
+        "ScreenSize": this.state.asset.screenSize,
+        "HardDrive": this.state.asset.hardDrive,
         "Company": this.state.company,
       }),
     })
@@ -191,15 +202,19 @@ class AddAssetForm extends Component {
       <div>
         {message}
         <div className="add_asset_container">
-          <h1>Add an Asset</h1>
           <form id='id_add_asset' onSubmit={this.submitHandler}>
+          <h1>Add an Asset</h1>
           <label className="asset_add_title" for="id_add_asset_tag">Asset Tag:</label>
           <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event, 'assetTag')} name="assetTag" id="id_add_asset_tag"></input>
+          <label className="asset_add_title" for="id_add_serial_number">Serial Number:</label>
+          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
           <label className="asset_add_title" for="id_add_asset_type" >Asset Type:</label>
           <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
             <option value="Laptop">Laptop</option>
             <option value="Mobile">Mobile</option>
           </select>
+          <label className="asset_add_title" for="id_add_asset_model">Asset Model:</label>
+          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'assetModel')} name="assetModel" id="id_add_asset_model"></input>
           <label className="asset_add_title" for="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
             <option value="Good">Good</option>
@@ -218,11 +233,17 @@ class AddAssetForm extends Component {
             <option value="Stolen">Stolen</option>
             <option value="Unavailable">Unavailable</option>
           </select>
-          <label className="asset_add_serial_number" for="id_add_serial_number">Serial Number:</label>
-          <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
-          <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px"}} type="submit" value="submit">Add Asset</button>
+            <label className="asset_add_title" for="id_add_year">Year:</label>
+            <input className="add_asset_input" inputtype='input' maxLength='4' required type="number" onChange={(event) => this.changeHandler(event, 'year')} name="year" id="id_add_year"></input>
+            <label className="asset_add_title" for="id_add_ram">Ram (GB):</label>
+            <input className="add_asset_input" inputtype='input' required type="number" onChange={(event) => this.changeHandler(event, 'ram')} name="ram" id="id_add_ram"></input>
+            <label className="asset_add_title" for="id_add_hard_drive">Hard Drive (GB):</label>
+            <input className="add_asset_input" inputtype='input' required type="number" onChange={(event) => this.changeHandler(event, 'hardDrive')} name="hardDrive" id="id_add_hard_drive"></input>
+            <label className="asset_add_title" for="id_add_screen_size">Screen Size (Inches):</label>
+            <input className="add_asset_input" inputtype='input' maxLength='2' required type="number" onChange={(event) => this.changeHandler(event, 'screenSize')} name="screeSize" id="id_add_screen_size"></input>
+          <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px", clear:'both'}} type="submit" value="submit">Add Asset</button>
           </form>
-        </div>
+        </div> 
       </div>
     )
   }
