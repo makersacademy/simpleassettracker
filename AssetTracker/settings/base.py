@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 import django_heroku
 import environ
 import dj_database_url
@@ -22,8 +23,12 @@ environ.Env.read_env()  # reading .env file
 
 SITE_ROOT = root()
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+APPS_DIR = os.path.join(BASE_DIR, 'AssetTracker/apps/')
+sys.path.insert(0, APPS_DIR)
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
@@ -64,7 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'corsheaders',
-    'reactfrontend',
+    'apps.reactfrontend',
     'rest_framework',
     'assets.apps.AssetsConfig',
     'dashboard.apps.DashboardConfig',
