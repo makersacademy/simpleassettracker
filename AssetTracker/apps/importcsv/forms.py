@@ -1,5 +1,5 @@
 from django import forms
-from assets.models import Asset
+from AssetTracker.apps.assets.models import Asset
 
 class AssetForm(forms.ModelForm):
   class Meta:

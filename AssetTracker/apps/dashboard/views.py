@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from assets.models import Asset
-from companyusers.models import CompanyUser
+from AssetTracker.apps.assets.models import Asset
+from AssetTracker.apps.companyusers.models import CompanyUser
 
 @login_required(login_url='/login')
 def dashboardPageView(response):

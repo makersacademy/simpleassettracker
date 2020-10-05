@@ -5,9 +5,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
-from companyusers.models import CompanyUser
-from companies.models import Company
-from assets.models import Asset
+from AssetTracker.apps.companyusers.models import CompanyUser
+from AssetTracker.apps.companies.models import Company
+from AssetTracker.apps.assets.models import Asset
 import time
 
 class SingleAssetTest(LiveServerTestCase):

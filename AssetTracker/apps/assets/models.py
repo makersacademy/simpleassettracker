@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from companies.models import Company
+from AssetTracker.apps.companies.models import Company
 
 # Create your models here.
 
