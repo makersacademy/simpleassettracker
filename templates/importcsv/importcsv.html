@@ -39,16 +39,16 @@
 
     <script>
         var data = [
-           ['Test Asset 1', 'Laptop', 'Ready', '1'],
-           ['Test Asset 2', 'Laptop', 'Ready', '2'],
-           ['Test Asset 3', 'Laptop', 'Ready', '3']
+           ['Example12','Laptop','Air','Ready','1','Good','14','500','16','2017'],
+           ['Example34','Laptop','Pro','Ready','2','Bad','14','1000','16','2014'],
+           ['Example45','Laptop','Air','Ready','3','Good','14','500','16','2017']
         ];
 
         function download_csv() {
-            var csv = 'AssetTag,DeviceType,AssetStatus,SerialNumber\n';
+            var csv = 'AssetTag,DeviceType,DeviceModel,AssetStatus,SerialNumber,AssetCondition,ScreenSize,HardDrive,Ram,Year';
             data.forEach(function(row) {
-                    csv += row.join(',');
-                    csv += "\n";
+                csv += "\n";
+                csv += row.join(',');
             });
 
             var hiddenElement = document.createElement('a');
