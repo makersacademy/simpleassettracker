@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 import django_heroku
 import environ
 import dj_database_url
@@ -19,8 +20,9 @@ import dotenv
 root = environ.Path(__file__) - 3  # get root of the project
 env = environ.Env()
 environ.Env.read_env()  # reading .env file
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_ROOT = root()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -54,6 +56,8 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 # Application definition
+APPS_DIR = os.path.join(BASE_DIR, 'AssetTracker/apps/')
+sys.path.insert(0, APPS_DIR)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,15 +68,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'corsheaders',
-    'reactfrontend',
+    'AssetTracker.apps.reactfrontend',
     'rest_framework',
-    'assets.apps.AssetsConfig',
-    'dashboard.apps.DashboardConfig',
-    'register.apps.RegisterConfig',
-    'importcsv.apps.ImportcsvConfig',
-    'index.apps.IndexConfig',
-    'companies.apps.CompaniesConfig',
-    'companyusers.apps.CompanyusersConfig',
+    'AssetTracker.apps.assets',
+    'AssetTracker.apps.dashboard',
+    'AssetTracker.apps.register',
+    'AssetTracker.apps.importcsv',
+    'AssetTracker.apps.index',
+    'AssetTracker.apps.companies',
+    'AssetTracker.apps.companyusers',
 ]
 
 MIDDLEWARE = [
@@ -155,7 +159,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../static')

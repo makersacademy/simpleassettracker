@@ -5,8 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
-from companies.models import Company
-from companyusers.models import CompanyUser
+from AssetTracker.apps.companies.models import Company
+from AssetTracker.apps.companyusers.models import CompanyUser
 import time
 
 class AddAsset(LiveServerTestCase):
@@ -69,8 +69,18 @@ class AddAsset(LiveServerTestCase):
       asset_type_field.send_keys('5')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_status')
       asset_type_field.send_keys('Ready')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_model')
+      asset_type_field.send_keys('Pro')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_condition')
       asset_type_field.send_keys('Good')
+      asset_type_field = self.browser.find_element_by_id('id_add_year')
+      asset_type_field.send_keys('2013')
+      asset_type_field = self.browser.find_element_by_id('id_add_ram')
+      asset_type_field.send_keys('8')
+      asset_type_field = self.browser.find_element_by_id('id_add_screen_size')
+      asset_type_field.send_keys('18')
+      asset_type_field = self.browser.find_element_by_id('id_add_hard_drive')
+      asset_type_field.send_keys('256')
       asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
       asset_submit_button.send_keys(Keys.RETURN)
       self.browser.get(self.live_server_url + '/assets')
