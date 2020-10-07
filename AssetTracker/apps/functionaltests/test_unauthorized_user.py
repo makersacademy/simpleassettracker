@@ -14,14 +14,14 @@ class UnauthUserTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.admin = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.admin.save()
-    self.company_user = CompanyUser.objects.create(User=self.admin, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.admin, company=self.company)
     self.user = User.objects.create_user(username='adam', password='adam1', email='adam@test.com', is_active=False)
     self.user.save()
-    self.unauth_user = UnauthorizedUser.objects.create(User=self.user, Company=self.company)
+    self.unauth_user = UnauthorizedUser.objects.create(user=self.user, company=self.company)
     self.unauth_user.save()
 
   def tearDown(self):

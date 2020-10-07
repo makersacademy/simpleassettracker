@@ -4,4 +4,4 @@ from ..assets.models import Asset
 class AssetForm(forms.ModelForm):
   class Meta:
     model = Asset
-    fields = ("AssetTag", "DeviceType", "DeviceModel", "AssetStatus", "SerialNumber", "AssetCondition", "ScreenSize", "HardDrive", "Ram", "Year", "CreatedBy", "Company")
+    fields = ("asset_tag", "device_type", "device_model", "asset_status", "serial_number", "asset_condition", "screen_size", "hard_drive", "ram", "year", "created_by", "company")

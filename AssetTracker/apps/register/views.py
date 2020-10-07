@@ -24,7 +24,7 @@ def registercompany(response):
       company = company_form.save()
       company.Owned_by=user_object
       company.save()
-      company_user = CompanyUser.objects.create(User=user_object, Company=company)
+      company_user = CompanyUser.objects.create(user=user_object, company=company)
       messages.success(response, 'Your account and company has been created! Please sign in.')
       return redirect('login')
 
@@ -45,12 +45,12 @@ def registeruser(response):
     company_form = CompanyRegisterForm(response.POST)
 
     if form.is_valid():
-      company_name = response.POST["Name"]
+      company_name = response.POST["name"]
       user = form.save()
       user_object = User.objects.get(username=user)
       user_object.is_active = False
-      company_object = Company.objects.get(Name=company_name)
-      unauth_user = UnauthorizedUser.objects.create(User=user_object, Company=company_object)
+      company_object = Company.objects.get(name=company_name)
+      unauth_user = UnauthorizedUser.objects.create(user=user_object, company=company_object)
       user_object.save()
       unauth_user.save()
       messages.success(response, 'Your account request has been submitted and is awaiting approval.')
@@ -77,12 +77,12 @@ class UnauthorizedUserList(generics.ListAPIView):
     queryset = UnauthorizedUser.objects.all()
     user = self.request.user
     try:
-      company_id = CompanyUser.objects.get(User=user).Company.id
+      company_id = CompanyUser.objects.get(user=user).company.id
     except CompanyUser.DoesNotExist:
       company_id = None
 
     if company_id is not None:
-      queryset = queryset.filter(Company=company_id).select_related('User')
+      queryset = queryset.filter(company=company_id).select_related('user')
       return queryset
 
     else:

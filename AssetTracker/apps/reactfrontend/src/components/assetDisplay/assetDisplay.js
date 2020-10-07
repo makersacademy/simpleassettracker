@@ -57,7 +57,7 @@ class AssetDisplay extends Component {
   }
 
   finalizeCompanyResponse(data) {
-    var companydata = data.Company
+    var companydata = data.company
     return companydata
   }
 
@@ -65,7 +65,7 @@ class AssetDisplay extends Component {
     var length = data.length
     var newArray = []
     for(var i=0; i < length; i++) {
-      if ( data[i].Company == this.state.company ) {
+      if ( data[i].company == this.state.company ) {
         newArray.push(data[i])
       }
   	}
@@ -155,11 +155,11 @@ class AssetDisplay extends Component {
 				<thead>
 					<tr>
 						<th scope="col" className='delete_col'>{arrow}</th>
-						<th scope="col" onClick={() => this.filterData('AssetTag')}>Asset Tag</th>
-						<th scope="col" onClick={() => this.filterData('SerialNumber')} className='align_center'>Serial Number</th>
-						<th scope="col" onClick={() => this.filterData('DeviceType')}>Device Type</th>
-            <th scope="col" onClick={() => this.filterData('DeviceModel')}>Device model</th>
-            <th scope="col" onClick={() => this.filterData('AssetStatus')}>Status</th>
+						<th scope="col" onClick={() => this.filterData('asset_tag')}>Asset Tag</th>
+						<th scope="col" onClick={() => this.filterData('serial_number')} className='align_center'>Serial Number</th>
+						<th scope="col" onClick={() => this.filterData('device_type')}>Device Type</th>
+            <th scope="col" onClick={() => this.filterData('device_model')}>Device model</th>
+            <th scope="col" onClick={() => this.filterData('asset_status')}>Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -167,11 +167,11 @@ class AssetDisplay extends Component {
 						return (
 							<tr key={asset.id} className="asset_row">
 								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
-								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.AssetTag}</td>
-								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.SerialNumber}</td>
-								<td onClick={() => this.showAsset(asset)}>{asset.DeviceType}</td>
-                <td onClick={() => this.showAsset(asset)}>{asset.DeviceModel}</td>
-                <td onClick={() => this.showAsset(asset)}>{asset.AssetStatus}</td>
+								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.asset_tag}</td>
+								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.serial_number}</td>
+								<td onClick={() => this.showAsset(asset)}>{asset.device_type}</td>
+                <td onClick={() => this.showAsset(asset)}>{asset.device_model}</td>
+                <td onClick={() => this.showAsset(asset)}>{asset.asset_status}</td>
 							</tr>
 						);
 					})}

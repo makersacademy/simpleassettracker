@@ -16,7 +16,7 @@ class CompanyUserList(generics.ListCreateAPIView):
   def get_queryset(self):
     queryset =  CompanyUser.objects.all()
     user = self.request.user
-    company_id = CompanyUser.objects.get(User=user).Company.id
+    company_id = CompanyUser.objects.get(user=user).company.id
     if company_id is not None:
-      queryset = queryset.filter(Company=company_id)
+      queryset = queryset.filter(company=company_id)
     return queryset

@@ -13,11 +13,11 @@ class AddAsset(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
   def tearDown(self):
     # self.driver.stop_client()

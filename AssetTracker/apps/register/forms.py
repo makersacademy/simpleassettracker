@@ -14,8 +14,8 @@ class CompanyRegisterForm(forms.ModelForm):
 
   class Meta:
     model = Company
-    fields = ("Name",)
+    fields = ("name",)
 
   def __init__(self, *args, **kwargs):
     super(CompanyRegisterForm, self).__init__(*args, **kwargs)
-    self.fields['Name'].label = "Company Name"
+    self.fields['name'].label = "Company Name"
