@@ -27,14 +27,14 @@ class UnauthorizedUsersDisplay extends Component {
       return response.json();
       })
       .then(data => {
-        const newdata = data.map(user => {
+        const newData = data.map(user => {
           this.setState({company: user.company})
           const extendUser = {...user.user, unauth_id: user.id}
           return extendUser
         })
         this.setState(() => {
           return {
-            unauthorizedusers: newdata
+            unauthorizedusers: newData
           }
         });
       })

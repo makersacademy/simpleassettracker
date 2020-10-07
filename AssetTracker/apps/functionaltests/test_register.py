@@ -50,7 +50,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_user_can_signup_a_new_company(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -68,7 +68,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -86,7 +86,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_passwords_not_the_same(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -117,7 +117,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_user_can_signup_to_a_company(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -135,7 +135,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -153,7 +153,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_passwords_not_the_same(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')

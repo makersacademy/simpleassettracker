@@ -22,7 +22,7 @@ def registercompany(response):
       username = form.save()
       user_object = User.objects.get(username=username)
       company = company_form.save()
-      company.Owned_by=user_object
+      company.owned_by=user_object
       company.save()
       company_user = CompanyUser.objects.create(user=user_object, company=company)
       messages.success(response, 'Your account and company has been created! Please sign in.')
@@ -77,7 +77,7 @@ class UnauthorizedUserList(generics.ListAPIView):
     queryset = UnauthorizedUser.objects.all()
     user = self.request.user
     try:
-      company_id = CompanyUser.objects.get(user=user).company.id
+      company_id = CompanyUser.objects.get(user=user).company_id
     except CompanyUser.DoesNotExist:
       company_id = None
 
