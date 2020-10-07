@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin, auth
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
-from AssetTracker.apps.register import views as v
+from .apps.register import views as v
 
 urlpatterns = [
     path('', include('AssetTracker.apps.index.urls')),

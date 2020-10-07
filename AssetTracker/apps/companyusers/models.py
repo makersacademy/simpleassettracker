@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from AssetTracker.apps.companies.models import Company
+from ..companies.models import Company
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 

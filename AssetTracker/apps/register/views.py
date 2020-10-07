@@ -7,10 +7,10 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib import messages
-from AssetTracker.apps.register.models import UnauthorizedUser
+from ..register.models import UnauthorizedUser
 from django.contrib.auth.models import User
-from AssetTracker.apps.companyusers.models import CompanyUser
-from AssetTracker.apps.companies.models import Company
+from ..companyusers.models import CompanyUser
+from ..companies.models import Company
 
 # Create your views here.
 def registercompany(response):
