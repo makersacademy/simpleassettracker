@@ -4,3 +4,4 @@ from django.contrib.auth.models import User
 class Company(models.Model):
   name = models.CharField(max_length=30, unique=True)
   owned_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+  
