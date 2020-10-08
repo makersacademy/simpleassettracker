@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from AssetTracker.apps.companies.models import Company
 
 # Create your models here.
-
 class Asset(models.Model):
   asset_tag = models.CharField(max_length=30)
   device_type = models.CharField(max_length=30, default='Laptop')
