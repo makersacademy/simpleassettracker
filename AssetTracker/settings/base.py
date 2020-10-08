@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 import django_heroku
 import environ
 import dj_database_url
@@ -55,6 +56,8 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 # Application definition
+APPS_DIR = os.path.join(BASE_DIR, 'AssetTracker/apps/')
+sys.path.insert(0, APPS_DIR)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
