@@ -17,17 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin, auth
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
-from .apps.register import views as v
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include('AssetTracker.apps.index.urls')),
     path('', include('AssetTracker.apps.dashboard.urls')),
     path('', include('AssetTracker.apps.assets.urls')),
     path('', include('AssetTracker.apps.companyusers.urls')),
     path('', include('AssetTracker.apps.register.urls')),
-    path('admin/', admin.site.urls),
-    path("registercompany/", v.registercompany, name="registercompany"),
-    path("registeruser/", v.registeruser, name="registeruser"),
     path('', include("django.contrib.auth.urls")),
     path('', include('AssetTracker.apps.reactfrontend.urls')),
     path('', include('AssetTracker.apps.importcsv.urls')),
