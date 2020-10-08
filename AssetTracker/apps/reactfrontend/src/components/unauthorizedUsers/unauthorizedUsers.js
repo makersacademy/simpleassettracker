@@ -27,14 +27,14 @@ class UnauthorizedUsersDisplay extends Component {
       return response.json();
       })
       .then(data => {
-        const newdata = data.map(user => {
-          this.setState({company: user.Company})
-          const extendUser = {...user.User, unauth_id: user.id}
+        const newData = data.map(user => {
+          this.setState({company: user.company})
+          const extendUser = {...user.user, unauth_id: user.id}
           return extendUser
         })
         this.setState(() => {
           return {
-            unauthorizedusers: newdata
+            unauthorizedusers: newData
           }
         });
       })
@@ -67,8 +67,8 @@ class UnauthorizedUsersDisplay extends Component {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            "User": user_object.id,
-            "Company": this.state.company
+            "user": user_object.id,
+            "company": this.state.company
         }),
       })
 		})

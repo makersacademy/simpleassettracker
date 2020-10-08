@@ -5,20 +5,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
-from AssetTracker.apps.assets.models import Asset
-from AssetTracker.apps.companies.models import Company
-from AssetTracker.apps.companyusers.models import CompanyUser
+from ..assets.models import Asset
+from ..companies.models import Company
+from ..companyusers.models import CompanyUser
 import time
 
 class Dashboard(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
   def tearDown(self):
     self.browser.quit()
@@ -47,7 +47,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_assets(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', AssetStatus='Ready', SerialNumber='57', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(asset_tag='BR20RL', device_type='laptop', asset_status='Ready', serial_number='57', created_by=self.user, company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -55,7 +55,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_laptops(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BR20RL', DeviceType='laptop', AssetStatus='Ready', SerialNumber='56', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(asset_tag='BR20RL', device_type='laptop', asset_status='Ready', serial_number='56', created_by=self.user, company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -64,7 +64,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_dashboard_showing_count_of_mobiles(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', AssetStatus='Ready', SerialNumber='55', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(asset_tag='BB23A', device_type='mobile', asset_status='Ready', serial_number='55', created_by=self.user, company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')
@@ -107,7 +107,7 @@ class Dashboard(LiveServerTestCase):
 
   def test_asset_deletes_and_count_decreases(self):
     with self.settings(DEBUG=True):
-      self.A = Asset(AssetTag='BB23A', DeviceType='mobile', AssetStatus='Ready', SerialNumber='58', CreatedBy=self.user, Company=self.company)
+      self.A = Asset(asset_tag='BB23A', device_type='mobile', asset_status='Ready', serial_number='58', created_by=self.user, company=self.company)
       self.A.save()
       self.login()
       body = self.browser.find_element_by_tag_name('body')

@@ -5,8 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
-from AssetTracker.apps.companies.models import Company
-from AssetTracker.apps.companyusers.models import CompanyUser
+from ..companies.models import Company
+from ..companyusers.models import CompanyUser
 import time
 
 class SignUpFormTest(LiveServerTestCase):
@@ -50,7 +50,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_user_can_signup_a_new_company(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -68,7 +68,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -86,7 +86,7 @@ class SignUpUserAndCompanyTest(LiveServerTestCase):
   def test_passwords_not_the_same(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registercompany')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -105,11 +105,11 @@ class SignUpUserTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
   def tearDown(self):
     self.browser.quit()
@@ -117,7 +117,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_user_can_signup_to_a_company(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -135,7 +135,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_too_obvious_password(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -153,7 +153,7 @@ class SignUpUserTest(LiveServerTestCase):
   def test_passwords_not_the_same(self):
     with self.settings(DEBUG=True):
       self.browser.get(self.live_server_url + '/registeruser')
-      name_field = self.browser.find_element_by_id('id_Name')
+      name_field = self.browser.find_element_by_id('id_name')
       name_field.send_keys('Makers')
       username_field = self.browser.find_element_by_id('id_username')
       username_field.send_keys('adam')
@@ -172,11 +172,11 @@ class LoginAndOutTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
   def tearDown(self):
     self.browser.quit()

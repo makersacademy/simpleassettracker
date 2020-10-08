@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import AssetForm
-from AssetTracker.apps.companyusers.models import CompanyUser
+from ..companyusers.models import CompanyUser
 import logging
 # Create your views here.
 @login_required(login_url='/login')
@@ -13,7 +13,7 @@ def importView(response):
 
 def upload_csv(request):
   asset_count = 0
-  company = CompanyUser.objects.get(User=request.user.id).Company
+  company = CompanyUser.objects.get(user=request.user.id).company
   data = {}
   if "GET" == request.method:
     return render(request, "importcsv/importcsv.html", data)
@@ -37,18 +37,18 @@ def upload_csv(request):
     for line in lines:
       fields = line.split(",")
       data_dict = {}
-      data_dict["AssetTag"] = fields[0]
-      data_dict["DeviceType"] = fields[1]
-      data_dict["DeviceModel"] = fields[2]
-      data_dict["AssetStatus"] = fields[3]
-      data_dict["SerialNumber"] = fields[4]
-      data_dict["AssetCondition"] = fields[5]
-      data_dict["ScreenSize"] = fields[6]
-      data_dict["HardDrive"] = fields[7]
-      data_dict["Ram"] = fields[8]
-      data_dict["Year"] = fields[9]
-      data_dict["CreatedBy"] = request.user.id
-      data_dict["Company"] = company
+      data_dict["asset_tag"] = fields[0]
+      data_dict["device_type"] = fields[1]
+      data_dict["device_model"] = fields[2]
+      data_dict["asset_status"] = fields[3]
+      data_dict["serial_number"] = fields[4]
+      data_dict["asset_condition"] = fields[5]
+      data_dict["screen_size"] = fields[6]
+      data_dict["hard_drive"] = fields[7]
+      data_dict["ram"] = fields[8]
+      data_dict["year"] = fields[9]
+      data_dict["created_by"] = request.user.id
+      data_dict["company"] = company
 
       try:
         form = AssetForm(data_dict)

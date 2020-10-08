@@ -8,11 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
     fields = ("id", "username", "email")
 
 class UnauthorizedUserSerializer(serializers.ModelSerializer):
-  User = UserSerializer(read_only=True)
+  user = UserSerializer(read_only=True)
 
   class Meta:
     model = UnauthorizedUser
-    fields = ('id', 'User', 'Company')
+    fields = ('id', 'user', 'company')
 
 class ApproveUserSerializer(serializers.ModelSerializer):
 

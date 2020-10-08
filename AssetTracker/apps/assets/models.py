@@ -5,18 +5,18 @@ from AssetTracker.apps.companies.models import Company
 # Create your models here.
 
 class Asset(models.Model):
-  AssetTag = models.CharField(max_length=30)
-  DeviceType = models.CharField(max_length=30, default='Laptop')
-  DeviceModel = models.CharField(max_length=30, default="unassigned")
-  AssetStatus = models.CharField(max_length=30, default='Ready')
-  SerialNumber = models.CharField(max_length=64, unique=True)
-  CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE)
-  Company = models.ForeignKey(Company, on_delete=models.CASCADE)
-  AssetCondition = models.CharField(max_length=30, default='Good')
-  ScreenSize = models.CharField(max_length=30, default="unassigned")
-  HardDrive = models.CharField(max_length=30, default="unassigned")
-  Ram = models.CharField(max_length=30, default="unassigned")
-  Year = models.CharField(max_length=30, default="unassigned")
+  asset_tag = models.CharField(max_length=30)
+  device_type = models.CharField(max_length=30, default='Laptop')
+  device_model = models.CharField(max_length=30, default="unassigned")
+  asset_status = models.CharField(max_length=30, default='Ready')
+  serial_number = models.CharField(max_length=64, unique=True)
+  created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+  company = models.ForeignKey(Company, on_delete=models.CASCADE)
+  asset_condition = models.CharField(max_length=30, default='Good')
+  screen_size = models.CharField(max_length=30, default="unassigned")
+  hard_drive = models.CharField(max_length=30, default="unassigned")
+  ram = models.CharField(max_length=30, default="unassigned")
+  year = models.CharField(max_length=30, default="unassigned")
 
   class Meta:
-    unique_together = ['AssetTag', 'Company',]
+    unique_together = ['asset_tag', 'company',]

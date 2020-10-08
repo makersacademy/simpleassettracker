@@ -41,16 +41,16 @@ def create_user():
   return user
 
 def create_asset(user_instance, company_instance):
-  A = Asset(AssetTag=get_random_tag(), DeviceType=get_random_type(), CreatedBy=user_instance, Company=company_instance, SerialNumber=get_random_tag())
+  A = Asset(asset_tag=get_random_tag(), device_type=get_random_type(), created_by=user_instance, company=company_instance, serial_number=get_random_tag())
   A.save()
 
 def create_company(name):
-  C = Company(Name=name)
+  C = Company(name=name)
   C.save()
   return C
 
 def create_companyuser(user_instance, company_instance):
-  CU = CompanyUser(User_id=user_instance.id, Company_id=company_instance.id)
+  CU = CompanyUser(user_id=user_instance.id, company_id=company_instance.id)
   CU.save()
 
 def create_objects(users, assets, company_name):

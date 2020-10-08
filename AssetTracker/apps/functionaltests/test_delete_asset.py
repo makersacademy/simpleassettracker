@@ -5,21 +5,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
-from AssetTracker.apps.assets.models import Asset
-from AssetTracker.apps.companies.models import Company
-from AssetTracker.apps.companyusers.models import CompanyUser
+from ..assets.models import Asset
+from ..companies.models import Company
+from ..companyusers.models import CompanyUser
 import time
 
 class DeleteAsset(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(Name="Makers")
+    self.company = Company(name="Makers")
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
-    self.company_user = CompanyUser.objects.create(User=self.user, Company=self.company)
-    self.asset = Asset(AssetTag='BR20RL', DeviceType='laptop', CreatedBy=self.user, Company=self.company)
+    self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
+    self.asset = Asset(asset_tag='BR20RL', device_type='laptop', created_by=self.user, company=self.company)
     self.asset.save()
 
   def tearDown(self):
