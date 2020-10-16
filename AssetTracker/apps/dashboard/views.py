@@ -6,45 +6,45 @@ from ..companyusers.models import CompanyUser
 
 @login_required(login_url='/login')
 def dashboardPageView(response):
-  user = response.user
-  assetCounts = getAssetCounts(user)
-  return render(response, "dashboard/dashboard.html", {
-  "asset_count": assetCounts[0],
-  "laptop_count": assetCounts[1],
-  "mobile_count": assetCounts[2],
-  })
+	user = response.user
+	assetCounts = getAssetCounts(user)
+	return render(response, "dashboard/dashboard.html", {
+	"asset_count": assetCounts[0],
+	"laptop_count": assetCounts[1],
+	"mobile_count": assetCounts[2],
+	})
 
 def getAssets(user):
-  current_company_id = CompanyUser.objects.get(user = user).company.id
-  company_users = CompanyUser.objects.filter(company = current_company_id)
-  def get_user_id(i):
-    return i.user.id
-  company_user_ids = list(map(get_user_id, company_users))
-  return Asset.objects.filter(created_by__in=company_user_ids)
+	current_company_id = CompanyUser.objects.get(user = user).company.id
+	company_users = CompanyUser.objects.filter(company = current_company_id)
+	def get_user_id(i):
+		return i.user.id
+	company_user_ids = list(map(get_user_id, company_users))
+	return Asset.objects.filter(created_by__in=company_user_ids)
 
 def countAssets(assets):
-  return assets.count()
+	return assets.count()
 
 def countLaptops(assets):
-  count = 0
-  for i in range(len(assets)):
-    if assets[i].device_type.lower() == "laptop":
-      count += 1
+	count = 0
+	for i in range(len(assets)):
+		if assets[i].device_type.lower() == "laptop":
+			count += 1
 
-  return count
+	return count
 
 def countMobiles(assets):
-  count = 0
-  for i in range(len(assets)):
-    if assets[i].device_type.lower() == "mobile":
-      count += 1
+	count = 0
+	for i in range(len(assets)):
+		if assets[i].device_type.lower() == "mobile":
+			count += 1
 
-  return count
+	return count
 
 def getAssetCounts(logged_user):
-  assetList = getAssets(logged_user)
-  counts = []
-  counts.append(countAssets(assetList))
-  counts.append(countLaptops(assetList))
-  counts.append(countMobiles(assetList))
-  return counts
+	assetList = getAssets(logged_user)
+	counts = []
+	counts.append(countAssets(assetList))
+	counts.append(countLaptops(assetList))
+	counts.append(countMobiles(assetList))
+	return counts
