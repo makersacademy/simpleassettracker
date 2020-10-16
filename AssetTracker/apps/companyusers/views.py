@@ -14,7 +14,7 @@ class CompanyUserList(generics.ListCreateAPIView):
 	serializer_class = CompanyUserSerializer
 
 	def get_queryset(self):
-		queryset =  CompanyUser.objects.all()
+		queryset = CompanyUser.objects.all()
 		user = self.request.user
 		company_id = CompanyUser.objects.get(user=user).company.id
 		if company_id is not None:
