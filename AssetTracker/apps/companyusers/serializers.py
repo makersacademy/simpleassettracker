@@ -5,4 +5,3 @@ class CompanyUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CompanyUser
 		fields = ('user', 'company')
-		
