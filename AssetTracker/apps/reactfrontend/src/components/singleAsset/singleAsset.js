@@ -9,7 +9,7 @@ class SingleAsset extends Component {
       details: null,
       asset: {
         assetTag: '',
-        assetType: '',
+        deviceType: '',
         createdBy: '',
         assetStatus: '',
         serialNumber: '',
@@ -21,7 +21,7 @@ class SingleAsset extends Component {
   componentDidMount() {
     this.setState({
       assetTag: this.props.asset.assetTag,
-      assetType: this.props.asset.assetType,
+      deviceType: this.props.asset.deviceType,
       createdBy: this.props.asset.createdBy,
       assetStatus: this.props.asset.assetStatus,
       assetCondition: this.props.asset.assetCondition,
@@ -61,7 +61,7 @@ class SingleAsset extends Component {
               <h3>{this.props.asset.asset_tag}</h3>
               <h3>{this.props.asset.serial_number}</h3>
               <div>
-                <select defaultValue={this.props.asset_status} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'assetType')}>
+                <select defaultValue={this.props.asset_status} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'deviceType')}>
                   <option value="In Repair">In Repair</option>
                   <option value="Locked at the office">Locked at the office</option>
                   <option value="On Loan">On Loan</option>

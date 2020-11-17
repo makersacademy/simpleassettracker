@@ -7,8 +7,8 @@ class AddAssetForm extends Component {
     this.state = {
       asset: {
         assetTag: '',
-        assetType: 'Laptop',
-        assetModel: 'unassigned',
+        deviceType: 'Laptop',
+        deviceModel: 'unassigned',
         createdBy: '',
         assetStatus: 'Ready',
         assetCondition: 'Good',
@@ -81,8 +81,8 @@ class AddAssetForm extends Component {
       },
       body: JSON.stringify({
         "asset_tag": this.state.asset.assetTag,
-        "device_type": this.state.asset.assetType,
-        "device_model": this.state.asset.assetModel,
+        "device_type": this.state.asset.deviceType,
+        "device_model": this.state.asset.deviceModel,
         "created_by": this.state.asset.createdBy,
         "asset_status": this.state.asset.assetStatus,
         "serial_number": this.state.asset.serialNumber,
@@ -210,12 +210,12 @@ class AddAssetForm extends Component {
           <label className="asset_add_title" htmlFor="id_add_serial_number">Serial Number:</label>
           <input className="add_asset_input" inputtype='input' required type="text" onChange={(event) => this.changeHandler(event,'serialNumber')} name="serialNumber" id="id_add_serial_number"></input>
           <label className="asset_add_title" htmlFor="id_add_asset_type" >Asset Type:</label>
-          <select defaultValue='Laptop' name="assetType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetType')}>
+          <select defaultValue='Laptop' name="deviceType" id="id_add_asset_type" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'deviceType')}>
             <option value="Laptop">Laptop</option>
             <option value="Mobile">Mobile</option>
           </select>
           <label className="asset_add_title" htmlFor="id_add_asset_model">Asset Model:</label>
-          <input className="add_asset_input" inputtype='input' type="text" onChange={(event) => this.changeHandler(event,'assetModel')} name="assetModel" id="id_add_asset_model"></input>
+          <input className="add_asset_input" inputtype='input' type="text" onChange={(event) => this.changeHandler(event,'deviceModel')} name="deviceModel" id="id_add_asset_model"></input>
           <label className="asset_add_title" htmlFor="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
             <option value="Good">Good</option>
