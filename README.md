@@ -67,7 +67,7 @@ There are two different package managers being used for this project - pip and n
 
 To install packages for pip, make sure you're in the project root and you are within your environment. Then run `pip install -r requirements.txt` - this will read the requirements file for packages that are needed.
 
-To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and simply run `npm install`.
+To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and run `npm install`.
 
 ### Running tests
 To run tests you'll need a version of geckodriver installed. 
