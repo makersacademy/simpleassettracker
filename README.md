@@ -26,9 +26,11 @@ The team over at SimpleAssetTracker consists of:
 
 - [John Baxter](https://github.com/john-baxter)
 
-- [Haydon Houghton](https://github.com/Kefuri)
-
 - [Catriona Bennett](https://github.com/cmb84scd)
+
+- [Ilias Marios Grigoropoulos](https://github.com/IliasMariosG)
+
+- [Haydon Houghton](https://github.com/Kefuri)
 
 - [Richard Pattinson](https://github.com/richardpattinson)
 
@@ -51,7 +53,7 @@ Now that you've done that, we'd advise you to set up an environment for this pro
 
 Anaconda is a useful environment management tool for projects where you don't want to install packages onto your route.
 
-Thankfully, Anaconda provide a great installation guide [here](https://meet.google.com/djg-cvpe-ktk). Please use the COMMAND LINE installer - we've encountered issues with the graphical one!
+Thankfully, Anaconda provide a great installation guide [here](https://www.anaconda.com/products/individual). Please use the COMMAND LINE installer - we've encountered issues with the graphical one!
 
 Once you've finished the installation, you should be able to navigate over to your terminal and run `conda -V` with no issues.
 
@@ -65,7 +67,7 @@ There are two different package managers being used for this project - pip and n
 
 To install packages for pip, make sure you're in the project root and you are within your environment. Then run `pip install -r requirements.txt` - this will read the requirements file for packages that are needed.
 
-To install node packages, navigate into `/reactfrontend` and simply run `npm install`.
+To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and simply run `npm install`.
 
 ### Running tests
 To run tests you'll need a version of geckodriver installed. 
@@ -80,7 +82,7 @@ https://github.com/mozilla/geckodriver/releases
 
 To run tests make sure you are in your root directory before running the following:
 ```
-$ python manage.py test functional_tests
+$ python manage.py test AssetTracker.apps.functionaltests
 ```
 
 ### Deploying To Heroku
