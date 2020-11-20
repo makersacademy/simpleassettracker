@@ -1,4 +1,8 @@
 [run]
 omit =
+  */node_modules/*
   manage.py
   AssetTracker/settings/*
+[coverage:report]
+fail_under = 90
+show_missing = True
