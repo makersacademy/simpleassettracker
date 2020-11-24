@@ -8,5 +8,11 @@ class Dashboard(SimpleTestCase):
     self.assertEquals(countLaptops(assets), 0)
 
   def test_countLaptops_one(self):
-    assets = ['Asset': {'device_type': 'Laptop'}]
-    self.assertEquals(countLaptops(assets), 1)
+    class dotdict(dict):
+      __getattr__ = dict.get
+      __setattr__ = dict.__setitem__
+      __delattr__ = dict.__delitem__
+
+    asset = {'device_type': 'Laptop'}
+    asset = dotdict(asset)
+    self.assertEquals(countLaptops([asset]), 1)
