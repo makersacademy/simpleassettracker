@@ -4,23 +4,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class='Register_container'>
-        <h1 id='register_title'>Register A New Company and User:</h1>
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <form method="POST" class="form-group">
-        {% csrf_token %}
-            {{ company_form|crispy }}
-            {{ form|crispy }}
-        <button type="submit" id="register_button" class="btn btn-success">Register</button>
-        </form>
-    </div>
+  <div class='Register_container'>
+    <h1 id='register_title'>Register A New Company and User:</h1>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <form method="POST" class="form-group">
+      {% csrf_token %}
+      {{ company_form|crispy }}
+      {{ form|crispy }}
+      <button type="submit" id="register_button" class="btn btn-success">Register</button>
+    </form>
+  </div>
 
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/register.css' %}">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/register.css' %}">
 {% endblock %}
