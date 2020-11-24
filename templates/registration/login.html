@@ -1,31 +1,29 @@
 {% extends "AssetTracker/base.html" %}
 
-{% block title %}
-Login
-{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
-{% if messages %}
-  <ul class="messages">
+  {% if messages %}
+    <ul class="messages">
       {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
       {% endfor %}
-  </ul>
-{% endif %}
+    </ul>
+  {% endif %}
 
-<div class="Login_container">
+  <div class="Login_container">
     <h1 id='login_title'>Login:</h1>
     <form method="post" class="from-group">
-	    {% csrf_token %}
-	    {{form|crispy}}
-	    <p>Don't have an account? Create one <a href="/preregister">here</a></p>
-        <p>Forgotten your Password? Reset it <a href="/password_reset">here</a></p>
-	    <button type="submit" class="btn btn-success">Login</button>
+      {% csrf_token %}
+      {{form|crispy}}
+      <p>Don't have an account? Create one <a href="/preregister">here</a></p>
+      <p>Forgotten your Password? Reset it <a href="/password_reset">here</a></p>
+      <button type="submit" class="btn btn-success">Login</button>
     </form>
-</div>
+  </div>
 
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/login.css' %}">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/login.css' %}">
 {% endblock %}

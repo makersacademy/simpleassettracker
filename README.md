@@ -1,4 +1,5 @@
 [![Codeship Status for makersacademy/simpleassettracker](https://app.codeship.com/projects/c56a2e20-a7e4-0138-7d2b-2e8a72535188/status?branch=master)](https://app.codeship.com/projects/402832)
+[![codecov](https://codecov.io/gh/makersacademy/simpleassettracker/branch/master/graph/badge.svg?token=XWE9CMYN4K)](https://codecov.io/gh/makersacademy/simpleassettracker)
 
 # SimpleAssetTracker
 
