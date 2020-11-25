@@ -43,8 +43,6 @@ def countMobiles(assets):
 
 def getAssetCounts(logged_user):
 	assetList = getAssets(logged_user)
-	print('assets')
-	print(assetList)
 	counts = []
 	counts.append(countAssets(assetList))
 	counts.append(countLaptops(assetList))
