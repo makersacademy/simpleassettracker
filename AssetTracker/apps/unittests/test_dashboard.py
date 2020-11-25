@@ -8,14 +8,19 @@ class dotdict(dict):
 
 class Dashboard(SimpleTestCase):
 
-  def test_countLaptops_zero(self):
+  def test_count_laptops_zero(self):
     assets = []
     self.assertEquals(countLaptops(assets), 0)
 
-  def test_countLaptops_one(self):
+  def test_count_laptops_one(self):
     asset = {'device_type': 'Laptop'}
     asset = dotdict(asset)
     self.assertEquals(countLaptops([asset]), 1)
+
+  def test_do_not_count_mobiles(self):
+    asset = {'device_type': 'Mobile'}
+    asset = dotdict(asset)
+    self.assertEquals(countLaptops([asset]), 0)
   
   def test_countMobiles_zero(self):
     assets = []
@@ -25,3 +30,8 @@ class Dashboard(SimpleTestCase):
     asset = {'device_type': 'Mobile'}
     asset = dotdict(asset)
     self.assertEquals(countMobiles([asset]), 1)
+  
+  def test_do_not_count_laptops(self):
+    asset = {'device_type': 'Laptop'}
+    asset = dotdict(asset)
+    self.assertEquals(countMobiles([asset]), 0)
