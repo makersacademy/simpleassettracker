@@ -23,7 +23,7 @@ def getAssets(user):
 	return Asset.objects.filter(created_by__in=company_user_ids)
 
 def countAssets(assets):
-	return assets.count()
+	return len(assets)
 
 def countLaptops(assets):
 	count = 0
