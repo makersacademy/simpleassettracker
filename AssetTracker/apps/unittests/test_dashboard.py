@@ -1,5 +1,5 @@
 from django.test import SimpleTestCase
-from ..dashboard.views import countLaptops, countMobiles, countAssets
+from ..dashboard.views import countLaptops, countMobiles, countAssets, getAssetCounts, getAssets
 
 class dotdict(dict):
   __getattr__ = dict.get
@@ -44,3 +44,16 @@ class Dashboard(SimpleTestCase):
     assets = {'device_type': 'Laptop'}
     assets = dotdict(assets)
     self.assertEquals(countAssets([assets]), 1)
+
+  # def test_getAssets(self):
+  #   user = {'name': 'dawid', 'id': 1, 'company': {'id': 2}}
+  #   user = dotdict(user)
+  #   CompanyUser = {'user': {'name': 'dawid', 'id': 1}, 'company': {'id': 2}}
+  #   CompanyUser = dotdict(CompanyUser)
+  #   self.assertEquals(getAssets(user), 0)
+
+  # def test_getAssetCounts(self):
+  #   user = {}
+  #   dotdict(user)
+  #   self.assertEquals(getAssetCounts([user]), 0)
+

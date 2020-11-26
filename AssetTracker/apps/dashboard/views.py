@@ -30,7 +30,6 @@ def countLaptops(assets):
 	for i in range(len(assets)):
 		if assets[i].device_type.lower() == "laptop":
 			count += 1
-
 	return count
 
 def countMobiles(assets):
@@ -38,7 +37,6 @@ def countMobiles(assets):
 	for i in range(len(assets)):
 		if assets[i].device_type.lower() == "mobile":
 			count += 1
-
 	return count
 
 def getAssetCounts(logged_user):
