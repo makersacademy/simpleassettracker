@@ -17,11 +17,11 @@ class Reactfrontend(TestCase):
     self.assertTemplateUsed(response, 'reactfrontend/assets.html')
 
   def test_addAssets(self):
-    response = self.client.get('/assets/add', follow=True)
+    response = self.client.get('/assets/add')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'reactfrontend/addAssets.html')
 
   def test_unauthorizedUsers(self):
-    response = self.client.get('/usermanagement/unauthorized', follow=True)
+    response = self.client.get('/usermanagement/unauthorized')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'reactfrontend/unauthorizedUsers.html')
