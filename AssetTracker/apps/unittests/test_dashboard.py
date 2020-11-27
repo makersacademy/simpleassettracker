@@ -59,21 +59,14 @@ class Dashboard(TestCase):
     self.assertEquals(countAssets([assets]), 1)
 
   def test_getAssets(self):
-    user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=False)
+    user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=True)
     user.save()
     company = Company(name="Poland")
     company.save()
     CompanyUser.objects.create(user=user, company=company)
     self.assertEquals(len(getAssets(user)), 0)
 
-  # def test_getAssetCounts(self):
-  #   user = {}
-  #   dotdict(user)
-  #   self.assertEquals(getAssetCounts([user]), 0)
-
   def test_dashboardPageView(self):
     response = self.client.get('/dashboard', follow='true')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'dashboard/dashboard.html')
-
-
