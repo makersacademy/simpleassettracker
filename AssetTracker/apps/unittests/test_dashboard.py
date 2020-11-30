@@ -35,11 +35,11 @@ class DashboardTest(TestCase):
     asset = dotdict(asset)
     self.assertEquals(countLaptops([asset]), 0)
   
-  def test_countMobiles_zero(self):
+  def test_count_mobiles_zero(self):
     assets = []
     self.assertEquals(countMobiles(assets), 0)
   
-  def test_countMobiles_one(self):
+  def test_count_mobiles_one(self):
     asset = {'device_type': 'Mobile'}
     asset = dotdict(asset)
     self.assertEquals(countMobiles([asset]), 1)
@@ -58,7 +58,7 @@ class DashboardTest(TestCase):
     assets = dotdict(assets)
     self.assertEquals(countAssets([assets]), 1)
 
-  def test_getAssets(self):
+  def test_get_assets(self):
     user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=True)
     user.save()
     company = Company(name="Poland")
@@ -66,7 +66,7 @@ class DashboardTest(TestCase):
     CompanyUser.objects.create(user=user, company=company)
     self.assertEquals(len(getAssets(user)), 0)
 
-  def test_dashboardPageView(self):
+  def test_dashboard_page_view(self):
     response = self.client.get('/dashboard', follow='true')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'dashboard/dashboard.html')
