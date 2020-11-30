@@ -69,6 +69,21 @@ class DashboardTest(TestCase):
     laptop.save()
     self.assertEquals(len(getAssets(user)), 1)
 
+  def test_do_not_get_assets_from_different_company(self):
+    user = User.objects.create(username='user1', password='12345', email='testuser@test.com', is_active=True)
+    user.save()
+    company = Company(name="England")
+    company.save()
+    CompanyUser.objects.create(user=user, company=company)
+    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
+    laptop.save()
+    user1 = User.objects.create(username='user2', password='12345', email='testuser@test.com', is_active=True)
+    user1.save()
+    company1 = Company(name="Brand")
+    company1.save()
+    CompanyUser.objects.create(user=user1, company=company1)
+    self.assertEquals(len(getAssets(user1)), 0)
+
   def test_dashboard_page_view(self):
     response = self.client.get('/dashboard', follow='true')
     self.assertEqual(response.status_code, 200)
