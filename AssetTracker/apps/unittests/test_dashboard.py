@@ -3,6 +3,7 @@ from ..dashboard.views import *
 from django.contrib.auth.models import User
 from ..companyusers.models import CompanyUser
 from ..companies.models import Company
+from ..assets.models import Asset
 
 class dotdict(dict):
   __getattr__ = dict.get
@@ -64,7 +65,9 @@ class DashboardTest(TestCase):
     company = Company(name="Poland")
     company.save()
     CompanyUser.objects.create(user=user, company=company)
-    self.assertEquals(len(getAssets(user)), 0)
+    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
+    laptop.save()
+    self.assertEquals(len(getAssets(user)), 1)
 
   def test_dashboard_page_view(self):
     response = self.client.get('/dashboard', follow='true')
