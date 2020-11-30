@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from ..index.views import indexPageView
 
-class Index(TestCase):
+class IndexTest(TestCase):
 
   def setUp(self):
     self.client = Client()
@@ -10,4 +10,3 @@ class Index(TestCase):
     response = self.client.get('/')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'index/index.html')
-    self.assertContains(response, 'Simple Asset Tracker')

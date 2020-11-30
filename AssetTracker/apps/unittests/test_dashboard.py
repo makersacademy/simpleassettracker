@@ -9,7 +9,7 @@ class dotdict(dict):
   __setattr__ = dict.__setitem__
   __delattr__ = dict.__delitem__
 
-class Dashboard(TestCase):
+class DashboardTest(TestCase):
 
   def setUp(self):
     self.client = Client()

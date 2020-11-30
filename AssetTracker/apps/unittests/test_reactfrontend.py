@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from ..reactfrontend.views import *
 from django.contrib.auth.models import User
 
-class Reactfrontend(TestCase):
+class ReactfrontendTest(TestCase):
   
   def setUp(self):
     self.client = Client()

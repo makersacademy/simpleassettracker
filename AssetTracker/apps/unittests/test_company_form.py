@@ -1,7 +1,7 @@
 from django.test import TestCase
 from ..register.forms import CompanyRegisterForm
 
-class CompanyForm(TestCase):
+class CompanyFormTest(TestCase):
 
   def test_company_form_label(self):
     form = CompanyRegisterForm()
