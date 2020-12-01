@@ -11,7 +11,7 @@ class ImportCSVTest(TestCase):
     user.save()
     self.client.login(username='testuser', password='12345')
 
-  def test_importcsv(self):
+  def test_importcsv_page_view(self):
     response = self.client.get('/import', follow=True)
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'importcsv/importcsv.html')
