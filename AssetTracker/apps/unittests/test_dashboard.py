@@ -22,42 +22,42 @@ class DashboardTest(TestCase):
     CompanyUser.objects.create(user=user, company=company)
     self.client.login(username='user', password='12345')
 
-  def test_count_laptops_zero(self):
+  def test_count_zero_laptops(self):
     assets = []
-    self.assertEquals(countLaptops(assets), 0)
+    self.assertEquals(count_laptops(assets), 0)
 
-  def test_count_laptops_one(self):
+  def test_count_one_laptop(self):
     asset = {'device_type': 'Laptop'}
     asset = dotdict(asset)
-    self.assertEquals(countLaptops([asset]), 1)
+    self.assertEquals(count_laptops([asset]), 1)
 
   def test_do_not_count_mobiles(self):
     asset = {'device_type': 'Mobile'}
     asset = dotdict(asset)
-    self.assertEquals(countLaptops([asset]), 0)
+    self.assertEquals(count_laptops([asset]), 0)
   
-  def test_count_mobiles_zero(self):
+  def test_count_zero_mobiles(self):
     assets = []
-    self.assertEquals(countMobiles(assets), 0)
+    self.assertEquals(count_mobiles(assets), 0)
   
-  def test_count_mobiles_one(self):
+  def test_count_one_mobile(self):
     asset = {'device_type': 'Mobile'}
     asset = dotdict(asset)
-    self.assertEquals(countMobiles([asset]), 1)
+    self.assertEquals(count_mobiles([asset]), 1)
   
   def test_do_not_count_laptops(self):
     asset = {'device_type': 'Laptop'}
     asset = dotdict(asset)
-    self.assertEquals(countMobiles([asset]), 0)
+    self.assertEquals(count_mobiles([asset]), 0)
   
-  def test_count_assets_zero(self):
+  def test_count_zero_assets(self):
     assets = []
-    self.assertEquals(countAssets(assets), 0)
+    self.assertEquals(count_assets(assets), 0)
     
-  def test_count_assets(self):
+  def test_count_one_asset(self):
     assets = {'device_type': 'Laptop'}
     assets = dotdict(assets)
-    self.assertEquals(countAssets([assets]), 1)
+    self.assertEquals(count_assets([assets]), 1)
 
   def test_get_assets(self):
     user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=True)
@@ -67,7 +67,7 @@ class DashboardTest(TestCase):
     CompanyUser.objects.create(user=user, company=company)
     laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
     laptop.save()
-    self.assertEquals(len(getAssets(user)), 1)
+    self.assertEquals(len(get_assets(user)), 1)
 
   def test_do_not_get_assets_from_different_company(self):
     user = User.objects.create(username='user1', password='12345', email='testuser@test.com', is_active=True)
@@ -82,7 +82,7 @@ class DashboardTest(TestCase):
     company1 = Company(name="Brand")
     company1.save()
     CompanyUser.objects.create(user=user1, company=company1)
-    self.assertEquals(len(getAssets(user1)), 0)
+    self.assertEquals(len(get_assets(user1)), 0)
 
   def test_dashboard_page_view(self):
     response = self.client.get('/dashboard', follow='true')
