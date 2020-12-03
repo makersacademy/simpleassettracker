@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 def assets(request):
   return render(request, 'reactfrontend/assets.html')
 
-def addAssets(request):
+def add_assets(request):
   return render(request, 'reactfrontend/addAssets.html')
 
-def unauthorizedUsers(request):
+def unauthorized_users(request):
   return render(request, 'reactfrontend/unauthorizedUsers.html')
