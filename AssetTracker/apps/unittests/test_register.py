@@ -1,12 +1,12 @@
 from django.test import TestCase, Client
-from ..register.views import preregisterview, registercompany, registeruser
+from ..register.views import pre_register_view, register_company, register_user
 
 class PreRegisterTest(TestCase):
 
   def setUp(self):
     self.client = Client()
 
-  def test_preregister_page_view(self):
+  def test_pre_register_page_view(self):
     response = self.client.get('/preregister', follow=True)
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'register/preregister.html')

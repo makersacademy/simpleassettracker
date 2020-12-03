@@ -13,7 +13,7 @@ from ..companyusers.models import CompanyUser
 from ..companies.models import Company
 
 # Create your views here.
-def registercompany(response):
+def register_company(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
@@ -39,7 +39,7 @@ def registercompany(response):
     form = RegisterForm()
     return render(response, "register/registercompany.html", {"form": form, "company_form": company_form})
 
-def registeruser(response):
+def register_user(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
@@ -67,7 +67,7 @@ def registeruser(response):
     form = RegisterForm()
     return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
-def preregisterview(response):
+def pre_register_view(response):
   return render(response, "register/preregister.html", {})
 
 class UnauthorizedUserList(generics.ListAPIView):
