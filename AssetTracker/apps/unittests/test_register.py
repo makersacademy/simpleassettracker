@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from ..register.views import preregisterview
+from ..register.views import preregisterview, registercompany, registeruser
 
 class PreRegisterTest(TestCase):
 
