@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from ..importcsv.views import importView
+from ..importcsv.views import importcsv_view
 from django.contrib.auth.models import User
 
 class ImportCSVTest(TestCase):

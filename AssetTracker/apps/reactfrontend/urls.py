@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path('assets/', views.assets),
-    path('assets/add', views.addAssets),
-    path('usermanagement/unauthorized', views.unauthorizedUsers)
+    path('assets/add', views.add_assets),
+    path('usermanagement/unauthorized', views.unauthorized_users)
 ]

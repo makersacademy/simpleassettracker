@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from ..index.views import indexPageView
+from ..index.views import index_page_view
 
 class IndexTest(TestCase):
 
