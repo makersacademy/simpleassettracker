@@ -14,13 +14,15 @@ class DashboardTest(TestCase):
 
   def setUp(self):
     self.client = Client()
-    user = User.objects.create(username='user')
+    user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=True)
     user.set_password('12345')
     user.save()
-    company = Company(name="Roland")
+    company = Company(name="Poland")
     company.save()
     CompanyUser.objects.create(user=user, company=company)
-    self.client.login(username='user', password='12345')
+    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
+    laptop.save()
+    self.client.login(username='testuser', password='12345')
 
   def test_count_zero_laptops(self):
     assets = []
@@ -60,26 +62,14 @@ class DashboardTest(TestCase):
     self.assertEquals(count_assets([assets]), 1)
 
   def test_get_assets(self):
-    user = User.objects.create(username='testuser', password='12345', email='testuser@test.com', is_active=True)
-    user.save()
-    company = Company(name="Poland")
-    company.save()
-    CompanyUser.objects.create(user=user, company=company)
-    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
-    laptop.save()
+    user = User.objects.get(username='testuser')
     self.assertEquals(len(get_assets(user)), 1)
 
   def test_do_not_get_assets_from_different_company(self):
-    user = User.objects.create(username='user1', password='12345', email='testuser@test.com', is_active=True)
-    user.save()
-    company = Company(name="England")
-    company.save()
-    CompanyUser.objects.create(user=user, company=company)
-    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
-    laptop.save()
+    user = User.objects.get(username='testuser')
     user1 = User.objects.create(username='user2', password='12345', email='testuser@test.com', is_active=True)
     user1.save()
-    company1 = Company(name="Brand")
+    company1 = Company(name='England')
     company1.save()
     CompanyUser.objects.create(user=user1, company=company1)
     self.assertEquals(len(get_assets(user1)), 0)
