@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
-from .forms import CompanyRegisterForm
-from .serializers import UnauthorizedUserSerializer
-from .serializers import ApproveUserSerializer
-from rest_framework import generics
+from .forms import RegisterForm, CompanyRegisterForm
+from .serializers import UnauthorizedUserSerializer, ApproveUserSerializer
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status
 from django.contrib import messages
 from ..register.models import UnauthorizedUser
 from django.contrib.auth.models import User
