@@ -36,12 +36,19 @@ class RegisterUserTest(TestCase):
 
 class UnauthorizedUserTest(TestCase):
 
-  def test_get_queryset_with_company(self):
+  def setUp(self):
     user = User.objects.create(username='user1', password='12345', email='testuser@test.com', is_active=True)
     user.save()
     company = Company(name="Makers")
     company.save()
     CompanyUser.objects.create(user=user, company=company)
+
+  def test_get_queryset(self):
+    user = User.objects.get(username='user1')
+    unauth_user = User.objects.create(username='unauth user', password='56789', email='unauthuser@test.com', is_active=False)
+    unauth_user.save()
+    unauth_user_company = Company.objects.get(name="Makers")
+    UnauthorizedUser.objects.create(user=user, company=unauth_user_company)
     request = RequestFactory().get('unauthorizedusers/api/unauthorizedusers')
     view = UnauthorizedUserList()
     request.user = user
