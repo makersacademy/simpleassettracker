@@ -81,10 +81,23 @@ Or download latest release from:
 https://github.com/mozilla/geckodriver/releases
 ```
 
-To run tests make sure you are in your root directory before running the following:
+To run all tests make sure you are in your root directory before running the following:
+```
+$ python manage.py test AssetTracker.apps
+```
+To just run the feature (functional) tests then use:
 ```
 $ python manage.py test AssetTracker.apps.functionaltests
 ```
+or for just the unit tests then use:
+```
+$ python manage.py test AssetTracker.apps.unittests
+```
+If you are running the tests multiple times then you'll get a database stacktrace. To prevent this you can just add the `--keepdb` flag to the end of the test commands ie
+```
+$ python manage.py test AssetTracker.apps --keepdb
+```
+This doesn't affect the running of the tests but does make the ouput much cleaner!
 
 ### Deploying To Heroku
 
