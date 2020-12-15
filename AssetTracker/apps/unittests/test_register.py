@@ -1,8 +1,10 @@
 from django.test import TestCase, Client, RequestFactory
+from http import HTTPStatus
 from ..register.views import *
 from django.contrib.auth.models import User
 from ..companyusers.models import CompanyUser
 from ..companies.models import Company
+from ..register.models import UnauthorizedUser
 
 class PreRegisterTest(TestCase):
 
@@ -48,7 +50,7 @@ class UnauthorizedUserTest(TestCase):
     unauth_user = User.objects.create(username='unauth user', password='56789', email='unauthuser@test.com', is_active=False)
     unauth_user.save()
     unauth_user_company = Company.objects.get(name="Makers")
-    UnauthorizedUser.objects.create(user=user, company=unauth_user_company)
+    UnauthorizedUser.objects.create(user=unauth_user, company=unauth_user_company)
     request = RequestFactory().get('unauthorizedusers/api/unauthorizedusers')
     view = UnauthorizedUserList()
     request.user = user
