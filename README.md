@@ -72,7 +72,7 @@ To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and r
 
 ### Env file
 
-To be able to run the tests and app locally, you will also need to set up a `.env` file. This is to be located in `AssetTracker/settings` and will need have some secret information, which we can provide if you get in touch. For the `DATABASE_URL` you will first need to go to the PSQL command line and create a database for the app. The other information you need is your PSQL username and password, then you put in the .env file as follows:
+To be able to run the tests and app locally, you will also need to set up a `.env` file. This is to be located in `/AssetTracker/settings` and will need have some secret information, which we can provide if you get in touch. For the `DATABASE_URL` you will first need to go to the PSQL command line and create a database for the app. The other information you need is your PSQL username and password, then you put in the .env file as follows:
 ```
 DATABASE_URL=postgres://USERNAME:PASSWORD@localhost:5432/DB_NAME
 ```
