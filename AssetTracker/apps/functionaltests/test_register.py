@@ -192,8 +192,8 @@ class LoginAndOutTest(LiveServerTestCase):
       wait = WebDriverWait(self.browser, 5)
       wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
       body = self.browser.find_element_by_tag_name('body')
-
       self.assertIn('Admin1', body.text)
+      
       logout = self.browser.find_element_by_id('id_navbar_logout')
       logout.send_keys(Keys.RETURN)
       time.sleep(1)

@@ -9,7 +9,7 @@ from ..companies.models import Company
 from ..companyusers.models import CompanyUser
 import time
 
-class AddAsset(LiveServerTestCase):
+class AddAssetTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
@@ -20,8 +20,6 @@ class AddAsset(LiveServerTestCase):
     self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
   def tearDown(self):
-    # self.driver.stop_client()
-    # self.driver.close()
     self.browser.quit()
 
   def login(self):

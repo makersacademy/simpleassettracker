@@ -8,7 +8,7 @@ from ..companyusers.models import CompanyUser
 import logging
 # Create your views here.
 @login_required(login_url='/login')
-def importView(response):
+def importcsv_view(response):
   return render(response, "importcsv/importcsv.html", {})
 
 def upload_csv(request):

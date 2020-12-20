@@ -70,6 +70,14 @@ To install packages for pip, make sure you're in the project root and you are wi
 
 To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and run `npm install`.
 
+### Env file
+
+To be able to run the tests and app locally, you will also need to set up a `.env` file. This is to be located in `/AssetTracker/settings` and will need have some secret information, which we can provide if you get in touch. For the `DATABASE_URL` you will first need to go to the PSQL command line and create a database for the app. The other information you need is your PSQL username and password, then you put in the .env file as follows:
+```
+DATABASE_URL=postgres://USERNAME:PASSWORD@localhost:5432/DB_NAME
+```
+Just remember to replace USERNAME, PASSWORD and DB_NAME with your details. Once this is done you can then run the migrations, which is explained in our [migrations](https://github.com/makersacademy/simpleassettracker/wiki/Migrations) Wiki.
+
 ### Running tests
 To run tests you'll need a version of geckodriver installed. 
 Either install it with brew
@@ -81,10 +89,23 @@ Or download latest release from:
 https://github.com/mozilla/geckodriver/releases
 ```
 
-To run tests make sure you are in your root directory before running the following:
+To run all tests make sure you are in your root directory before running the following:
+```
+$ python manage.py test AssetTracker.apps
+```
+To just run the feature (functional) tests then use:
 ```
 $ python manage.py test AssetTracker.apps.functionaltests
 ```
+or for just the unit tests then use:
+```
+$ python manage.py test AssetTracker.apps.unittests
+```
+If you are running the tests multiple times then you'll get a database stacktrace. To prevent this you can just add the `--keepdb` flag to the end of the test commands ie
+```
+$ python manage.py test AssetTracker.apps --keepdb
+```
+This doesn't affect the running of the tests but does make the ouput much cleaner!
 
 ### Deploying To Heroku
 

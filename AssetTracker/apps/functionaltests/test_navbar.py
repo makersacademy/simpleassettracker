@@ -9,7 +9,7 @@ from ..companies.models import Company
 from ..companyusers.models import CompanyUser
 import time
 
-class NavBar(LiveServerTestCase):
+class NavBarTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()

@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
-from .forms import CompanyRegisterForm
-from .serializers import UnauthorizedUserSerializer
-from .serializers import ApproveUserSerializer
-from rest_framework import generics
+from .forms import RegisterForm, CompanyRegisterForm
+from .serializers import UnauthorizedUserSerializer, ApproveUserSerializer
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status
 from django.contrib import messages
 from ..register.models import UnauthorizedUser
 from django.contrib.auth.models import User
@@ -13,7 +10,7 @@ from ..companyusers.models import CompanyUser
 from ..companies.models import Company
 
 # Create your views here.
-def registercompany(response):
+def register_company(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
@@ -39,7 +36,7 @@ def registercompany(response):
     form = RegisterForm()
     return render(response, "register/registercompany.html", {"form": form, "company_form": company_form})
 
-def registeruser(response):
+def register_user(response):
   if response.method == "POST":
     form = RegisterForm(response.POST)
     company_form = CompanyRegisterForm(response.POST)
@@ -67,7 +64,7 @@ def registeruser(response):
     form = RegisterForm()
     return render(response, "register/registeruser.html", {"form": form, "company_form": company_form})
 
-def preregisterview(response):
+def pre_register_view(response):
   return render(response, "register/preregister.html", {})
 
 class UnauthorizedUserList(generics.ListAPIView):
@@ -76,20 +73,10 @@ class UnauthorizedUserList(generics.ListAPIView):
   def get_queryset(self):
     queryset = UnauthorizedUser.objects.all()
     user = self.request.user
-    try:
-      company_id = CompanyUser.objects.get(user=user).company_id
-    except CompanyUser.DoesNotExist:
-      company_id = None
-
+    company_id = CompanyUser.objects.get(user=user).company_id
     if company_id is not None:
       queryset = queryset.filter(company=company_id).select_related('user')
-      return queryset
-
-    else:
-      return Response(
-        {"detail": "No company present"},
-        status=status.HTTP_400_BAD_REQUEST
-      )
+    return queryset
 
 class UnauthorizedUserDelete(generics.DestroyAPIView):
   queryset = UnauthorizedUser.objects.all()
