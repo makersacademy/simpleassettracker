@@ -261,8 +261,14 @@ class AddAssetForm extends Component {
             <option value="512GB">512GB</option>
             <option value="1TB">1TB</option>
           </select>
-          <label className="asset_add_title" htmlFor="id_add_screen_size">Screen Size (Inches):</label>
-          <input className="add_asset_input" inputtype='input' maxLength='2' type="number" onChange={(event) => this.changeHandler(event, 'screenSize')} name="screeSize" id="id_add_screen_size"></input>
+          <label className="asset_add_title" htmlFor="id_add_screen_size">Screen Size:</label>
+          <select defaultValue='unassigned' name="screenSize" id="id_add_screen_size" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'screenSize')}>
+            <option value="unassigned">Select size...</option>
+            <option value="12 inches">12 inches</option>
+            <option value="13 inches">13 inches</option>
+            <option value="15 inches">15 inches</option>
+            <option value="16 inches">16 inches</option>
+          </select>
           <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px", clear:'both'}} type="submit" value="submit">Add Asset</button>
           </form>
         </div> 
