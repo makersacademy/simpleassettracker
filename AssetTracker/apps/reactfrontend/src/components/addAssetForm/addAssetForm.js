@@ -26,7 +26,6 @@ class AddAssetForm extends Component {
     this.submitHandler = this.submitHandler.bind(this)
     this.changeHandler = this.changeHandler.bind(this)
     this.hideMessageHandler = this.hideMessageHandler.bind(this)
-
   }
 
   componentDidMount() {
@@ -68,7 +67,6 @@ class AddAssetForm extends Component {
     });
   }
 
-
   submitHandler(event) {
     event.preventDefault()
     let csrfToken = this.getCookie('csrftoken')
@@ -106,7 +104,6 @@ class AddAssetForm extends Component {
       })
     .catch(error => (console.log(error)));
   }
-
 
   changeHandler(event, identifier) {
     event.preventDefault()
@@ -234,14 +231,26 @@ class AddAssetForm extends Component {
             <option value="Stolen">Stolen</option>
             <option value="Unavailable">Unavailable</option>
           </select>
-            <label className="asset_add_title" htmlFor="id_add_year">Year:</label>
-            <input className="add_asset_input" inputtype='input' maxLength='4' type="number" onChange={(event) => this.changeHandler(event, 'year')} name="year" id="id_add_year"></input>
-            <label className="asset_add_title" htmlFor="id_add_ram">Ram (GB):</label>
-            <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'ram')} name="ram" id="id_add_ram"></input>
-            <label className="asset_add_title" htmlFor="id_add_hard_drive">Hard Drive (GB):</label>
-            <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'hardDrive')} name="hardDrive" id="id_add_hard_drive"></input>
-            <label className="asset_add_title" htmlFor="id_add_screen_size">Screen Size (Inches):</label>
-            <input className="add_asset_input" inputtype='input' maxLength='2' type="number" onChange={(event) => this.changeHandler(event, 'screenSize')} name="screeSize" id="id_add_screen_size"></input>
+          <label className="asset_add_title" htmlFor="id_add_year">Year:</label>
+          <select defaultValue='unassigned' name="year" id="id_add_year" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'year')}>
+            <option value="unassigned">unassigned</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+          </select>
+          <label className="asset_add_title" htmlFor="id_add_ram">Ram (GB):</label>
+          <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'ram')} name="ram" id="id_add_ram"></input>
+          <label className="asset_add_title" htmlFor="id_add_hard_drive">Hard Drive (GB):</label>
+          <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'hardDrive')} name="hardDrive" id="id_add_hard_drive"></input>
+          <label className="asset_add_title" htmlFor="id_add_screen_size">Screen Size (Inches):</label>
+          <input className="add_asset_input" inputtype='input' maxLength='2' type="number" onChange={(event) => this.changeHandler(event, 'screenSize')} name="screeSize" id="id_add_screen_size"></input>
           <button className='btn btn-primary' id="id_add_asset_submit" style={{marginTop:"14px", clear:'both'}} type="submit" value="submit">Add Asset</button>
           </form>
         </div> 
