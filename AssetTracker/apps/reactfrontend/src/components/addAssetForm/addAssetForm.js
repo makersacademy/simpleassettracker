@@ -246,7 +246,13 @@ class AddAssetForm extends Component {
             <option value="2021">2021</option>
           </select>
           <label className="asset_add_title" htmlFor="id_add_ram">Ram (GB):</label>
-          <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'ram')} name="ram" id="id_add_ram"></input>
+          <select defaultValue='unassigned' name="ram" id="id_add_ram" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'ram')}>
+            <option value="unassigned">unassigned</option>
+            <option value="8GB">8GB</option>
+            <option value="16GB">16GB</option>
+            <option value="24GB">24GB</option>
+            <option value="32GB">32GB</option>
+          </select>
           <label className="asset_add_title" htmlFor="id_add_hard_drive">Hard Drive (GB):</label>
           <input className="add_asset_input" inputtype='input' type="number" onChange={(event) => this.changeHandler(event, 'hardDrive')} name="hardDrive" id="id_add_hard_drive"></input>
           <label className="asset_add_title" htmlFor="id_add_screen_size">Screen Size (Inches):</label>
