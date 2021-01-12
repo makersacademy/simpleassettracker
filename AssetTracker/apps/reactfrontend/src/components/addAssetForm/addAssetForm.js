@@ -212,7 +212,13 @@ class AddAssetForm extends Component {
             <option value="Mobile">Mobile</option>
           </select>
           <label className="asset_add_title" htmlFor="id_add_asset_model">Asset Model:</label>
-          <input className="add_asset_input" inputtype='input' type="text" onChange={(event) => this.changeHandler(event,'deviceModel')} name="deviceModel" id="id_add_asset_model"></input>
+          <select defaultValue='unassigned' name="deviceModel" id="id_add_asset_model" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'deviceModel')}>
+            <option value="unassigned">Select model...</option>
+            <option value="Air">Air</option>
+            <option value="MacBook">MacBook</option>
+            <option value="Pro">Pro</option>
+            <option value="iPhone">iPhone</option>
+          </select>
           <label className="asset_add_title" htmlFor="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
             <option value="Good">Good</option>
