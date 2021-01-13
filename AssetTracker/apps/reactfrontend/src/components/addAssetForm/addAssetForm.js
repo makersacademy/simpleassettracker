@@ -217,7 +217,6 @@ class AddAssetForm extends Component {
             <option value="Air">Air</option>
             <option value="MacBook">MacBook</option>
             <option value="Pro">Pro</option>
-            <option value="iPhone">iPhone</option>
           </select>
           <label className="asset_add_title" htmlFor="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
