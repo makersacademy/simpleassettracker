@@ -116,6 +116,8 @@ class DashboardTest(LiveServerTestCase):
       time.sleep(1)
       asset_delete_button = self.browser.find_element_by_id('id_asset_delete_button_' + str(self.A.id))
       asset_delete_button.send_keys(Keys.RETURN)
+      confirm = self.browser.switch_to.alert
+      confirm.accept()
       time.sleep(1)
       self.browser.get(self.live_server_url + '/dashboard')
       body = self.browser.find_element_by_tag_name('body')
