@@ -47,3 +47,16 @@ class DeleteAssetTest(LiveServerTestCase):
       time.sleep(1)
       body = self.browser.find_element_by_tag_name('body')
       self.assertNotIn('BR20RL', body.text)
+
+  def test_cancel_delete_asset_and_still_displays(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets')
+      time.sleep(1)
+      asset_delete_button = self.browser.find_element_by_id('id_asset_delete_button_' + str(self.asset.id))
+      asset_delete_button.send_keys(Keys.RETURN)
+      confirm = self.browser.switch_to.alert
+      confirm.dismiss()
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('BR20RL', body.text)
