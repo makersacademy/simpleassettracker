@@ -54,7 +54,7 @@ Now that you've done that, we'd advise you to set up an environment for this pro
 
 Anaconda is a useful environment management tool for projects where you don't want to install packages onto your route.
 
-Thankfully, Anaconda provide a great installation guide [here](https://www.anaconda.com/products/individual). Please use the COMMAND LINE installer - we've encountered issues with the graphical one!
+Thankfully, Anaconda provide a great installation guide [here](https://docs.anaconda.com/anaconda/install/). Please use the COMMAND LINE installer - we've encountered issues with the graphical one!
 
 Once you've finished the installation, you should be able to navigate over to your terminal and run `conda -V` with no issues.
 
