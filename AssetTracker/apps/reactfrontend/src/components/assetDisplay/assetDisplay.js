@@ -166,7 +166,7 @@ class AssetDisplay extends Component {
 					{this.state.assets.map(asset => {
 						return (
 							<tr key={asset.id} className="asset_row">
-								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => this.handleDelete(asset)}>X</button></td>
+								<td className='delete_col'><button className='asset_delete_button' id={"id_asset_delete_button_" + asset.id } onClick={() => window.confirm("Are you sure you wish to delete this asset?") && this.handleDelete(asset)}>X</button></td>
 								<td id='tagid' onClick={() => this.showAsset(asset)} scope="row">{asset.asset_tag}</td>
 								<td onClick={() => this.showAsset(asset)} className='align_center'>{asset.serial_number}</td>
 								<td onClick={() => this.showAsset(asset)}>{asset.device_type}</td>
