@@ -221,7 +221,10 @@ class AddAssetForm extends Component {
           <label className="asset_add_title" htmlFor="id_add_asset_condition" >Asset Condition:</label>
           <select defaultValue='Good' name="assetCondition" id="id_add_asset_condition" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetCondition')}>
             <option value="Good">Good</option>
-            <option value="Bad">Broken</option>
+            <option value="Bad">Bad</option>
+            <option value="Okay">Okay</option>
+            <option value="Broken">Broken</option>
+            <option value="New">New</option>
           </select>
           <label className="asset_add_title" htmlFor="id_add_asset_status" >Asset Status:</label>
           <select defaultValue='Ready' name="assetStatus" id="id_add_asset_status" className="add_asset_input" onChange={(event) => this.changeHandler(event, 'assetStatus')}>
