@@ -5,8 +5,7 @@ class SingleAsset extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      details: null,
+     
       asset: {
         assetTag: '',
         deviceType: '',
@@ -16,6 +15,7 @@ class SingleAsset extends Component {
         assetCondition: ''
       }
     };
+    console.log(props.asset.id)
   }
 
   componentDidMount() {
@@ -28,6 +28,46 @@ class SingleAsset extends Component {
       serialNumber: this.props.asset.serialNumber
     })
   }
+
+  changeHandler(event) {
+    
+    let itemChange = event.target.value
+    this.setState({ asset: {assetStatus: itemChange}}, this.handleEdit);
+    
+  }
+
+
+  getCookie(name) {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for(let i=0;i < ca.length;i++) {
+      let c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+
+  handleEdit(e) {
+    event.preventDefault()
+
+    console.log(this.assetStatus)
+    let csrfToken = this.getCookie('csrftoken')
+    console.log(this.state.asset.assetStatus)
+     
+
+      fetch(`api/asset/${this.props.asset.id}/`, {  
+        method: "PATCH",  headers: {    
+          "X-CSRFToken": csrfToken,   
+          "Content-type": "application/json"  
+        },  
+        body: JSON.stringify({ 
+          "asset_status": this.state.asset.assetStatus,  
+        })}) .then(response => {    
+          console.log(response.status);     
+          return response.json();  })  
+          .then(data => console.log(data));}
 
   render() {
     let details = null
@@ -61,7 +101,7 @@ class SingleAsset extends Component {
               <h3>{this.props.asset.asset_tag}</h3>
               <h3>{this.props.asset.serial_number}</h3>
               <div>
-                <select defaultValue={this.props.asset_status} name="assetStatus" id="id_add_asset_status" className="" onChange={(event) => this.changeHandler(event, 'deviceType')}>
+                <select defaultValue={this.props.asset.asset_status} name="assetStatus" id="id_add_asset_status" className="change_assetstatus" onChange={(event) => this.changeHandler(event)}>
                   <option value="In Repair">In Repair</option>
                   <option value="Locked at the office">Locked at the office</option>
                   <option value="On Loan">On Loan</option>

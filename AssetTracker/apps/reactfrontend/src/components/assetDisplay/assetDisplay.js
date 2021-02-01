@@ -131,6 +131,7 @@ class AssetDisplay extends Component {
   }
 
 	hideAsset() {
+		window.location.reload();
 		this.setState({ showAsset: false })
 	}
 
@@ -144,6 +145,8 @@ class AssetDisplay extends Component {
 
 		let asset = null
 		if(this.state.showAsset === true){
+			console.log(this.state.asset)
+			
 			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
 		}
 
