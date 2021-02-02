@@ -46,7 +46,6 @@ class AssetDisplay extends Component {
     })
     .then(data => {
       data = this.finalizeResponse(data)
-      console.log(data)
       this.setState(() => {
         return {
         assets: data,
@@ -145,8 +144,6 @@ class AssetDisplay extends Component {
 
 		let asset = null
 		if(this.state.showAsset === true){
-			console.log(this.state.asset)
-			
 			asset = <SingleAsset asset={this.state.asset} hide={() => this.hideAsset()}/>
 		}
 

@@ -15,7 +15,6 @@ class SingleAsset extends Component {
         assetCondition: ''
       }
     };
-    console.log(props.asset.id)
   }
 
   componentDidMount() {
@@ -30,12 +29,9 @@ class SingleAsset extends Component {
   }
 
   changeHandler(event) {
-    
     let itemChange = event.target.value
     this.setState({ asset: {assetStatus: itemChange}}, this.handleEdit);
-    
   }
-
 
   getCookie(name) {
     let nameEQ = name + "=";
@@ -48,26 +44,20 @@ class SingleAsset extends Component {
     return null;
   }
 
-
-  handleEdit(e) {
-    event.preventDefault()
-
-    console.log(this.assetStatus)
+  handleEdit() {
     let csrfToken = this.getCookie('csrftoken')
-    console.log(this.state.asset.assetStatus)
-     
-
-      fetch(`api/asset/${this.props.asset.id}/`, {  
-        method: "PATCH",  headers: {    
-          "X-CSRFToken": csrfToken,   
-          "Content-type": "application/json"  
-        },  
-        body: JSON.stringify({ 
-          "asset_status": this.state.asset.assetStatus,  
-        })}) .then(response => {    
-          console.log(response.status);     
-          return response.json();  })  
-          .then(data => console.log(data));}
+    fetch(`api/asset/${this.props.asset.id}/`, {  
+      method: "PATCH",  headers: {    
+        "X-CSRFToken": csrfToken,   
+        "Content-type": "application/json"  
+      },  
+      body: JSON.stringify({ 
+        "asset_status": this.state.asset.assetStatus,  
+      })
+    }).then(response => {        
+        return response.json();  
+    });
+  }
 
   render() {
     let details = null
