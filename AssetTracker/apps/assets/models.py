@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from AssetTracker.apps.companies.models import Company
 
 # Create your models here.
+class MobileCustomData(models.Model):
+	imei = models.CharField(max_length=30, unique=True)
+
 class Asset(models.Model):
 	asset_tag = models.CharField(max_length=30)
 	device_type = models.CharField(max_length=30, default='Laptop')
@@ -16,6 +19,7 @@ class Asset(models.Model):
 	hard_drive = models.CharField(max_length=30, default="unassigned")
 	ram = models.CharField(max_length=30, default="unassigned")
 	year = models.CharField(max_length=30, default="unassigned")
+	mobile_custom_data = models.OneToOneField(MobileCustomData, blank=True, null=True, on_delete=models.CASCADE)
 
 	class Meta:
 		unique_together = ['asset_tag', 'company',]
