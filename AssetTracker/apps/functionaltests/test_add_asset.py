@@ -40,19 +40,13 @@ class AddAssetTest(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Add an Asset', body.text)
 
-  def test_add_asset_form_is_on_page(self):
+  def test_select_an_asset_form_is_on_page(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
-      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_serial_number_field = self.browser.find_element_by_id('id_add_serial_number')
-      asset_condition_field = self.browser.find_element_by_id('id_add_asset_condition')
-      self.assertEquals(True, asset_tag_field.is_displayed())
-      self.assertEquals(True, asset_type_field.is_displayed())
-      self.assertEquals(True, asset_serial_number_field.is_displayed())
-      self.assertEquals(True, asset_condition_field.is_displayed())
+      asset_select_field = self.browser.find_element_by_id('id_select_asset_type')
+      self.assertEquals(True, asset_select_field.is_displayed())
 
   def test_form_can_be_submitted_and_redirect(self):
     with self.settings(DEBUG=True):
