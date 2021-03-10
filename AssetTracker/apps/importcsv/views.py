@@ -47,6 +47,9 @@ def upload_csv(request):
       data_dict["hard_drive"] = fields[7]
       data_dict["ram"] = fields[8]
       data_dict["year"] = fields[9]
+      data_dict["imei"] = fields[10]
+      data_dict["storage"] = fields[11]
+      data_dict["colour"] = fields[12]
       data_dict["created_by"] = request.user.id
       data_dict["company"] = company
 
