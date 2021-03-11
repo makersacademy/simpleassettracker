@@ -102,8 +102,7 @@ class AddAssetForm extends Component {
     })
     .then(response => {
       if (response.ok) {
-        this.setState({ showMessage: true, messageType: "successMessage" })
-        $('#id_choose_asset')[0].reset(); 
+        this.setState({ showMessage: true, messageType: "successMessage", selectedAsset: "" }) 
         return response.json()
       } else {
         this.setState({ showMessage: true, messageType: "failMessage" })
@@ -350,7 +349,7 @@ class AddAssetForm extends Component {
         <div className="add_asset_container">
           <h1>Add an Asset</h1>
           <form id='id_choose_asset'>
-            <select id='id_select_asset_type' onChange={this.selectAssetHandler}>
+            <select id='id_select_asset_type' value={this.state.selectedAsset} onChange={this.selectAssetHandler}>
               <option>Select an asset to add...</option>
               <option value='laptop_form'>Laptop</option>
               <option value='mobile_form'>Mobile</option>
