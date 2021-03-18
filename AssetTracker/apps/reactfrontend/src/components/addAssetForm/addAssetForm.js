@@ -304,14 +304,14 @@ class AddAssetForm extends Component {
                 </select>
                 <label className="asset_add_title" htmlFor="id_add_storage">Storage:</label>
                 <select name="storage" id="id_add_storage" required className="add_asset_input" onChange={(event) => this.changeHandler(event, 'storage')}>
-                  <option>Select storage...</option>
+                  <option value="">Select storage...</option>
                   <option value="64GB">64GB</option>
                   <option value="128GB">128GB</option>
                   <option value="256GB">256GB</option>
                 </select>
                 <label className="asset_add_title" htmlFor="id_add_colour">Colour:</label>
                 <select name="colour" id="id_add_colour" required className="add_asset_input" onChange={(event) => this.changeHandler(event, 'colour')}>
-                  <option>Select colour...</option>
+                  <option value="">Select colour...</option>
                   <option value="White">White</option>
                   <option value="Space Grey">Space Grey</option>
                 </select>
