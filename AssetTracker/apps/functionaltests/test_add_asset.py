@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
@@ -53,8 +53,8 @@ class AddAssetTest(LiveServerTestCase):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
-      asset_type_field = self.browser.find_element_by_id('id_select_asset_type')
-      asset_type_field.send_keys('Laptop')
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Laptop')
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_tag_field.send_keys('HD1269')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
@@ -86,9 +86,8 @@ class AddAssetTest(LiveServerTestCase):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
-      asset_type_field = self.browser.find_element_by_id('id_select_asset_type')
-      asset_type_field.send_keys('Mobile')
-      print(self.browser.page_source)
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Mobile')
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_tag_field.send_keys('HD1269')
       asset_type_field = self.browser.find_element_by_id('id_add_imei')
