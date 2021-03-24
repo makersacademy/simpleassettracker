@@ -27,6 +27,6 @@ urlpatterns = [
     path('', include('AssetTracker.apps.register.urls')),
     path('', include("django.contrib.auth.urls")),
     path('', include('AssetTracker.apps.reactfrontend.urls')),
-    path('', include('AssetTracker.apps.importcsv.urls')),
+    # path('', include('AssetTracker.apps.importcsv.urls')),
     url('^', include('django.contrib.auth.urls')),
 ]

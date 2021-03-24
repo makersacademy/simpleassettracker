@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import AssetDisplay from './assetDisplay/assetDisplay'
 import AddAssetForm from './addAssetForm/addAssetForm'
 import UnauthorizedUsersDisplay from './unauthorizedUsers/unauthorizedUsers';
+import FileReader from './importcsv/importcsv';
 
 class App extends Component {
 
@@ -13,6 +14,7 @@ class App extends Component {
             <Route path='/assets/add' component={AddAssetForm} />
             <Route path='/assets' exact component={AssetDisplay} />
             <Route path='/usermanagement/unauthorized' exact component={UnauthorizedUsersDisplay} />
+            <Route path='/import' exact component={FileReader} />
           </Switch>
       </div>
     );
