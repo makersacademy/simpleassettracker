@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as Papa from 'papaparse';
 import './importcsv.css'
 
 class FileReader extends React.Component {
@@ -7,13 +8,17 @@ class FileReader extends React.Component {
     this.state = {
       csvfile: undefined
     };
+    this.handleChange = this.handleChange.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.importCSV = this.importCSV.bind(this);
   }
 
   handleChange(event) {
+    console.log(event.target.files[0])
     this.setState({
       csvfile: event.target.files[0]
     });
+    console.log(this.state.csvfile);
   };
 
   importCSV() {
