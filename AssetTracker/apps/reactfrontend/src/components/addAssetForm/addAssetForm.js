@@ -95,9 +95,9 @@ class AddAssetForm extends Component {
         "screen_size": this.state.asset.screenSize,
         "hard_drive": this.state.asset.hardDrive,
         "company": this.state.company,
-        "imei": this.state.imei,
-        "storage": this.state.storage,
-        "colour": this.state.colour,
+        "imei": this.state.asset.imei,
+        "storage": this.state.asset.storage,
+        "colour": this.state.asset.colour,
       }),
     })
     .then(response => {

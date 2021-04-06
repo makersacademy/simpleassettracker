@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import * as Papa from 'papaparse';
 import './importcsv.css'
 
-class FileReader extends React.Component {
+class uploadCSV extends React.Component {
   constructor() {
     super();
     this.state = {
       csvfile: undefined
     };
     this.handleChange = this.handleChange.bind(this);
-    this.updateData = this.updateData.bind(this);
+    this.saveData = this.saveData.bind(this);
     this.importCSV = this.importCSV.bind(this);
   }
 
@@ -24,14 +24,26 @@ class FileReader extends React.Component {
   importCSV() {
     const { csvfile } = this.state;
     Papa.parse(csvfile, {
-      complete: this.updateData,
+      complete: this.saveData,
       header: true
     });
   };
 
-  updateData(result) {
-    var data = result.data;
-    console.log(data);
+  saveData(result) {
+    let data = result.data;
+    let newDataArray = []
+    data.forEach(item => {
+      let newData = {};
+      Object.entries(item).forEach(keyPairValue => {
+        if(keyPairValue[1] == ""){
+          newData = {...newData, [keyPairValue[0]]:null}
+        } else {
+          newData = {...newData, [keyPairValue[0]]:keyPairValue[1]}
+        };
+      });
+      newDataArray.push(newData)
+    });
+    console.log(newDataArray);
   }
 
   render() {
@@ -56,4 +68,4 @@ class FileReader extends React.Component {
   }
 }
 
-export default FileReader;
+export default uploadCSV;
