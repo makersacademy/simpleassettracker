@@ -29,21 +29,24 @@ class uploadCSV extends React.Component {
     });
   };
 
-  saveData(result) {
-    let data = result.data;
+  emptyStringCheck(result) {
     let newDataArray = []
-    data.forEach(item => {
+    result.data.forEach(item => {
       let newData = {};
       Object.entries(item).forEach(keyPairValue => {
         if(keyPairValue[1] == ""){
-          newData = {...newData, [keyPairValue[0]]:null}
-        } else {
-          newData = {...newData, [keyPairValue[0]]:keyPairValue[1]}
-        };
+          keyPairValue[1] = null
+        } 
+        newData = {...newData, [keyPairValue[0]]:keyPairValue[1]}
       });
       newDataArray.push(newData)
     });
-    console.log(newDataArray);
+    return newDataArray
+  }
+
+  saveData(result) {
+    let data = this.emptyStringCheck(result);
+    console.log(data);
   }
 
   render() {
