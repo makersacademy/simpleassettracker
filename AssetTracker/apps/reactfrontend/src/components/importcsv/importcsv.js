@@ -8,15 +8,22 @@ class uploadCSV extends React.Component {
     this.state = {
       csvfile: undefined,
       company: null,
-      error_message: null
+      error_message: null,
+      messageType: '',
+      showMessage: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.saveData = this.saveData.bind(this);
     this.importCSV = this.importCSV.bind(this);
+    this.hideMessageHandler = this.hideMessageHandler.bind(this);
   }
 
   componentDidMount() {
     this.getCompanyID()
+  }
+
+  hideMessageHandler() {
+    this.setState({showMessage: false})
   }
 
   getCookie(name) {
@@ -64,7 +71,7 @@ class uploadCSV extends React.Component {
       Object.entries(item).forEach(keyPairValue => {
         if(keyPairValue[1] == ""){
           keyPairValue[1] = null
-        } 
+        }
         newData = {...newData, [keyPairValue[0]]:keyPairValue[1]}
       });
       newDataArray.push(newData)
@@ -73,7 +80,7 @@ class uploadCSV extends React.Component {
   }
 
   saveData(result) {
-    let data = this.emptyStringCheck(result);    
+    let data = this.emptyStringCheck(result);
     let csrfToken = this.getCookie('csrftoken')
 
     data.forEach(asset => {
@@ -90,32 +97,58 @@ class uploadCSV extends React.Component {
         }),
       })
       .then(response => {
-        if (response.ok) { 
+        if (response.ok) {
+          this.setState({ showMessage: true, messageType: "successMessage"})
           return response.json()
         } else {
+          this.setState({ showMessage: true, messageType: "failMessage"})
           throw new Error('Something went wrong ...');
         }
       })
       .catch(error => (console.log(error)));
     })
+    this.setState({ csvfile: null });
   }
 
   render() {
+
+    let message = null
+    if(this.state.messageType == "successMessage" && this.state.showMessage == true) {
+      message =
+        <div>
+          <div className='backdrop' onClick={() => this.hideMessageHandler()}></div>
+          <div className='showMessage' onClick={() => this.hideMessageHandler()}>
+            <h3>Successfully added</h3>
+          </div>
+        </div>
+    } else if(this.state.messageType == "failMessage" && this.state.showMessage == true){
+      message =
+        <div>
+          <div className='backdrop' onClick={() => this.hideMessageHandler()}></div>
+          <div className='showMessage' onClick={() => this.hideMessageHandler()}>
+            <h3>Failed to Add Asset - Asset Tag or Serial Number Not Unique</h3>
+          </div>
+        </div>
+    }
+
     return (
       <div className="App">
+        {message}
         <h2>Import CSV File!</h2>
-        <input
-          className="csv-input"
-          type="file"
-          ref={input => {
-            this.filesInput = input;
-          }}
-          name="file"
-          placeholder={null}
-          onChange={this.handleChange}
-        />
-        <p />
-        <button onClick={this.importCSV}> Upload now!</button>
+        <form id="csv-input-form">
+          <input
+            className="csv-input"
+            type="file"
+            ref={input => {
+              this.filesInput = input;
+            }}
+            name="file"
+            placeholder={null}
+            onChange={this.handleChange}
+          />
+          <p />
+          <button onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById('csv-input-form').reset()}}> Upload now!</button>
+        </form>
         <p>{this.state.error_message}</p>
       </div>
     );
