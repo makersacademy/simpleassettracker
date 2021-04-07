@@ -22,8 +22,8 @@ class ImportcsvTest(LiveServerTestCase):
     self.user.save()
     self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
-  def tearDown(self):
-    self.browser.quit()
+  # def tearDown(self):
+  #   self.browser.quit()
 
   def login(self):
     self.browser.get(self.live_server_url + '/login')
@@ -39,8 +39,8 @@ class ImportcsvTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/import')
-      body = self.browser.find_element_by_id('file_upload')
-      assert 'File:' in body.text
+      body = self.browser.find_element_by_id('csv-input-form')
+      self.assertIn('File:', body.text)
 
   def test_csv_uploads(self):
     with self.settings(DEBUG=True):
@@ -67,31 +67,44 @@ class ImportcsvTest(LiveServerTestCase):
       button = self.browser.find_element_by_id('upload_button')
       button.send_keys(Keys.RETURN)
       time.sleep(1)
-      message = self.browser.find_element_by_class_name('messages')
-      self.assertIn('File is not CSV type', message.text)
+      message = self.browser.find_element_by_tag_name('body')
+      self.assertIn("Sorry, that's not a valid CSV file!", message.text)
 
-  def test_invalid_file_format(self):
+  def test_invalid_file_with_whitespace(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/import')
       time.sleep(1)
       element = self.browser.find_element_by_id('csv_file')
-      element.send_keys(csvpath+'static_csv/invalidasset.csv')
+      element.send_keys(csvpath+'static_csv/invalidassetwspace.csv')
       button = self.browser.find_element_by_id('upload_button')
       button.send_keys(Keys.RETURN)
       time.sleep(1)
-      message = self.browser.find_element_by_class_name('messages')
-      self.assertIn('Unable to upload file.', message.text)
+      message = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Incorrect or Missing Field Name!', message.text)
 
-  def test_empty_field_invalid(self):
+  def test_invalid_field_title(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/import')
       time.sleep(1)
       element = self.browser.find_element_by_id('csv_file')
-      element.send_keys(csvpath+'static_csv/invalidasset.csv')
+      element.send_keys(csvpath+'static_csv/invalidassettitle.csv')
       button = self.browser.find_element_by_id('upload_button')
       button.send_keys(Keys.RETURN)
       time.sleep(1)
-      message = self.browser.find_element_by_class_name('messages')
-      self.assertIn('Field required - unable to upload.', message.text)
+      message = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Incorrect or Missing Field Name!', message.text)
+
+  def test_invalid_empty_field(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/import')
+      time.sleep(1)
+      element = self.browser.find_element_by_id('csv_file')
+      element.send_keys(csvpath+'static_csv/invalidassetvalue.csv')
+      button = self.browser.find_element_by_id('upload_button')
+      button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      message = self.browser.find_element_by_tag_name('body')
+      self.assertIn('Missing Required Entry!', message.text)

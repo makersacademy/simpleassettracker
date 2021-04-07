@@ -54,7 +54,7 @@ class uploadCSV extends React.Component {
   handleChange(event) {
     this.setState({error_message: null})
     if (event.target.files[0].type !== "text/csv") {
-      this.setState({error_message:"Sorry, thats not a valid CSV file!"});
+      this.setState({error_message:"Sorry, that's not a valid CSV file!"});
     }else{
       this.setState({csvfile: event.target.files[0]});
     }
@@ -97,6 +97,7 @@ class uploadCSV extends React.Component {
 
   saveData(result) {
     let data = this.emptyStringCheck(result);
+    console.log(data)
     let csrfToken = this.getCookie('csrftoken')
 
     this.correctFieldInfoCheck(data)
@@ -155,8 +156,10 @@ class uploadCSV extends React.Component {
         {message}
         <h2>Import CSV File!</h2>
         <form id="csv-input-form">
+          <label>File:</label>
           <input
             className="csv-input"
+            id="csv_file"
             type="file"
             accept=".csv"
             ref={input => {
@@ -167,7 +170,11 @@ class uploadCSV extends React.Component {
             onChange={this.handleChange}
           />
           <p />
-          <button onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById('csv-input-form').reset()}}> Upload now!</button>
+          <button
+            id="upload_button"
+            onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById('csv-input-form').reset()}}>
+            Upload now!
+          </button>
         </form>
         <p>{this.state.error_message}</p>
       </div>
