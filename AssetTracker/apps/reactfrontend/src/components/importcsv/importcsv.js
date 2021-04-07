@@ -10,7 +10,8 @@ class uploadCSV extends React.Component {
       company: null,
       error_message: null,
       messageType: '',
-      showMessage: false
+      showMessage: false,
+      fieldTitles: ["asset_tag", "device_type", "device_model", "asset_status", "asset_condition"]
     };
     this.handleChange = this.handleChange.bind(this);
     this.saveData = this.saveData.bind(this);
@@ -85,7 +86,19 @@ class uploadCSV extends React.Component {
   saveData(result) {
     let data = this.emptyStringCheck(result);
     let csrfToken = this.getCookie('csrftoken')
-
+    let status = data.forEach(obj => {
+      this.state.fieldTitles.forEach(title => {
+        if(!(title in obj)){
+          this.setState({error_message: "Missing Field!"})
+        }
+        if(obj[title] == null){
+          this.setState({error_message: "Null Entry!"})
+        }
+      })
+    })
+    if (this.state.error_message !== null){
+      return null
+    }
     data.forEach(asset => {
       fetch('/assets/api/asset/', {
         method: 'POST',
