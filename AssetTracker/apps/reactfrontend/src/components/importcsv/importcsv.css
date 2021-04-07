@@ -1,3 +1,11 @@
+.importcsv_container{
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    padding: 25px;
+    margin: 10% 25%;
+    border: black solid 3px;
+    border-radius: 7px;
+}
 .showMessage {
     position: fixed;
     z-index: 500;
@@ -11,8 +19,6 @@
     text-align: center;
     border-radius: 7px;
 }
-
-
 .backdrop {
     position: fixed;
     z-index: 400;
@@ -22,4 +28,8 @@
     opacity: 0.5;
     left: 0;
     top: 0;
+}
+#csv_title{
+    padding-bottom: 10px;
+    margin-left: -2.5px;
 }

@@ -152,9 +152,16 @@ class uploadCSV extends React.Component {
     }
 
     return (
-      <div className="App">
+      <div className="importcsv_container">
         {message}
-        <h2>Import CSV File!</h2>
+        <h1 id="csv_title">Import Assets</h1>
+        <h3>Upload CSV Instructions</h3>
+        <ul>
+          <li>Download the CSV template file below</li>
+          <li>Fill in your data
+          <br />NB: Do not remove the header line or have empty lines</li>
+          <li>Upload the updated file using the link above</li>
+        </ul>
         <form id="csv-input-form">
           <label>File:</label>
           <input
@@ -171,9 +178,10 @@ class uploadCSV extends React.Component {
           />
           <p />
           <button
+            className='btn btn-primary'
             id="upload_button"
             onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById('csv-input-form').reset()}}>
-            Upload now!
+            Upload 
           </button>
         </form>
         <p>{this.state.error_message}</p>
