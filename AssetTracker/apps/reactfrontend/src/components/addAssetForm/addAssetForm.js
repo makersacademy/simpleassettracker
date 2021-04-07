@@ -37,7 +37,7 @@ class AddAssetForm extends Component {
     const newData = {...this.state.asset}
     let newDataUser = {...newData["createdBy"]}
     newDataUser = window.django.user.user_id
-    newData["createdBy"] = newDataUser
+    newData["createdBy"] = parseInt(newDataUser)
     this.setState({asset: newData})
     this.getCompanyID()
   }

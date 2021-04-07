@@ -92,7 +92,7 @@ class uploadCSV extends React.Component {
         },
         body: JSON.stringify({
           ...asset,
-          created_by:window.django.user.user_id,
+          created_by:parseInt(window.django.user.user_id),
           company:this.state.company
         }),
       })
