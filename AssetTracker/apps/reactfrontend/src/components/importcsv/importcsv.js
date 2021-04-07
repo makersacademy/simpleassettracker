@@ -51,9 +51,11 @@ class uploadCSV extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      csvfile: event.target.files[0]
-    });
+    if (event.target.files[0].type !== "text/csv") {
+      this.setState({error_message:"Sorry, thats not a valid CSV file!"});
+    }else{
+      this.setState({csvfile: event.target.files[0]});
+    }
   };
 
   importCSV() {
