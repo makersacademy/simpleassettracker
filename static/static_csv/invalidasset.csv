@@ -1,5 +1,0 @@
-asset_tag, device_type ,device_model , asset_status, serial_number, asset_condition, screen_size, hard_drive, ram, year, imei, storage, colour
-TEST12, Laptop, Air, Ready, 1, Good, 15 inches, 512GB, 16GB, 2017, , ,
-TEST34, Laptop, Pro, Ready, 2, Bad, 15 inches, 512GB, 16GB, 2014, , ,
-TEST45, Mobile, iPhone 6, Ready, , Good, , , , , 5, 64GB, White
- , Laptop, Pro, Ready, 3, Good, 14, 500, 16, 2017, , ,
