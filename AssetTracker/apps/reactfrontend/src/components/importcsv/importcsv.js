@@ -162,10 +162,10 @@ class uploadCSV extends React.Component {
           <br />NB: Do not remove the header line or have empty lines</li>
           <li>Upload the updated file using the link above</li>
         </ul>
-        <form id="csv-input-form">
-          <label>File:</label>
+        <form id="csv_input_form">
+          <label className="csv_label_title" htmlFor="csv_file">File:</label>
           <input
-            className="csv-input"
+            className="csv_input"
             id="csv_file"
             type="file"
             accept=".csv"

@@ -22,8 +22,8 @@ class ImportcsvTest(LiveServerTestCase):
     self.user.save()
     self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
 
-  # def tearDown(self):
-  #   self.browser.quit()
+  def tearDown(self):
+    self.browser.quit()
 
   def login(self):
     self.browser.get(self.live_server_url + '/login')
@@ -39,7 +39,7 @@ class ImportcsvTest(LiveServerTestCase):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/import')
-      body = self.browser.find_element_by_id('csv-input-form')
+      body = self.browser.find_element_by_id('csv_input_form')
       self.assertIn('File:', body.text)
 
   def test_csv_uploads(self):
