@@ -177,11 +177,12 @@ class uploadCSV extends React.Component {
           />
           <p />
           <button
-            className='btn btn-primary'
+            className="btn btn-success"
             id="upload_button"
-            onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById('csv-input-form').reset()}}>
+            onClick={(event) => {event.preventDefault(); this.importCSV(); document.getElementById("csv_input_form").reset()}}>
             Upload 
           </button>
+          <a href="../../../static/frontend/csv/Template.csv" download className="btn btn-primary">Download Template</a>
         </form>
         <p>{this.state.error_message}</p>
       </div>
