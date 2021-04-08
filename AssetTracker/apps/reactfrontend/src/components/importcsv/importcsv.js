@@ -83,12 +83,12 @@ class uploadCSV extends React.Component {
     return newDataArray
   }
 
-  correctFieldInfoCheck(data) {
-    data.forEach(obj => {
+  correctFieldInfoCheck(result) {
+    result.data.forEach(obj => {
       this.state.fieldTitles.forEach(title => {
         if(!(title in obj)){
           this.setState({error_message: "Incorrect or Missing Field Name!"})
-        } else if(obj[title] == null){
+        } else if(obj[title] == ""){
           this.setState({error_message: "Missing Required Entry!"})
         }
       })
@@ -96,12 +96,11 @@ class uploadCSV extends React.Component {
   }
 
   saveData(result) {
-    let data = this.emptyStringCheck(result);
-    console.log(data)
-    let csrfToken = this.getCookie('csrftoken')
-
-    this.correctFieldInfoCheck(data)
+    this.correctFieldInfoCheck(result)
     if (this.state.error_message !== null) return null
+
+    let data = this.emptyStringCheck(result);
+    let csrfToken = this.getCookie('csrftoken')
 
     data.forEach(asset => {
       fetch('/assets/api/asset/', {
