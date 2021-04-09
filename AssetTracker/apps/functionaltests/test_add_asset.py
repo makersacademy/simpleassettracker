@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
@@ -40,29 +40,23 @@ class AddAssetTest(LiveServerTestCase):
       body = self.browser.find_element_by_tag_name('body')
       self.assertIn('Add an Asset', body.text)
 
-  def test_add_asset_form_is_on_page(self):
+  def test_select_an_asset_form_is_on_page(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
-      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_serial_number_field = self.browser.find_element_by_id('id_add_serial_number')
-      asset_condition_field = self.browser.find_element_by_id('id_add_asset_condition')
-      self.assertEquals(True, asset_tag_field.is_displayed())
-      self.assertEquals(True, asset_type_field.is_displayed())
-      self.assertEquals(True, asset_serial_number_field.is_displayed())
-      self.assertEquals(True, asset_condition_field.is_displayed())
+      asset_select_field = self.browser.find_element_by_id('id_select_asset_type')
+      self.assertEquals(True, asset_select_field.is_displayed())
 
-  def test_form_can_be_submitted_and_redirect(self):
+  def test_laptop_form_can_be_submitted_and_redirect(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Laptop')
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_tag_field.send_keys('HD1269')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_type_field.send_keys('Laptop')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
       asset_type_field.send_keys('5')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_status')
@@ -79,6 +73,35 @@ class AddAssetTest(LiveServerTestCase):
       asset_type_field.send_keys('16 inches')
       asset_type_field = self.browser.find_element_by_id('id_add_hard_drive')
       asset_type_field.send_keys('256GB')
+      asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
+      asset_submit_button.send_keys(Keys.RETURN)
+      time.sleep(1)
+      self.browser.get(self.live_server_url + '/assets')
+      time.sleep(1)
+      body = self.browser.find_element_by_tag_name('body')
+      self.assertIn('HD1269', body.text)
+
+  def test_mobile_form_can_be_submitted_and_redirect(self):
+    with self.settings(DEBUG=True):
+      self.login()
+      self.browser.get(self.live_server_url + '/assets/add')
+      time.sleep(1)
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Mobile')
+      asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
+      asset_tag_field.send_keys('HD1269')
+      asset_type_field = self.browser.find_element_by_id('id_add_imei')
+      asset_type_field.send_keys('5')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_status')
+      asset_type_field.send_keys('Ready')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_model')
+      asset_type_field.send_keys('iPhone6')
+      asset_type_field = self.browser.find_element_by_id('id_add_asset_condition')
+      asset_type_field.send_keys('Good')
+      asset_type_field = self.browser.find_element_by_id('id_add_storage')
+      asset_type_field.send_keys('64GB')
+      asset_type_field = self.browser.find_element_by_id('id_add_colour')
+      asset_type_field.send_keys('White')
       asset_submit_button = self.browser.find_element_by_id('id_add_asset_submit')
       asset_submit_button.send_keys(Keys.RETURN)
       time.sleep(1)

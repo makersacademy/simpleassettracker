@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
@@ -14,12 +14,12 @@ class AssetTest(LiveServerTestCase):
 
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.company = Company(name="Makers")
+    self.company = Company(name='Makers')
     self.company.save()
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
-    self.company2 = Company(name="IBM")
+    self.company2 = Company(name='IBM')
     self.company2.save()
     self.user2 = User.objects.create_user(username='admin2', password='admin2', email='test2@test.com', is_active=True)
     self.user2.save()
@@ -27,7 +27,7 @@ class AssetTest(LiveServerTestCase):
     self.user3 = User.objects.create_user(username='admin3', password='admin3', email='test3@test.com', is_active=True)
     self.user3.save()
     self.company_user3 = CompanyUser.objects.create(user=self.user3, company=self.company)
-    self.A = Asset(asset_tag='BR20RL', device_type='Laptop', asset_status='Ready', serial_number='6', created_by=self.user, company=self.company)
+    self.A = Asset(asset_tag='BR20RL', device_type='Laptop', device_model='MacBook', asset_status='Ready', serial_number='6', created_by=self.user, company=self.company)
     self.A.save()
 
   def tearDown(self):
@@ -58,10 +58,10 @@ class AssetTest(LiveServerTestCase):
       self.login('admin1', 'admin1')
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Laptop')
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_tag_field.send_keys('HD1269')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_type_field.send_keys('Laptop')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
       asset_type_field.send_keys('5')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_status')
@@ -93,10 +93,10 @@ class AssetTest(LiveServerTestCase):
       self.login('admin1', 'admin1')
       self.browser.get(self.live_server_url + '/assets/add')
       time.sleep(1)
+      asset_type_field = Select(self.browser.find_element_by_id('id_select_asset_type'))
+      asset_type_field.select_by_visible_text('Laptop')
       asset_tag_field = self.browser.find_element_by_id('id_add_asset_tag')
       asset_tag_field.send_keys('HD1269')
-      asset_type_field = self.browser.find_element_by_id('id_add_asset_type')
-      asset_type_field.send_keys('Laptop')
       asset_type_field = self.browser.find_element_by_id('id_add_serial_number')
       asset_type_field.send_keys('5')
       asset_type_field = self.browser.find_element_by_id('id_add_asset_status')

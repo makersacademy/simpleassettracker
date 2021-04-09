@@ -20,7 +20,7 @@ class AssetUpdateTest(LiveServerTestCase):
     self.user = User.objects.create_user(username='admin1', password='admin1', email='test@test.com', is_active=True)
     self.user.save()
     self.company_user = CompanyUser.objects.create(user=self.user, company=self.company)
-    self.A = Asset(asset_tag='BR20RL', asset_status='Ready', serial_number='6', device_type='Laptop', created_by=self.user, company=self.company)
+    self.A = Asset(asset_tag='BR20RL', asset_status='Ready', serial_number='6', device_type='Laptop', device_model='Air', created_by=self.user, company=self.company)
     self.A.save()
 
   def tearDown(self):
@@ -36,7 +36,7 @@ class AssetUpdateTest(LiveServerTestCase):
     wait = WebDriverWait(self.browser, 5)
     wait.until(EC.text_to_be_present_in_element((By.ID, "content"), 'Your Dashboard'))
 
-  def test_display_single_asset(self):
+  def test_update_asset_status(self):
     with self.settings(DEBUG=True):
       self.login()
       self.browser.get(self.live_server_url + '/assets')

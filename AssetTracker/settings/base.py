@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     'AssetTracker.apps.assets',
     'AssetTracker.apps.dashboard',
     'AssetTracker.apps.register',
-    'AssetTracker.apps.importcsv',
     'AssetTracker.apps.index',
     'AssetTracker.apps.companies',
     'AssetTracker.apps.companyusers',

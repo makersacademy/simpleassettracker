@@ -25,6 +25,8 @@ Providing a barebones yet full experience, this app was built with smaller start
 
 The team over at SimpleAssetTracker consists of:
 
+- [Chris Abdo](https://github.com/chrismabdo)
+
 - [John Baxter](https://github.com/john-baxter)
 
 - [Catriona Bennett](https://github.com/cmb84scd)
@@ -33,7 +35,11 @@ The team over at SimpleAssetTracker consists of:
 
 - [Haydon Houghton](https://github.com/Kefuri)
 
+- [Ben Lynch](htts://github.com/benlynch1931)
+
 - [Richard Pattinson](https://github.com/richardpattinson)
+
+- [Richard Pryce](https://github.com/prycey77)
 
 - [Dawid Szpener](https://github.com/DawidSzpener)
 
@@ -66,7 +72,7 @@ You can activate this environment at any time using `conda activate ENV_NAME`
 
 There are two different package managers being used for this project - pip and npm.
 
-To install packages for pip, make sure you're in the project root and you are within your environment. Then run `pip install -r requirements.txt` - this will read the requirements file for packages that are needed.
+To install packages for pip, make sure you're in the project root and you are within your environment. Then run `pip install -r requirements.txt` - this will read the requirements file for packages that are needed. If you run into an error then you might need to update pip by running `python -m pip install --upgrade pip`.
 
 To install node packages, navigate into `/AssetTracker/apps/reactfrontend` and run `npm install`.
 

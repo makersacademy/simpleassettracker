@@ -20,7 +20,7 @@ class DashboardTest(TestCase):
     company = Company(name="Poland")
     company.save()
     CompanyUser.objects.create(user=user, company=company)
-    laptop = Asset(asset_tag='123', device_type='Laptop', asset_status='Ready', serial_number='456', created_by=user, company=company)
+    laptop = Asset(asset_tag='123', device_type='Laptop', device_model='Air', asset_status='Ready', serial_number='456', created_by=user, company=company)
     laptop.save()
     self.client.login(username='testuser', password='12345')
 

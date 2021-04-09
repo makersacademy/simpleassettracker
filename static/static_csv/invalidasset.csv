@@ -1,5 +1,0 @@
-asset_tag, device_type ,device_model , asset_status, serial_number, asset_condition, screen_size, hard_drive, ram, year
-TEST12, Laptop, Air, Ready, 1, Good, 14, 500, 16, 2017
-TEST34, Laptop, Pro, Ready,2, Bad, 14, 1000, 16, 2014
-TEST45, Laptop, Air, Ready, 3, Good, 14, 500, 16, 2017
- , Laptop, Pro, Ready, 3, Good, 14, 500, 16, 2017

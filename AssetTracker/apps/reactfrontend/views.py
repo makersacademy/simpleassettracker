@@ -11,3 +11,6 @@ def add_assets(request):
 
 def unauthorized_users(request):
   return render(request, 'reactfrontend/unauthorizedUsers.html')
+
+def importcsv(request):
+  return render(request, 'reactfrontend/importcsv.html')

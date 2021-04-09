@@ -25,3 +25,8 @@ class ReactfrontendTest(TestCase):
     response = self.client.get('/usermanagement/unauthorized')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'reactfrontend/unauthorizedUsers.html')
+  
+  def test_importcsv_page_view(self):
+    response = self.client.get('/import', follow=True)
+    self.assertEqual(response.status_code, 200)
+    self.assertTemplateUsed(response, 'reactfrontend/importcsv.html')
