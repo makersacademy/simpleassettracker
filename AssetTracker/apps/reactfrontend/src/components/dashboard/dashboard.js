@@ -8,16 +8,57 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      assets: {
-        asset_count: null,
-        laptop_count: null,
-        mobile_count: null
-      }
+      company: [],
+      asset_count: null,
+      laptop_count: null,
+      mobile_count: null
     }
   }
   
   componentDidMount() {
-    
+    fetch(`/companyusers/api/companyusers/${window.django.user.user_id}`).then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+    return response.json();
+    })
+    .then(data => {
+      data = this.finalizeCompanyResponse(data)
+      this.setState(() => {
+        return { company: data }
+      });
+      return fetch('/assets/api/asset')
+    })
+    .then(response => {
+      if (response.status > 400) {
+        return this.setState(() => {
+          return { placeholder: "Something went wrong!" };
+        });
+      }
+      return response.json();
+    })
+    .then(assets => {
+      let laptop_counter = 0;
+      let mobile_counter = 0;
+      let asset_counter = 0
+      assets.forEach((asset, idx) => {
+        if (asset.device_type.toLowerCase() == 'laptop') {
+          laptop_counter += 1
+        } else { mobile_counter += 1 }
+        asset_counter += 1
+      })
+      console.log(laptop_counter)
+      this.setState({ asset_count: asset_counter })
+      this.setState({ laptop_count: laptop_counter })
+      this.setState({ mobile_count: mobile_counter })
+    });
+  }
+  
+  finalizeCompanyResponse(data) {
+    var companydata = data.company
+    return companydata
   }
   
   messages() {
@@ -26,7 +67,7 @@ class Dashboard extends Component {
   
   render() {
     
-    if (this.state.assets.asset_count == null) {
+    if (this.state.asset_count == null) {
       return (
         <div>
           { /*this.messages()*/ }
@@ -51,15 +92,15 @@ class Dashboard extends Component {
             <div className='dashboard_stat'>
             
               <div className='dashboard_stat_container_left'>
-                Total number of assets: { this.state.assets.asset_count }
+                Total number of assets: { this.state.asset_count }
               </div>
               
               <div className='dashboard_stat_container_center'>
-                Total number of laptops: { this.state.assets.laptop_count }
+                Total number of laptops: { this.state.laptop_count }
               </div>
               
               <div className='dashboard_stat_container_right'>
-                Total number of mobiles: { this.state.assets.mobile_count }
+                Total number of mobiles: { this.state.mobile_count }
               </div>
               
             </div>
