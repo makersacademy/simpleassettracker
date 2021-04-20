@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as Papa from 'papaparse';
 import './importcsv.css'
 
-class uploadCSV extends React.Component {
+class UploadCSV extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -190,4 +190,4 @@ class uploadCSV extends React.Component {
   }
 }
 
-export default uploadCSV;
+export default UploadCSV;
