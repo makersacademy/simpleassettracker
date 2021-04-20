@@ -9,7 +9,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       assets: {
-        asset_count: 0,
+        asset_count: null,
         laptop_count: null,
         mobile_count: null
       }
@@ -27,7 +27,21 @@ class Dashboard extends Component {
   render() {
     
     if (this.state.assets.asset_count == null) {
-      return null
+      return (
+        <div>
+          { /*this.messages()*/ }
+          <div className='dashboard_container'>
+            <h1 id='dashboard_title'>Dashboard</h1>
+            <div className='dashboard_stat'>
+            
+              <div className='dashboard_stat_container_center'>
+                <h4>Loading data...</h4>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      )
     } else {
       return (
         <div>
