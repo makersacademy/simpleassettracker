@@ -7,18 +7,52 @@ import './dashboard.css';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      assets: {
+        asset_count: null,
+        laptop_count: null,
+        mobile_count: null
+      }
+    }
   }
   
   componentDidMount() {
     
   }
   
+  messages() {
+    
+  }
+  
   render() {
     
-    return (
+    if (this.state.assets.asset_count == null) {
       
-    )
+    } else {
+      return (
+        <div>
+          { messages() }
+          <div className='dashboard_container'>
+            <h1 id='dashboard_title'>Your Dashboard</h1>
+            <div className='dashboard_stat'>
+            
+              <div className='dashboard_stat_container_left'>
+                Total number of assets: { this.state.assets.asset_count }
+              </div>
+              
+              <div className='dashboard_stat_container_center'>
+                Total number of assets: { this.state.assets.laptop_count }
+              </div>
+              
+              <div className='dashboard_stat_container_right'>
+                Total number of assets: { this.state.assets.mobile_count }
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 
