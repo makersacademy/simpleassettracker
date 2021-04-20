@@ -21,7 +21,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('AssetTracker.apps.index.urls')),
-    path('', include('AssetTracker.apps.dashboard.urls')),
+    # path('', include('AssetTracker.apps.dashboard.urls')),
     path('', include('AssetTracker.apps.assets.urls')),
     path('', include('AssetTracker.apps.companyusers.urls')),
     path('', include('AssetTracker.apps.register.urls')),
