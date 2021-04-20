@@ -66,7 +66,7 @@ class Dashboard extends Component {
         <div>
           { /*this.messages()*/ }
           <div className='dashboard_container'>
-            <h1 id='dashboard_title'>Dashboard</h1>
+            <h1 id='dashboard_title'>Your Dashboard</h1>
             <div className='dashboard_stat'>
             
               <div className='dashboard_stat_container_center'>
@@ -82,7 +82,7 @@ class Dashboard extends Component {
         <div>
           { /*this.messages()*/ }
           <div className='dashboard_container'>
-            <h1 id='dashboard_title'>Dashboard</h1>
+            <h1 id='dashboard_title'>Your Dashboard</h1>
             <div className='dashboard_stat'>
             
               <div className='dashboard_stat_container_left'>
