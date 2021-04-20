@@ -14,35 +14,37 @@
 
 .dashboard_stat{
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.dashboard_stat_container_left{
-  width: 30%;
+.dashboard_stat_container_left {
   background-color: white;
   font-family: 'Lato', sans-serif;
-  float: left;
   padding: 10px;
   border: black solid 3px;
   border-radius: 7px;
+  
+  flex-grow: 1;
 }
 
-.dashboard_stat_container_center{
-  width: 30%;
+.dashboard_stat_container_center {
   background-color: white;
   font-family: 'Lato', sans-serif;
-  float: center;
-  margin: 0 35% 0 35%;
+  margin: 0 5%;
   padding: 10px;
   border: black solid 3px;
   border-radius: 7px;
+  
+  flex-grow: 1;
 }
 
-.dashboard_stat_container_right{
-  width: 30%;
+.dashboard_stat_container_right {
   background-color: white;
   font-family: 'Lato', sans-serif;
-  float: right;
   padding: 10px;
   border: black solid 3px;
   border-radius: 7px;
+  
+  flex-grow: 1;
 }
