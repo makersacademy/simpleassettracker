@@ -1,0 +1,9 @@
+{% extends 'AssetTracker/base.html' %}
+{% block content %}
+  <div id="app">
+    <!-- React will load here -->
+  </div>
+
+  {% load static %}
+  <script src="{% static 'frontend/main.js' %}"></script> 
+{% endblock %}
