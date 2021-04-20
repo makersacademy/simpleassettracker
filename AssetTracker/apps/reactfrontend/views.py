@@ -14,3 +14,6 @@ def unauthorized_users(request):
 
 def importcsv(request):
   return render(request, 'reactfrontend/importcsv.html')
+  
+def dashboard(request):
+  return render(request, 'reactfrontend/dashboard.html')
