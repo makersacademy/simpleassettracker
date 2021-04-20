@@ -25,40 +25,34 @@ class Dashboard extends Component {
     return response.json();
     })
     .then(data => {
-      data = this.finalizeCompanyResponse(data)
-      this.setState(() => {
-        return { company: data }
-      });
+      this.setState({ company: data.company });
       return fetch('/assets/api/asset')
     })
     .then(response => {
       if (response.status > 400) {
-        return this.setState(() => {
-          return { placeholder: "Something went wrong!" };
-        });
+        return this.setState({ placeholder: "Something went wrong!" });
       }
       return response.json();
     })
     .then(assets => {
-      let laptop_counter = 0;
-      let mobile_counter = 0;
-      let asset_counter = 0
-      assets.forEach((asset, idx) => {
-        if (asset.device_type.toLowerCase() == 'laptop') {
-          laptop_counter += 1
-        } else { mobile_counter += 1 }
-        asset_counter += 1
-      })
-      console.log(laptop_counter)
-      this.setState({ asset_count: asset_counter })
-      this.setState({ laptop_count: laptop_counter })
-      this.setState({ mobile_count: mobile_counter })
+      let assets_counted = this.countAssets(assets);
+      this.setState({ asset_count: assets_counted.asset_counter })
+      this.setState({ laptop_count: assets_counted.laptop_counter })
+      this.setState({ mobile_count: assets_counted.mobile_counter })
     });
   }
   
-  finalizeCompanyResponse(data) {
-    var companydata = data.company
-    return companydata
+  countAssets(assets) {
+    let laptop_counter = 0;
+    let mobile_counter = 0;
+    let asset_counter = 0
+    assets.forEach((asset, idx) => {
+      if (asset.device_type.toLowerCase() == 'laptop') {
+        laptop_counter += 1
+      } else { mobile_counter += 1 }
+      asset_counter += 1
+    })
+    return { laptop_counter: laptop_counter, mobile_counter: mobile_counter, asset_counter: asset_counter }
   }
   
   messages() {
