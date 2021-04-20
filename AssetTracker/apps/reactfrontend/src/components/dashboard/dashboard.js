@@ -41,11 +41,11 @@ class Dashboard extends Component {
               </div>
               
               <div className='dashboard_stat_container_center'>
-                Total number of assets: { this.state.assets.laptop_count }
+                Total number of laptops: { this.state.assets.laptop_count }
               </div>
               
               <div className='dashboard_stat_container_right'>
-                Total number of assets: { this.state.assets.mobile_count }
+                Total number of mobiles: { this.state.assets.mobile_count }
               </div>
               
             </div>
